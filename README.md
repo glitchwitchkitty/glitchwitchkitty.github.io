@@ -23,6 +23,6 @@ A clean, dark-themed portfolio built with vanilla HTML, CSS, and JavaScript. No 
 
 ## Contact
 
-- 📧 glitchkitty666@gmail.com
+- 📧 chaos.kat.magyar@proton.me
 - 🐙 [github.com/glitchwitchkitty](https://github.com/glitchwitchkitty)
 - 💼 [linkedin.com/in/glitchkitty](https://www.linkedin.com/in/glitchkitty)
