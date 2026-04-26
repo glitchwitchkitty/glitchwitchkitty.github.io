@@ -71,7 +71,7 @@
 
       <span class="proj-tag">Data Analytics · Statistics · Visualization</span>
       <h1 class="proj-page-title">Manufacturing Defect Analysis</h1>
-      <p class="proj-page-summary">A manufacturing facility was seeing persistently high defect counts with no clear answer for which production lines were responsible. This project used statistical testing and data visualization to turn a messy defect dataset into a targeted, defensible action plan.</p>
+      <p class="proj-page-summary">A manufacturing facility was seeing persistently high defect counts with no clear answer for which production models were responsible or why. This project used statistical testing and data visualization to turn a messy defect dataset into a targeted, defensible action plan.</p>
 
       <div class="meta-row">
         <span class="meta-pill">Python · pandas · scipy</span>
@@ -92,18 +92,24 @@
         <div class="visual-caption">Solder void accounts for 36% of all defects — top 3 defect types cover 86% cumulatively</div>
       </div>
 
+      <div class="visual-block">
+        <div class="visual-bar">anova_test_with_boxplot.ipynb — One-Way ANOVA · Weekly Defect Counts</div>
+        <img src="../assets/img/boxplot_anova_output.png" alt="Box plot showing weekly defect count distributions for three production models — Model 595130-195 sits highest, 595242-854 lowest, with clear separation supporting ANOVA result">
+        <div class="visual-caption">F(2, 153) = 17.64, p &lt; 0.001 — defect variation across models is statistically significant, not random noise</div>
+      </div>
+
       <div class="stats-row">
         <div class="stat-card">
-          <div class="stat-num">544</div>
-          <div class="stat-label">Total defects on Production Line 3 — highest of all lines by a significant margin</div>
+          <div class="stat-num">~68%</div>
+          <div class="stat-label">Of all defects concentrated in just 3 of 10 production models — Model 595130-195 alone accounts for 888 defects</div>
         </div>
         <div class="stat-card">
           <div class="stat-num">F=17.64</div>
           <div class="stat-label">ANOVA result — production model type significantly drives defect variation (p &lt; 0.001)</div>
         </div>
         <div class="stat-card">
-          <div class="stat-num">86%</div>
-          <div class="stat-label">Of all defects covered by just three defect types — solder void, component misalignment, and pin damage</div>
+          <div class="stat-num">~95%</div>
+          <div class="stat-label">Of Model 595130-195&#39;s defects traced to just three causes — missing components, improper assembly, and misalignment</div>
         </div>
       </div>
 
