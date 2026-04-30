@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Predicting Employee Attrition · Kat Magyar</title>
+
+  <!-- ============================================================
+       FONTS
+       Inter for body, Space Mono for labels/code accents
+  ============================================================ -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Space+Mono:wght@700&display=swap" rel="stylesheet" />
+
+  <!-- ============================================================
+       GLOBAL STYLES (shared across all project pages)
+  ============================================================ -->
+  <link rel="stylesheet" href="../simple_style.css" />
+
+  <!-- ============================================================
+       PAGE-SPECIFIC STYLES
+       Scoped to this project page only — won't affect other pages
+  ============================================================ -->
+  <style>
+
+    /* ----------------------------------------------------------
+       BACK LINK — top navigation arrow back to projects grid
+    ---------------------------------------------------------- */
+    .proj-page { padding: 80px 0 60px; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: .4rem;
+      color: var(--muted); text-decoration: none;
+      font-size: .9rem; margin-bottom: 32px; transition: color .2s;
+    }
+    .back-link::before { content: "←"; }
+    .back-link:hover { color: var(--accent); }
+
+    /* ----------------------------------------------------------
+       PROJECT HEADER — tag, title, summary, meta pills
+    ---------------------------------------------------------- */
+    .proj-tag {
+      display: inline-block;
+      font-family: "Space Mono", monospace; font-size: .75rem;
+      color: var(--accent-2);
+      background: rgba(177,140,255,.08);
+      border: 1px solid rgba(177,140,255,.2);
+      border-radius: 6px; padding: 3px 10px;
+      margin-bottom: 14px; letter-spacing: .5px;
+    }
+    .proj-page-title { font: 800 40px/1.1 Inter, sans-serif; margin: 0 0 16px; }
+    .proj-page-summary {
+      font-size: 1.05rem; line-height: 1.75;
+      color: var(--muted); max-width: 680px; margin: 0 0 24px;
+    }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+    .meta-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 20px; padding: 4px 14px;
+      font-size: .82rem; color: var(--muted);
+    }
+    .meta-pill::before {
+      content: ""; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--accent-2); flex-shrink: 0;
+    }
+
+    /* ----------------------------------------------------------
+       VISUAL BLOCKS — framed image containers with caption bar
+       Used for dashboard screenshot and all chart images
+    ---------------------------------------------------------- */
+    .visual-block {
+      border: 1px solid var(--line); border-radius: 16px;
+      overflow: hidden; background: var(--panel); margin-bottom: 24px;
+    }
+    .visual-bar {
+      padding: 10px 18px; border-bottom: 1px solid var(--line);
+      font-family: "Space Mono", monospace; font-size: .72rem;
+      color: var(--muted); display: flex; align-items: center; gap: 8px;
+    }
+    .visual-bar::before {
+      content: ""; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent-2); box-shadow: 0 0 6px var(--accent-2); flex-shrink: 0;
+    }
+    .visual-block img { width: 100%; display: block; }
+    .visual-caption {
+      padding: 10px 18px; border-top: 1px solid var(--line);
+      font-size: .8rem; color: var(--muted); font-style: italic;
+    }
+
+    /* ----------------------------------------------------------
+       TWO-COLUMN VISUAL GRID — side-by-side charts
+       Used for confusion matrix pairs and feature/satisfaction row
+    ---------------------------------------------------------- */
+    .visual-grid-2 {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-bottom: 24px;
+    }
+    .visual-grid-2 .visual-block { margin-bottom: 0; }
+
+    /* ----------------------------------------------------------
+       SECTION DIVIDER — labeled horizontal rule between sections
+    ---------------------------------------------------------- */
+    .section-divider {
+      display: flex; align-items: center; gap: 14px;
+      margin: 48px 0 32px;
+    }
+    .section-divider span {
+      font-family: "Space Mono", monospace; font-size: .72rem;
+      color: var(--accent-2); white-space: nowrap; letter-spacing: 1px;
+    }
+    .section-divider::after {
+      content: ""; flex: 1; height: 1px; background: var(--line);
+    }
+
+    /* ----------------------------------------------------------
+       PIPELINE STEPS — 3-column cards walking through methodology
+       Non-technical readers land here first — keep language plain
+    ---------------------------------------------------------- */
+    .steps-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 14px; margin: 0 0 40px;
+    }
+    .step-card {
+      background: linear-gradient(160deg, rgba(177,140,255,.05), rgba(126,224,255,.03));
+      border: 1px solid var(--line); border-radius: 14px; padding: 18px;
+    }
+    .step-num {
+      font-family: "Space Mono", monospace; font-size: .72rem;
+      color: var(--accent-2); margin-bottom: 8px; letter-spacing: 1px;
+    }
+    .step-title { font-weight: 700; font-size: .95rem; margin: 0 0 6px; }
+    .step-desc { font-size: .83rem; color: var(--muted); line-height: 1.55; margin: 0; }
+
+    /* ----------------------------------------------------------
+       STATS ROW — 3 highlight metric cards
+       Quick-scan numbers for skimmers and executives
+    ---------------------------------------------------------- */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 14px; margin: 0 0 40px;
+    }
+    .stat-card {
+      background: linear-gradient(160deg, rgba(177,140,255,.05), rgba(126,224,255,.04));
+      border: 1px solid var(--line); border-radius: 14px; padding: 18px;
+    }
+    .stat-num {
+      font: 800 26px/1 "Space Mono", monospace;
+      color: var(--accent-2);
+      text-shadow: 0 0 14px rgba(177,140,255,.35);
+      margin-bottom: 6px;
+    }
+    .stat-label { font-size: .83rem; color: var(--muted); line-height: 1.5; }
+
+    /* ----------------------------------------------------------
+       FINDINGS SECTION — key takeaways in plain language
+       Bridges technical results to real-world meaning
+       Target audience: hiring managers, non-technical reviewers
+    ---------------------------------------------------------- */
+    .findings-block {
+      background: linear-gradient(135deg, rgba(177,140,255,.04), rgba(126,224,255,.03));
+      border: 1px solid var(--line); border-radius: 16px;
+      padding: 32px; margin-bottom: 40px;
+    }
+    .findings-block h2 {
+      font: 800 22px/1.2 Inter, sans-serif;
+      margin: 0 0 8px;
+    }
+    .findings-intro {
+      font-size: .9rem; color: var(--muted);
+      line-height: 1.6; margin: 0 0 24px; max-width: 620px;
+    }
+    .findings-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+    .findings-list li {
+      display: grid; grid-template-columns: auto 1fr;
+      gap: 14px; align-items: start;
+    }
+    .finding-icon {
+      font-family: "Space Mono", monospace; font-size: .72rem;
+      color: var(--accent-2);
+      background: rgba(177,140,255,.1);
+      border: 1px solid rgba(177,140,255,.2);
+      border-radius: 6px; padding: 3px 8px;
+      white-space: nowrap; margin-top: 2px;
+    }
+    .finding-text { font-size: .88rem; color: var(--muted); line-height: 1.65; }
+    .finding-text strong { color: var(--text); font-weight: 600; }
+
+    /* ----------------------------------------------------------
+       CALL TO ACTION — GitHub repo link at bottom of page
+    ---------------------------------------------------------- */
+    .cta-block {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px; padding: 28px 32px;
+      background: linear-gradient(135deg, rgba(177,140,255,.05), rgba(126,224,255,.05));
+      border: 1px solid var(--line); border-radius: 16px;
+    }
+    .cta-block h3 { margin: 0 0 4px; font-size: 1rem; }
+    .cta-block p { margin: 0; color: var(--muted); font-size: .875rem; }
+    .btn-gh {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .7rem 1.3rem;
+      background: linear-gradient(135deg, rgba(177,140,255,.15), rgba(126,224,255,.15));
+      border: 1px solid rgba(177,140,255,.3);
+      border-radius: 12px; color: var(--text); text-decoration: none;
+      font-weight: 700; font-size: .9rem; white-space: nowrap;
+      transition: background .2s, box-shadow .2s;
+    }
+    .btn-gh:hover {
+      background: linear-gradient(135deg, rgba(177,140,255,.25), rgba(126,224,255,.25));
+      box-shadow: 0 0 18px rgba(177,140,255,.2);
+    }
+    .btn-gh::before {
+      content: "{ }"; font-family: "Space Mono", monospace;
+      font-size: .75rem; color: var(--accent-2);
+    }
+
+    /* ----------------------------------------------------------
+       RESPONSIVE BREAKPOINTS
+    ---------------------------------------------------------- */
+    @media (max-width: 640px) {
+      .proj-page-title { font-size: 28px; }
+      .steps-row, .stats-row { grid-template-columns: 1fr 1fr; }
+      .visual-grid-2 { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+    }
+    @media (max-width: 420px) {
+      .steps-row, .stats-row { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     SITE HEADER — shared navigation (links back to main portfolio)
+============================================================ -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="../index.html" aria-label="Home">
+      <img src="../assets/icons/brainslug.svg" alt="Chaos Gremlin HQ logo" class="brand-logo">
+      <span class="brand-text">Chaos Gremlin HQ</span>
+    </a>
+    <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-controls="siteNav">
+      <span class="nav-toggle-bar"></span>
+      <span class="sr-only">Menu</span>
+    </button>
+    <nav id="siteNav" class="site-nav">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#services">What I Do</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+  <section class="section proj-page">
+    <div class="container">
+
+      <!-- --------------------------------------------------------
+           BACK NAVIGATION
+      -------------------------------------------------------- -->
+      <a class="back-link" href="../index.html#projects">Back to Projects</a>
+
+      <!-- --------------------------------------------------------
+           PROJECT HEADER
+           Tag line, title, plain-language summary, and tech stack pills
+           The summary is written for anyone — no ML background needed
+      -------------------------------------------------------- -->
+      <span class="proj-tag">Machine Learning · Predictive Modeling · HR Analytics</span>
+      <h1 class="proj-page-title">Predicting Employee Attrition</h1>
+      <p class="proj-page-summary">
+        When people leave an organization, reactive hiring is expensive and disruptive.
+        This project builds a machine learning pipeline to flag at-risk employees before
+        they walk out the door — using ensemble models, recall-focused tuning, and a
+        Power BI dashboard to make predictions something a team can actually act on.
+      </p>
+
+      <div class="meta-row">
+        <span class="meta-pill">Python · scikit-learn · pandas</span>
+        <span class="meta-pill">Random Forest · AdaBoost</span>
+        <span class="meta-pill">GridSearchCV · 5-fold CV</span>
+        <span class="meta-pill">Power BI Dashboard</span>
+        <span class="meta-pill">DAT 430 · SNHU</span>
+      </div>
+
+
+      <!-- --------------------------------------------------------
+           DASHBOARD VISUAL — leads the page as the "wow" moment
+           Full Power BI screenshot before any technical detail
+      -------------------------------------------------------- -->
+      <div class="visual-block">
+        <div class="visual-bar">Power BI — Model Comparison &amp; Risk Indicators</div>
+        <img
+          src="../assets/img/attrition-dashboard.png"
+          alt="Power BI dashboard showing correct predictions by model comparing Random Forest and AdaBoost, with actual attrition vs AdaBoost predictions chart and interactive filters for job satisfaction, tenure, years at company, and total working years"
+        >
+        <div class="visual-caption">RF vs AdaBoost correct predictions side-by-side — interactive filters let stakeholders slice by job satisfaction, tenure, and years of experience</div>
+      </div>
+
+
+      <!-- --------------------------------------------------------
+           PIPELINE STEPS — methodology walkthrough
+           3 cards: Baseline → Feature Engineering → Ensemble + Tuning
+           Written so a non-technical hiring manager can follow along
+      -------------------------------------------------------- -->
+      <div class="section-divider"><span>// HOW IT WORKS</span></div>
+
+      <div class="steps-row">
+        <div class="step-card">
+          <div class="step-num">STEP 01</div>
+          <div class="step-title">Baseline Model</div>
+          <p class="step-desc">Logistic regression using income and manager tenure. Achieved ~70% accuracy but weak recall — proving simple features weren't enough and setting a clear benchmark to beat.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 02</div>
+          <div class="step-title">Feature Engineering</div>
+          <p class="step-desc">Added <code style="color:var(--accent);font-size:.8rem">high_income</code> and <code style="color:var(--accent);font-size:.8rem">tenured</code> binary flags, plus one-hot encoding for job role, department, gender, and marital status — giving the models richer signals to learn from.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 03</div>
+          <div class="step-title">Ensemble + Tuning</div>
+          <p class="step-desc">Random Forest and AdaBoost tuned with GridSearchCV optimizing for recall — because missing an at-risk employee costs more than a false alarm. 5-fold cross-validation kept results honest.</p>
+        </div>
+      </div>
+
+
+      <!-- --------------------------------------------------------
+           STATS ROW — quick-scan metrics for skimmers
+           Accuracy corrected to ~85% (matches confusion matrix math)
+      -------------------------------------------------------- -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-num">~85%</div>
+          <div class="stat-label">Test accuracy for both models — honest performance on unseen data after recall-focused tuning</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">Recall</div>
+          <div class="stat-label">Primary optimization metric — a false negative (missing a leaver) is costlier than a false positive</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">~25%</div>
+          <div class="stat-label">MonthlyIncome's feature importance score — the single strongest predictor of attrition by a wide margin</div>
+        </div>
+      </div>
+
+
+      <!-- --------------------------------------------------------
+           MODEL PERFORMANCE CHARTS
+           Feature importance + satisfaction chart side by side
+           Then confusion matrices for the technical audience
+      -------------------------------------------------------- -->
+      <div class="section-divider"><span>// MODEL RESULTS</span></div>
+
+      <!-- Feature Importance + Satisfaction — side by side -->
+      <div class="visual-grid-2">
+        <div class="visual-block">
+          <div class="visual-bar">Top 15 Feature Importances — Random Forest</div>
+          <img
+            src="../assets/img/feature-importance.png"
+            alt="Horizontal bar chart showing top 15 feature importances from Random Forest model. MonthlyIncome leads at ~0.25, followed by TotalWorkingYears, Age, and YearsAtCompany."
+          >
+          <div class="visual-caption">MonthlyIncome dominates at ~0.25 — nearly double the next feature. Career stage variables (TotalWorkingYears, Age, YearsAtCompany) follow. JobSatisfaction appears but ranks 8th.</div>
+        </div>
+        <div class="visual-block">
+          <div class="visual-bar">Attrition Rate by Job Satisfaction Level</div>
+          <img
+            src="../assets/img/attrition-by-satisfaction.png"
+            alt="Bar chart showing attrition rate by job satisfaction level 1 through 4. Level 1 has the highest attrition at ~33%, declining to ~22% at Level 4."
+          >
+          <div class="visual-caption">Satisfaction Level 1 employees leave at ~33% — but satisfaction ranks 8th in feature importance. It's a signal, not the root cause.</div>
+        </div>
+      </div>
+
+      <!-- Model comparison bar chart -->
+      <div class="visual-block">
+        <div class="visual-bar">Model Comparison — Test Set Performance</div>
+        <img
+          src="../assets/img/model-comparison.png"
+          alt="Grouped bar chart comparing Random Forest and AdaBoost on accuracy, precision, and recall for the attrition class on the test set."
+        >
+        <div class="visual-caption">Both models achieve ~85% accuracy and ~92–95% precision — but recall sits at ~48% for both, reflecting the class imbalance challenge inherent in rare-event prediction.</div>
+      </div>
+
+      <!-- Confusion matrices — both models -->
+      <div class="visual-grid-2">
+        <div class="visual-block">
+          <div class="visual-bar">Confusion Matrix — Random Forest</div>
+          <img
+            src="../assets/img/confusion-matrix-rf.png"
+            alt="Two confusion matrices for Random Forest: training shows perfect classification (747 stayed, 282 left, 0 errors). Testing shows 315 stayed correctly, 58 left correctly, 5 false positives, 63 false negatives."
+          >
+          <div class="visual-caption">Near-perfect training scores (747/747, 282/282) are a classic overfitting flag. Test performance holds up but misses 63 actual leavers.</div>
+        </div>
+        <div class="visual-block">
+          <div class="visual-bar">Confusion Matrix — AdaBoost</div>
+          <img
+            src="../assets/img/confusion-matrix-ada.png"
+            alt="Two confusion matrices for AdaBoost: training shows 738 stayed correctly, 9 false positives, 135 false negatives, 147 left correctly. Testing shows 317 stayed correctly, 58 left correctly, 3 false positives, 63 false negatives."
+          >
+          <div class="visual-caption">AdaBoost generalizes more honestly — training errors are higher, but test performance nearly matches Random Forest. Both miss the same 63 at-risk employees.</div>
+        </div>
+      </div>
+
+
+      <!-- --------------------------------------------------------
+           KEY FINDINGS — the "so what" section
+           Written for mixed audiences: management, tech, non-tech
+           Each finding has a plain-language label + detail sentence
+           This is what separates a portfolio piece from a homework submission
+      -------------------------------------------------------- -->
+      <div class="section-divider"><span>// WHAT I FOUND</span></div>
+
+      <div class="findings-block">
+        <h2>Key Findings</h2>
+        <p class="findings-intro">
+          The models don't just predict — they surface a consistent story about
+          why employees leave. These findings translate directly into where organizations
+          should focus retention efforts.
+        </p>
+        <ul class="findings-list">
+
+          <li>
+            <span class="finding-icon">PAY</span>
+            <p class="finding-text">
+              <strong>Compensation is the dominant attrition driver.</strong>
+              MonthlyIncome accounts for ~25% of Random Forest's feature importance —
+              nearly double the next predictor. This isn't a soft signal. It's the clearest lever in the dataset.
+            </p>
+          </li>
+
+          <li>
+            <span class="finding-icon">TENURE</span>
+            <p class="finding-text">
+              <strong>Career stage matters more than satisfaction.</strong>
+              TotalWorkingYears, Age, and YearsAtCompany collectively outrank JobSatisfaction as predictors.
+              Early-career and early-tenure employees are disproportionately at risk — retention
+              efforts need to front-load support, not wait for satisfaction surveys to catch problems.
+            </p>
+          </li>
+
+          <li>
+            <span class="finding-icon">METRICS</span>
+            <p class="finding-text">
+              <strong>Both models struggle with minority class recall (~48%) — and that's expected.</strong>
+              Attrition affects only ~16% of the dataset. Recall-focused tuning was the right call,
+              and inflated accuracy numbers would have been the wrong thing to optimize for.
+              Choosing the right metric is part of the analysis.
+            </p>
+          </li>
+
+          <li>
+            <span class="finding-icon">MODELS</span>
+            <p class="finding-text">
+              <strong>Random Forest overfits; AdaBoost generalizes more honestly.</strong>
+              Perfect training scores (747/747, 282/282) don't transfer cleanly to test data.
+              AdaBoost's messier training performance is actually a sign of better generalization behavior —
+              something a raw accuracy number would hide.
+            </p>
+          </li>
+
+          <li>
+            <span class="finding-icon">INSIGHT</span>
+            <p class="finding-text">
+              <strong>Job satisfaction is a signal, not a solution.</strong>
+              Employees with the lowest satisfaction leave at ~33% — but satisfaction ranks 8th in feature importance.
+              Organizations can't survey their way out of a compensation problem.
+            </p>
+          </li>
+
+        </ul>
+      </div>
+
+
+      <!-- --------------------------------------------------------
+           CALL TO ACTION — link to GitHub repo
+           Kept at the bottom so it doesn't compete with findings
+      -------------------------------------------------------- -->
+      <div class="cta-block">
+        <div>
+          <h3>Explore the full pipeline</h3>
+          <p>Two Jupyter notebooks, prediction CSVs, HR dataset, and dashboard screenshots — all in the repo.</p>
+        </div>
+        <a class="btn-gh" href="https://github.com/glitchwitchkitty/employee-attrition-analysis" target="_blank" rel="noreferrer">&nbsp;View Code on GitHub</a>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+
+<!-- ============================================================
+     SITE FOOTER
+============================================================ -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>© <span id="year"></span> Chaos Gremlin HQ</span>
+    <span class="mono neon-soft">crafted with clarity</span>
+  </div>
+</footer>
+
+<!-- ============================================================
+     SCRIPTS — shared JS (handles nav toggle, footer year, etc.)
+============================================================ -->
+<script src="../simple_script.js"></script>
+
+</body>
+</html>
