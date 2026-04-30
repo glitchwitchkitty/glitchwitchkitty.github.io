@@ -358,7 +358,7 @@
         <div class="visual-block">
           <div class="visual-bar">Top 15 Feature Importances — Random Forest</div>
           <img
-            src="../assets/img/feature-importance.png"
+            src="../assets/img/Feature_Importance.png"
             alt="Horizontal bar chart showing top 15 feature importances from Random Forest model. MonthlyIncome leads at ~0.25, followed by TotalWorkingYears, Age, and YearsAtCompany."
           >
           <div class="visual-caption">MonthlyIncome dominates at ~0.25 — nearly double the next feature. Career stage variables (TotalWorkingYears, Age, YearsAtCompany) follow. JobSatisfaction appears but ranks 8th.</div>
@@ -366,7 +366,7 @@
         <div class="visual-block">
           <div class="visual-bar">Attrition Rate by Job Satisfaction Level</div>
           <img
-            src="../assets/img/attrition-by-satisfaction.png"
+            src="../assets/img/attrition_by_job_satisfaction.png"
             alt="Bar chart showing attrition rate by job satisfaction level 1 through 4. Level 1 has the highest attrition at ~33%, declining to ~22% at Level 4."
           >
           <div class="visual-caption">Satisfaction Level 1 employees leave at ~33% — but satisfaction ranks 8th in feature importance. It's a signal, not the root cause.</div>
@@ -377,7 +377,7 @@
       <div class="visual-block">
         <div class="visual-bar">Model Comparison — Test Set Performance</div>
         <img
-          src="../assets/img/model-comparison.png"
+          src="../assets/img/Model_comparison_RF_AdaBoost.png"
           alt="Grouped bar chart comparing Random Forest and AdaBoost on accuracy, precision, and recall for the attrition class on the test set."
         >
         <div class="visual-caption">Both models achieve ~85% accuracy and ~92–95% precision — but recall sits at ~48% for both, reflecting the class imbalance challenge inherent in rare-event prediction.</div>
@@ -388,7 +388,7 @@
         <div class="visual-block">
           <div class="visual-bar">Confusion Matrix — Random Forest</div>
           <img
-            src="../assets/img/confusion-matrix-rf.png"
+            src="../assets/img/confusion_matrix_Random_Forest.png"
             alt="Two confusion matrices for Random Forest: training shows perfect classification (747 stayed, 282 left, 0 errors). Testing shows 315 stayed correctly, 58 left correctly, 5 false positives, 63 false negatives."
           >
           <div class="visual-caption">Near-perfect training scores (747/747, 282/282) are a classic overfitting flag. Test performance holds up but misses 63 actual leavers.</div>
@@ -396,7 +396,7 @@
         <div class="visual-block">
           <div class="visual-bar">Confusion Matrix — AdaBoost</div>
           <img
-            src="../assets/img/confusion-matrix-ada.png"
+            src="../assets/img/confusion_matrix_AdaBoost.png"
             alt="Two confusion matrices for AdaBoost: training shows 738 stayed correctly, 9 false positives, 135 false negatives, 147 left correctly. Testing shows 317 stayed correctly, 58 left correctly, 3 false positives, 63 false negatives."
           >
           <div class="visual-caption">AdaBoost generalizes more honestly — training errors are higher, but test performance nearly matches Random Forest. Both miss the same 63 at-risk employees.</div>
