@@ -316,6 +316,38 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ── Back navigation link ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--glow-blue);
+      text-decoration: none;
+      border-bottom: none;         /* override the global link underline */
+      opacity: 0.6;
+      margin-bottom: 2rem;
+      transition: opacity 0.2s ease, color 0.2s ease;
+    }
+
+    .back-link:hover {
+      opacity: 1;
+      color: var(--pink-soft);
+      border-bottom: none;
+    }
+
+    /* The arrow nudges left slightly on hover for a little personality */
+    .back-link:hover .back-arrow {
+      transform: translateX(-3px);
+    }
+
+    .back-arrow {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 600px) {
       .wrapper { padding: 2.5rem 1.25rem 4rem; }
@@ -325,6 +357,11 @@
 </head>
 <body>
   <div class="wrapper">
+
+    <!-- ── Back navigation — breadcrumb style, not a button ── -->
+    <a href="index.html" class="back-link" aria-label="Back to portfolio">
+      <span class="back-arrow">←</span> chaos gremlin hq
+    </a>
 
     <!-- ── Page Header ── -->
     <header class="site-header">
