@@ -8,6 +8,18 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Space+Mono:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="simple_style.css" />
+  <style>
+    /* /now nav link — mono font, slightly softer, signals it's a different kind of page */
+    .site-nav .nav-now {
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.04em;
+      opacity: 0.75;
+      transition: opacity 0.2s ease;
+    }
+    .site-nav .nav-now:hover {
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
   <!-- Header / Nav -->
@@ -27,6 +39,8 @@
         <a href="#home">Home</a>
         <a href="#services">What I Do</a>
         <a href="#projects">Projects</a>
+        <!-- /now links to a separate page — intentionally outside the single-page flow -->
+        <a href="now.html" class="nav-now">/now</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -184,6 +198,8 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <span>© <span id="year"></span> Chaos Gremlin HQ</span>
+      <!-- Subtle human signal — invites curious visitors to the /now page -->
+      <a href="now.html" class="mono neon-soft footer-now" style="text-decoration:none; opacity:0.6; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">→ what i'm doing now</a>
       <span class="mono neon-soft">crafted with clarity</span>
     </div>
   </footer>
