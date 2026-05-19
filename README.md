@@ -2,7 +2,7 @@
 
 Personal portfolio site for **Kat Magyar** — data analyst, creative coder, chaos gremlin.
 
-🌐 **Live site:** [glitchwitchkitty.github.io](https://glitchwitchkitty.github.io)
+🌐 **Live site:** [glitchwitchkitty.github.io/](https://glitchwitchkitty.github.io/)
 
 ---
 
