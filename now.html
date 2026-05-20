@@ -2,36 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>/now — Chaos Gremlin HQ</title>
 
-  <!-- Fonts: Playfair Display for warmth + personality, DM Mono for that terminal energy, Lato for readable body -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <!--
+    Fonts:
+    - Press Start 2P  → glitch /now title (from the guide's aesthetic)
+    - Playfair Display → card titles, warmth and personality
+    - DM Mono          → labels, tags, breadcrumbs
+    - Lato             → body text, readable and light
+  -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 
   <style>
-    /* ── CSS Variables: soft signal palette ── */
+    /* ── CSS Variables: warm signal palette ── */
     :root {
-      --bg-void:        #0d0f1a;   /* deep midnight — the void your lighthouse lives in */
-      --bg-card:        #13162a;   /* slightly lighter for card surfaces */
+      --bg-void:        #0d0f1a;
+      --bg-card:        #13162a;
       --bg-card-hover:  #181c32;
-      --glow-blue:      #7eb8f7;   /* keyboard backlight blue */
-      --glow-purple:    #b48ef7;   /* LED purple bleed */
-      --pink-soft:      #f2afc7;   /* cotton candy pink — your keyboard energy */
-      --pink-warm:      #e8849d;   /* deeper blush */
-      --cream:          #f5edd6;   /* warm lamplight cream */
-      --cream-dim:      #c9bfa8;   /* dimmer cream for secondary text */
-      --gold-accent:    #e8c97a;   /* warm gold for special moments */
+      --glow-blue:      #7eb8f7;
+      --glow-purple:    #b48ef7;
+      --pink-soft:      #f2afc7;
+      --pink-warm:      #e8849d;
+      --cream:          #f5edd6;
+      --cream-dim:      #c9bfa8;
+      --gold-accent:    #e8c97a;
+      --chaos-gold:     #f7c863;   /* from guide — for glitch title */
+      --orchid:         #c084fc;   /* from guide — for hover glitch */
+      --neon-pink:      #f472b6;   /* from guide — for hover glitch */
+      --cyan:           #22d3ee;   /* from guide — for hover glitch */
       --border-subtle:  rgba(126, 184, 247, 0.12);
       --border-glow:    rgba(126, 184, 247, 0.35);
 
-      --font-display:   'Playfair Display', Georgia, serif;
-      --font-mono:      'DM Mono', 'Courier New', monospace;
-      --font-body:      'Lato', sans-serif;
+      --font-pixel:   'Press Start 2P', monospace;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-mono:    'DM Mono', 'Courier New', monospace;
+      --font-body:    'Lato', sans-serif;
     }
 
-    /* ── Reset & Base ── */
+    /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -42,14 +52,18 @@
       line-height: 1.8;
       min-height: 100vh;
       overflow-x: hidden;
+      /* Hide default cursor — glitter trail replaces it on desktop */
+      cursor: none;
     }
 
-    /* ── Atmospheric background: warm lamp glow + grain ── */
+    /* Show default cursor on touch devices (no hover/trail there) */
+    @media (hover: none) { body { cursor: auto; } }
+
+    /* ── Atmospheric background: warm lamp glow layers ── */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      /* radial warm glow in the upper-left, cool glow lower-right */
       background:
         radial-gradient(ellipse 60% 50% at 15% 20%, rgba(242, 175, 199, 0.06) 0%, transparent 70%),
         radial-gradient(ellipse 50% 40% at 85% 80%, rgba(126, 184, 247, 0.07) 0%, transparent 70%),
@@ -58,14 +72,14 @@
       z-index: 0;
     }
 
-    /* SVG grain texture overlay */
+    /* SVG grain texture overlay — matches portfolio CSS */
     body::after {
       content: '';
       position: fixed;
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
       pointer-events: none;
-      opacity: 0.5;
+      opacity: 0.45;
       z-index: 0;
     }
 
@@ -78,13 +92,34 @@
       padding: 4rem 2rem 6rem;
     }
 
-    /* ── Header ── */
+    /* ── Back link — breadcrumb style ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--glow-blue);
+      text-decoration: none;
+      opacity: 0.6;
+      margin-bottom: 2rem;
+      transition: opacity 0.2s ease, color 0.2s ease;
+    }
+
+    .back-link:hover { opacity: 1; color: var(--pink-soft); }
+
+    /* Arrow nudges left on hover */
+    .back-link:hover .back-arrow { transform: translateX(-3px); }
+    .back-arrow { display: inline-block; transition: transform 0.2s ease; }
+
+    /* ── Page Header ── */
     .site-header {
       margin-bottom: 3.5rem;
       animation: fadeUp 0.8s ease both;
     }
 
-    .site-header .breadcrumb {
+    .breadcrumb {
       font-family: var(--font-mono);
       font-size: 0.75rem;
       color: var(--glow-blue);
@@ -94,28 +129,53 @@
       opacity: 0.7;
     }
 
-    /* Decorative horizontal rule with glow */
-    .glow-rule {
-      border: none;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--glow-blue), var(--glow-purple), transparent);
-      opacity: 0.4;
-      margin: 1.5rem 0;
-    }
-
+    /*
+      The /now title uses Press Start 2P from the guide's aesthetic.
+      Glitch effect fires on hover using clip-path + CSS keyframes.
+    */
     .page-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.8rem, 8vw, 4.5rem);
-      font-weight: 700;
-      color: var(--cream);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
+      font-family: var(--font-pixel);
+      font-size: clamp(1.4rem, 5vw, 2.4rem);
+      color: var(--chaos-gold);
+      line-height: 1.4;
+      position: relative;
+      display: inline-block;
+      letter-spacing: 0.04em;
     }
 
-    /* The "/now" slash gets the pink treatment */
-    .page-title .slash {
-      color: var(--pink-soft);
-      font-style: italic;
+    /* The /slash gets cotton candy pink */
+    .page-title .slash { color: var(--pink-soft); }
+
+    /* Glitch pseudo-elements — hidden until hover */
+    .page-title::before,
+    .page-title::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .page-title:hover::before {
+      opacity: 1;
+      color: var(--neon-pink);
+      animation: glitch-before 0.9s infinite linear alternate-reverse;
+    }
+
+    .page-title:hover::after {
+      opacity: 1;
+      color: var(--cyan);
+      animation: glitch-after 0.8s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-before {
+      0%   { clip-path: inset(0 0 90% 0); transform: translate(-2px, -1px); }
+      100% { clip-path: inset(85% 0 0 0); transform: translate(2px, 1px); }
+    }
+    @keyframes glitch-after {
+      0%   { clip-path: inset(0 0 85% 0); transform: translate(1px, 1px); }
+      100% { clip-path: inset(90% 0 0 0); transform: translate(-2px, -2px); }
     }
 
     .page-subtitle {
@@ -126,8 +186,15 @@
       letter-spacing: 0.06em;
     }
 
-    .page-subtitle .updated {
-      color: var(--gold-accent);
+    .page-subtitle .updated { color: var(--gold-accent); }
+
+    /* Decorative glow rule — gradient line from the guide */
+    .glow-rule {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glow-blue), var(--glow-purple), transparent);
+      opacity: 0.4;
+      margin: 1.5rem 0;
     }
 
     /* ── Cards ── */
@@ -143,7 +210,7 @@
       animation: fadeUp 0.8s ease both;
     }
 
-    /* Staggered fade-in animation delays per card */
+    /* Staggered card entrance animation */
     .card:nth-child(1) { animation-delay: 0.1s; }
     .card:nth-child(2) { animation-delay: 0.2s; }
     .card:nth-child(3) { animation-delay: 0.3s; }
@@ -157,13 +224,11 @@
       transform: translateY(-2px);
     }
 
-    /* Left accent bar — changes color per section */
+    /* Left accent bar — color set per card via --card-accent */
     .card::before {
       content: '';
       position: absolute;
-      left: 0;
-      top: 20%;
-      bottom: 20%;
+      left: 0; top: 20%; bottom: 20%;
       width: 3px;
       border-radius: 0 2px 2px 0;
       background: var(--card-accent, var(--glow-blue));
@@ -173,7 +238,7 @@
 
     .card:hover::before { opacity: 1; }
 
-    /* Unique accent colors per section mood */
+    /* Unique accent per section mood */
     .card--status   { --card-accent: var(--pink-soft); }
     .card--working  { --card-accent: var(--glow-blue); }
     .card--learning { --card-accent: var(--gold-accent); }
@@ -193,6 +258,7 @@
       opacity: 0.8;
     }
 
+    /* Card titles use Playfair Display for warmth */
     .card-title {
       font-family: var(--font-display);
       font-size: 1.5rem;
@@ -211,7 +277,7 @@
 
     .card p:last-child { margin-bottom: 0; }
 
-    /* Highlighted pull quote / belief statement */
+    /* Pull quote / belief statement */
     .belief {
       font-family: var(--font-display);
       font-style: italic;
@@ -223,7 +289,7 @@
       opacity: 0.9;
     }
 
-    /* ── Tag pills — for tools, topics, obsessions ── */
+    /* ── Tag pills ── */
     .tags {
       display: flex;
       flex-wrap: wrap;
@@ -238,10 +304,9 @@
       padding: 0.3rem 0.75rem;
       border-radius: 20px;
       border: 1px solid;
-      transition: background 0.2s ease, color 0.2s ease;
+      transition: background 0.2s ease;
     }
 
-    /* Tag color variants */
     .tag--blue   { color: var(--glow-blue);   border-color: rgba(126,184,247,0.3);  background: rgba(126,184,247,0.06); }
     .tag--purple { color: var(--glow-purple); border-color: rgba(180,142,247,0.3);  background: rgba(180,142,247,0.06); }
     .tag--pink   { color: var(--pink-soft);   border-color: rgba(242,175,199,0.3);  background: rgba(242,175,199,0.06); }
@@ -252,7 +317,7 @@
     .tag--pink:hover   { background: rgba(242,175,199,0.15); }
     .tag--gold:hover   { background: rgba(232,201,122,0.15); }
 
-    /* ── Book entry — for the fridge/reading section ── */
+    /* ── Book entries (reading section) ── */
     .book-entry {
       padding: 1rem 0;
       border-bottom: 1px solid var(--border-subtle);
@@ -282,10 +347,7 @@
       transition: color 0.2s, border-color 0.2s;
     }
 
-    a:hover {
-      color: var(--pink-soft);
-      border-color: var(--pink-soft);
-    }
+    a:hover { color: var(--pink-soft); border-color: var(--pink-soft); }
 
     /* ── Footer ── */
     .site-footer {
@@ -310,63 +372,60 @@
       opacity: 0.5;
     }
 
-    /* ── Animations ── */
+    /* ── Glitter cursor dot ── */
+    .glitter-dot {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.85;
+      transform: translate(-50%, -50%);
+      animation: glitter-fade 0.7s ease-out forwards;
+    }
+
+    @keyframes glitter-fade {
+      0%   { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0;    transform: translate(-50%, -50%) scale(0.2); }
+    }
+
+    /* ── Page entrance animation ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── Back navigation link ── */
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      color: var(--glow-blue);
-      text-decoration: none;
-      border-bottom: none;         /* override the global link underline */
-      opacity: 0.6;
-      margin-bottom: 2rem;
-      transition: opacity 0.2s ease, color 0.2s ease;
-    }
-
-    .back-link:hover {
-      opacity: 1;
-      color: var(--pink-soft);
-      border-bottom: none;
-    }
-
-    /* The arrow nudges left slightly on hover for a little personality */
-    .back-link:hover .back-arrow {
-      transform: translateX(-3px);
-    }
-
-    .back-arrow {
-      display: inline-block;
-      transition: transform 0.2s ease;
-    }
-
     /* ── Responsive ── */
     @media (max-width: 600px) {
       .wrapper { padding: 2.5rem 1.25rem 4rem; }
-      .card { padding: 1.5rem 1.5rem; }
+      .card { padding: 1.5rem; }
+      .page-title { font-size: 1.2rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .card, .site-header, .site-footer { animation: none; }
+      .page-title:hover::before,
+      .page-title:hover::after { animation: none; opacity: 0; }
     }
   </style>
 </head>
 <body>
+
   <div class="wrapper">
 
-    <!-- ── Back navigation — breadcrumb style, not a button ── -->
+    <!-- Back to portfolio — breadcrumb nav -->
     <a href="index.html" class="back-link" aria-label="Back to portfolio">
       <span class="back-arrow">←</span> chaos gremlin hq
     </a>
 
-    <!-- ── Page Header ── -->
+    <!-- Page Header -->
     <header class="site-header">
       <p class="breadcrumb">Glitch Kitty · Kitty M.</p>
-      <h1 class="page-title"><span class="slash">/</span>now</h1>
+      <!--
+        data-text mirrors the visible text — required for CSS glitch pseudo-elements.
+        Hover the title to trigger the glitch animation.
+      -->
+      <h1 class="page-title" data-text="/now"><span class="slash">/</span>now</h1>
       <p class="page-subtitle">
         a snapshot of what i'm focused on right now. ·
         <span class="updated">last updated may 2026</span>
@@ -374,7 +433,6 @@
       <hr class="glow-rule" />
     </header>
 
-    <!-- ── Main content ── -->
     <main>
 
       <!-- Current Status -->
@@ -453,7 +511,7 @@
         </div>
       </article>
 
-      <!-- What I'm Reading — the digital fridge -->
+      <!-- What I'm Reading -->
       <article class="card card--reading">
         <p class="card-label">what i'm reading</p>
         <h2 class="card-title">Currently on my desk.</h2>
@@ -461,7 +519,6 @@
 
         <div style="margin-top: 1.25rem;">
 
-          <!-- Technical / craft reads -->
           <div class="book-entry">
             <p class="book-title">Storytelling with Data — Cole Nussbaumer Knaflic</p>
             <p class="book-note">Learning to find the story before reaching for a chart. Working on chart selection and what I'm calling "upstream thinking" — identifying what actually needs to be said before touching the data.</p>
@@ -477,33 +534,32 @@
             <p class="book-note">Because good analysis that nobody can understand is just expensive noise. Clarity is a technical skill and I'm treating it like one.</p>
           </div>
 
-          <!-- Body / healing -->
           <div class="book-entry">
             <p class="book-title">Somatic Yoga for Nervous System Regulation — LearnWell Books</p>
             <p class="book-note">Same systems thinking as everything else, just pointed inward. Learning to work with my body instead of debugging it from the outside.</p>
           </div>
 
-          <!-- bell hooks -->
           <div class="book-entry">
             <p class="book-title">All About Love — bell hooks</p>
             <p class="book-note">Just started this one. Already suspicious it's going to rearrange some furniture in my head.</p>
           </div>
 
-          <!-- Fiction -->
           <div class="book-entry">
             <p class="book-title">Caught Up — Nessa Allen</p>
             <p class="book-note">Spicy romance on the physical stack. Sometimes a book just needs to be fun and nobody has to justify that.</p>
           </div>
 
           <div class="book-entry">
-            <p class="book-title">Wave Song — Emma Hamm <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--glow-blue); margin-left: 0.5rem;">audiobook</span></p>
+            <p class="book-title">Wave Song — Emma Hamm
+              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--glow-blue); margin-left: 0.5rem;">audiobook</span>
+            </p>
             <p class="book-note">Fantasy on the commute stack. This is the read-while-doing-other-things slot and it is a sacred slot.</p>
           </div>
 
         </div>
       </article>
 
-      <!-- Hobbies / Life section -->
+      <!-- Outside the Terminal -->
       <article class="card card--hobbies">
         <p class="card-label">outside the terminal</p>
         <h2 class="card-title">The rest of it.</h2>
@@ -536,12 +592,8 @@
       <article class="card card--elsewhere">
         <p class="card-label">elsewhere</p>
         <h2 class="card-title">Find me on the indie web.</h2>
-        <p>
-          <a href="https://glitchwitchkitty.github.io/chaosgremlinhq-portfolio/" target="_blank" rel="noopener">Portfolio → Chaos Gremlin HQ</a>
-        </p>
-        <p>
-          <a href="https://github.com/glitchwitchkitty" target="_blank" rel="noopener">GitHub → glitchwitchkitty</a>
-        </p>
+        <p><a href="index.html">Portfolio → Chaos Gremlin HQ</a></p>
+        <p><a href="https://github.com/glitchwitchkitty" target="_blank" rel="noopener">GitHub → glitchwitchkitty</a></p>
         <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--cream-dim);">
           Part of the <a href="https://nownownow.com" target="_blank" rel="noopener">now page movement</a> started by Derek Sivers.
         </p>
@@ -549,7 +601,7 @@
 
     </main>
 
-    <!-- ── Footer ── -->
+    <!-- Footer -->
     <footer class="site-footer">
       <hr class="glow-rule" />
       <span class="glyph">🔮</span>
@@ -560,6 +612,71 @@
       </p>
     </footer>
 
-  </div>
+  </div><!-- /wrapper -->
+
+
+  <!--
+    GLITTER CURSOR TRAIL — adapted from now-pages-guide.html
+    Warm signal palette colors: gold, orchid, pink, cyan
+  -->
+  <script>
+    // Glitter colors drawn from the now-page warm signal palette
+    const GLITTER_COLORS = [
+      '#e8c97a', // gold
+      '#f2afc7', // cotton candy pink
+      '#b48ef7', // purple
+      '#7eb8f7', // keyboard blue
+      '#e8849d', // blush pink
+      '#c084fc', // orchid
+    ];
+
+    // Spawn a single glitter dot at screen coordinates (x, y)
+    function spawnDot(x, y) {
+      const dot = document.createElement('div');
+      dot.className = 'glitter-dot';
+
+      // Random color from palette
+      const color = GLITTER_COLORS[Math.floor(Math.random() * GLITTER_COLORS.length)];
+      dot.style.background = color;
+
+      // Random size for visual variety
+      const size = Math.random() * 6 + 4;
+      dot.style.width  = size + 'px';
+      dot.style.height = size + 'px';
+
+      // Glow matches dot color
+      dot.style.boxShadow = `0 0 ${size * 2}px ${color}`;
+
+      // Position: fixed so it stays at cursor regardless of scroll
+      dot.style.left = x + 'px';
+      dot.style.top  = y + 'px';
+
+      document.body.appendChild(dot);
+
+      // Clean up after CSS animation completes (0.7s)
+      setTimeout(() => dot.remove(), 700);
+    }
+
+    // Desktop: continuous trail on mouse movement
+    document.addEventListener('mousemove', (e) => {
+      spawnDot(e.clientX, e.clientY);
+    });
+
+    // Mobile: burst of sparkles on tap (touchstart fires before scroll intent)
+    document.addEventListener('touchstart', (e) => {
+      Array.from(e.touches).forEach(touch => {
+        const burstCount = Math.floor(Math.random() * 3) + 8;
+        for (let i = 0; i < burstCount; i++) {
+          const angle  = Math.random() * Math.PI * 2;
+          const radius = Math.random() * 28;
+          const x = touch.clientX + Math.cos(angle) * radius;
+          const y = touch.clientY + Math.sin(angle) * radius;
+          // Stagger spawns so dots don't all vanish simultaneously
+          setTimeout(() => spawnDot(x, y), i * 30);
+        }
+      });
+    }, { passive: true }); // passive: don't block scroll performance
+  </script>
+
 </body>
 </html>
