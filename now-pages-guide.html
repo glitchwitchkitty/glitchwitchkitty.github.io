@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Now Pages: A Whimsical Guide to Existing on the Internet</title>
+
+  <!-- Fonts: Press Start 2P (glitch headers), Atkinson (body), Space Mono (code/labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================
+       CSS CUSTOM PROPERTIES — Chaos Gremlin palette
+       ============================================ */
+    :root {
+      --void:          #000000;
+      --void-soft:     #0d0d0d;
+      --void-panel:    #111418;
+      --chaos-gold:    #f7c863;
+      --chaos-amber:   #e0a840;
+      --gremlin-teal:  #154952;
+      --gremlin-light: #1e6b78;
+      --orchid:        #c084fc;
+      --neon-pink:     #f472b6;
+      --cyan:          #22d3ee;
+      --white:         #f0eeea;
+      --gray-mid:      #8899aa;
+      --gray-dark:     #2a3040;
+
+      /* Kit accent overrides used inside kit swatches */
+      --kit-cyber-bg:    #0a0a0f;
+      --kit-cyber-1:     #00ffff;
+      --kit-cyber-2:     #8b5cf6;
+      --kit-soft-bg:     #fdf6ee;
+      --kit-soft-1:      #c9a87c;
+      --kit-soft-2:      #7a9e8e;
+      --kit-soft-text:   #3d2e1e;
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Atkinson Hyperlegible', 'Atkinson', Georgia, serif;
+      background: var(--void);
+      color: var(--white);
+      font-size: 18px;
+      line-height: 1.75;
+      overflow-x: hidden;
+      cursor: none; /* hide default cursor — glitter trail takes over */
+    }
+
+    /* Fallback cursor for touch devices */
+    @media (hover: none) { body { cursor: auto; } }
+
+    /* ============================================
+       GLITTER CURSOR TRAIL
+       ============================================ */
+    .glitter-dot {
+      position: fixed;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.85;
+      transform: translate(-50%, -50%);
+      animation: glitter-fade 0.7s ease-out forwards;
+    }
+
+    @keyframes glitter-fade {
+      0%   { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0;    transform: translate(-50%, -50%) scale(0.2); }
+    }
+
+    /* ============================================
+       LAYOUT CONTAINERS
+       ============================================ */
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--gray-dark);
+    }
+
+    section:last-of-type { border-bottom: none; }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding: 3rem 1.5rem;
+      /* subtle teal-to-void radial glow */
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 80%, rgba(21,73,82,0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 50% at 20% 20%, rgba(192,132,252,0.08) 0%, transparent 60%),
+        var(--void);
+    }
+
+    /* animated star grid overlay */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(247,200,99,0.5) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.07;
+      animation: drift 40s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes drift {
+      from { background-position: 0 0; }
+      to   { background-position: 60px 60px; }
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--gremlin-light);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    /* glitch title */
+    .glitch-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(1rem, 4vw, 1.6rem);
+      color: var(--chaos-gold);
+      line-height: 1.5;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    .glitch-title::before,
+    .glitch-title::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .glitch-title:hover::before {
+      opacity: 1;
+      color: var(--neon-pink);
+      animation: glitch-before 0.9s infinite linear alternate-reverse;
+    }
+
+    .glitch-title:hover::after {
+      opacity: 1;
+      color: var(--cyan);
+      animation: glitch-after 0.8s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-before {
+      0%   { clip-path: inset(0 0 90% 0); transform: translate(-2px, -1px); }
+      100% { clip-path: inset(85% 0 0 0); transform: translate(2px, 1px); }
+    }
+    @keyframes glitch-after {
+      0%   { clip-path: inset(0 0 85% 0); transform: translate(1px, 1px); }
+      100% { clip-path: inset(90% 0 0 0); transform: translate(-2px, -2px); }
+    }
+
+    .hero-subtitle {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--orchid);
+      margin-bottom: 2rem;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-description {
+      max-width: 560px;
+      color: var(--gray-mid);
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-byline {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--gremlin-light);
+      letter-spacing: 0.15em;
+    }
+
+    /* scroll cue */
+    .scroll-cue {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      opacity: 0.4;
+      animation: bob 2s ease-in-out infinite;
+    }
+
+    .scroll-cue span {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--chaos-gold);
+    }
+
+    .scroll-arrow {
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, var(--chaos-gold), transparent);
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ============================================
+       SECTION HEADERS
+       ============================================ */
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--gremlin-light);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+      color: var(--chaos-gold);
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+
+    /* ============================================
+       TYPOGRAPHY UTILS
+       ============================================ */
+    p { margin-bottom: 1.25rem; }
+    p:last-child { margin-bottom: 0; }
+
+    a {
+      color: var(--orchid);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s;
+    }
+
+    a:hover { color: var(--chaos-gold); }
+
+    .text-gold  { color: var(--chaos-gold); }
+    .text-teal  { color: var(--gremlin-light); }
+    .text-orchid { color: var(--orchid); }
+    .text-pink  { color: var(--neon-pink); }
+    .text-cyan  { color: var(--cyan); }
+    .text-muted { color: var(--gray-mid); }
+
+    strong { color: var(--chaos-gold); font-weight: 700; }
+
+    code {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.82em;
+      background: rgba(247, 200, 99, 0.1);
+      border: 1px solid rgba(247, 200, 99, 0.2);
+      border-radius: 4px;
+      padding: 0.1em 0.4em;
+      color: var(--chaos-gold);
+    }
+
+    /* ============================================
+       PANELS & CARDS
+       ============================================ */
+    .panel {
+      background: var(--void-panel);
+      border: 1px solid var(--gray-dark);
+      border-radius: 12px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .panel-teal {
+      border-color: var(--gremlin-teal);
+      background: rgba(21,73,82,0.15);
+    }
+
+    .panel-gold {
+      border-color: rgba(247,200,99,0.3);
+      background: rgba(247,200,99,0.04);
+    }
+
+    .panel-orchid {
+      border-color: rgba(192,132,252,0.3);
+      background: rgba(192,132,252,0.04);
+    }
+
+    /* callout box */
+    .callout {
+      border-left: 3px solid var(--chaos-gold);
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      background: rgba(247,200,99,0.05);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.95rem;
+    }
+
+    .callout.teal  { border-color: var(--gremlin-light); background: rgba(21,73,82,0.12); }
+    .callout.orchid { border-color: var(--orchid); background: rgba(192,132,252,0.06); }
+    .callout.pink  { border-color: var(--neon-pink); background: rgba(244,114,182,0.06); }
+
+    /* ============================================
+       NAV BAR
+       ============================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-dark);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-logo {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem;
+      color: var(--chaos-gold);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--gray-mid);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--chaos-gold); }
+
+    /* ============================================
+       DROPDOWNS (details/summary — no JS needed)
+       ============================================ */
+    details {
+      border: 1px solid var(--gray-dark);
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    details[open] { border-color: var(--gremlin-light); }
+
+    summary {
+      padding: 1.2rem 1.5rem;
+      cursor: pointer;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--white);
+      background: var(--void-panel);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: background 0.2s, color 0.2s;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary:hover {
+      background: rgba(21,73,82,0.3);
+      color: var(--chaos-gold);
+    }
+
+    details[open] summary {
+      color: var(--chaos-gold);
+      border-bottom: 1px solid var(--gray-dark);
+    }
+
+    .summary-arrow {
+      margin-left: auto;
+      transition: transform 0.3s ease;
+      color: var(--gremlin-light);
+      font-size: 0.7rem;
+    }
+
+    details[open] .summary-arrow { transform: rotate(90deg); }
+
+    .details-body {
+      padding: 1.5rem;
+      background: rgba(13,13,13,0.6);
+      font-size: 0.95rem;
+    }
+
+    /* ============================================
+       PATH PICKER (section 2)
+       ============================================ */
+    .path-emoji {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .path-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      padding: 0.2em 0.6em;
+      border-radius: 4px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    .tag-novice  { background: rgba(244,114,182,0.15); color: var(--neon-pink); border: 1px solid rgba(244,114,182,0.3); }
+    .tag-learner { background: rgba(21,73,82,0.3);     color: var(--cyan);      border: 1px solid rgba(34,211,238,0.3); }
+    .tag-shipper { background: rgba(247,200,99,0.12);  color: var(--chaos-gold); border: 1px solid rgba(247,200,99,0.3); }
+
+    /* ============================================
+       AESTHETIC KITS (section 3)
+       ============================================ */
+    .kit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      align-items: start; /* cards size to their own content, not the tallest sibling */
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .kit-card {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid transparent;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: default;
+    }
+
+    .kit-card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* KIT 1 — Chaos Gremlin */
+    .kit-chaos {
+      background: #0d0d0d;
+      border-color: #154952;
+      box-shadow: 0 0 0 rgba(21,73,82,0);
+    }
+    .kit-chaos:hover {
+      box-shadow: 0 8px 32px rgba(21,73,82,0.5);
+    }
+
+    /* KIT 2 — Glitch Kitty Cyber */
+    .kit-cyber {
+      background: var(--kit-cyber-bg);
+      border-color: rgba(0,255,255,0.25);
+    }
+    .kit-cyber:hover {
+      box-shadow: 0 8px 32px rgba(0,255,255,0.15);
+    }
+
+    /* KIT 3 — Soft Landing */
+    .kit-soft {
+      background: #fdf6ee;
+      border-color: #c9a87c;
+      color: var(--kit-soft-text);
+    }
+    .kit-soft:hover {
+      box-shadow: 0 8px 32px rgba(201,168,124,0.3);
+    }
+
+    .kit-header {
+      padding: 1.25rem 1.25rem 0.75rem;
+    }
+
+    .kit-name {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem;
+      line-height: 1.7;
+      margin-bottom: 0.4rem;
+    }
+
+    .kit-chaos  .kit-name { color: var(--chaos-gold); }
+    .kit-cyber  .kit-name { color: #00ffff; }
+    .kit-soft   .kit-name { color: #7a6040; }
+
+    .kit-vibe {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      opacity: 0.7;
+    }
+
+    /* color swatch row */
+    .kit-swatches {
+      display: flex;
+      height: 6px;
+      margin: 0.75rem 1.25rem;
+      border-radius: 3px;
+      overflow: hidden;
+      gap: 2px;
+    }
+
+    .swatch { flex: 1; border-radius: 2px; }
+
+    /* Chaos swatches */
+    .s-void   { background: #000000; }
+    .s-gold   { background: #f7c863; }
+    .s-teal   { background: #154952; }
+    .s-orchid { background: #c084fc; }
+    .s-pink   { background: #f472b6; }
+
+    /* Cyber swatches */
+    .s-cyber-bg   { background: #0a0a0f; }
+    .s-cyber-cyan { background: #00ffff; }
+    .s-cyber-pur  { background: #8b5cf6; }
+    .s-cyber-glass { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.1); }
+
+    /* Soft swatches */
+    .s-cream   { background: #fdf6ee; border: 1px solid #e8d5b5; }
+    .s-warm    { background: #c9a87c; }
+    .s-sage    { background: #7a9e8e; }
+    .s-blush   { background: #e8b4b8; }
+    .s-fig     { background: #6b4c6b; }
+
+    .kit-body {
+      padding: 0.5rem 1.25rem 1.25rem;
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    .kit-chaos .kit-body  { color: #8899aa; }
+    .kit-cyber .kit-body  { color: rgba(255,255,255,0.6); }
+    .kit-soft  .kit-body  { color: #7a6040; }
+
+    .kit-fonts {
+      margin-top: 0.6rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      opacity: 0.55;
+      letter-spacing: 0.05em;
+    }
+
+    /* Live effect demo inside cyber kit */
+    .cyber-demo-text {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.55rem;
+      color: #00ffff;
+      margin-top: 0.6rem;
+      text-shadow: 0 0 8px rgba(0,255,255,0.7);
+      letter-spacing: 0.08em;
+    }
+
+    /* ============================================
+       KEYBOARD SHORTCUT TABLE
+       ============================================ */
+    .shortcut-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.5rem 1.5rem;
+      margin-top: 1rem;
+      font-size: 0.88rem;
+    }
+
+    .shortcut-grid .key {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--chaos-gold);
+      background: rgba(247,200,99,0.08);
+      border: 1px solid rgba(247,200,99,0.25);
+      border-radius: 5px;
+      padding: 0.2em 0.5em;
+      white-space: nowrap;
+      align-self: start;
+    }
+
+    .shortcut-grid .desc {
+      color: var(--gray-mid);
+      align-self: center;
+    }
+
+    /* ============================================
+       PROMPT EXAMPLES
+       ============================================ */
+    .prompt-block {
+      background: rgba(21,73,82,0.12);
+      border: 1px solid rgba(21,73,82,0.4);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--cyan);
+      line-height: 1.7;
+      margin: 0.75rem 0;
+    }
+
+    .prompt-block .prompt-label {
+      font-size: 0.6rem;
+      color: var(--gremlin-light);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ============================================
+       STAT CALLOUTS (AI environment section)
+       ============================================ */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .stat-box {
+      background: var(--void-panel);
+      border: 1px solid var(--gray-dark);
+      border-radius: 10px;
+      padding: 1.1rem 1rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.9rem;
+      color: var(--chaos-gold);
+      display: block;
+      margin-bottom: 0.4rem;
+      line-height: 1.5;
+    }
+
+    .stat-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--gray-mid);
+      letter-spacing: 0.05em;
+      line-height: 1.5;
+    }
+
+    /* ============================================
+       RESOURCE LIST
+       ============================================ */
+    .resource-list {
+      list-style: none;
+      margin-top: 0.75rem;
+    }
+
+    .resource-list li {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--gray-dark);
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      font-size: 0.92rem;
+    }
+
+    .resource-list li:last-child { border-bottom: none; }
+
+    .resource-list .r-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      padding: 0.15em 0.5em;
+      border-radius: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .r-free     { background: rgba(21,73,82,0.3);    color: var(--cyan);       border: 1px solid rgba(34,211,238,0.2); }
+    .r-tool     { background: rgba(247,200,99,0.1);  color: var(--chaos-gold); border: 1px solid rgba(247,200,99,0.2); }
+    .r-design   { background: rgba(192,132,252,0.1); color: var(--orchid);     border: 1px solid rgba(192,132,252,0.2); }
+    .r-community{ background: rgba(244,114,182,0.1); color: var(--neon-pink);  border: 1px solid rgba(244,114,182,0.2); }
+
+    /* ============================================
+       FAQ ACCORDION (AI concerns)
+       ============================================ */
+    .faq-item {
+      border-bottom: 1px solid var(--gray-dark);
+    }
+
+    .faq-item summary {
+      background: transparent;
+      font-family: 'Atkinson Hyperlegible', Georgia, serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      padding: 1rem 0;
+      border-radius: 0;
+    }
+
+    .faq-item summary:hover { background: transparent; color: var(--chaos-gold); }
+
+    .faq-item[open] summary { color: var(--chaos-gold); border-bottom: none; }
+
+    .faq-body {
+      padding: 0 0 1rem 0;
+      color: var(--gray-mid);
+      font-size: 0.92rem;
+      line-height: 1.8;
+    }
+
+    /* ============================================
+       STEP LIST (hosting walkthrough)
+       ============================================ */
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .steps li {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      align-items: start;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.65rem;
+      color: var(--chaos-gold);
+      background: rgba(247,200,99,0.1);
+      border: 1px solid rgba(247,200,99,0.25);
+      border-radius: 6px;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .steps li .step-content { font-size: 0.93rem; line-height: 1.75; }
+    .steps li .step-content strong { color: var(--white); }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+      padding: 4rem 1.5rem 3rem;
+      text-align: center;
+      border-top: 1px solid var(--gray-dark);
+      background: var(--void-soft);
+    }
+
+    .footer-logo {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.65rem;
+      color: var(--chaos-gold);
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    .footer-text {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--gray-mid);
+      line-height: 2;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-text a { color: var(--gremlin-light); }
+    .footer-text a:hover { color: var(--chaos-gold); }
+
+    /* ============================================
+       DIVIDER
+       ============================================ */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gremlin-teal), transparent);
+      margin: 2rem 0;
+      opacity: 0.5;
+    }
+
+    /* ============================================
+       COPY BUTTONS
+       ============================================ */
+    .copy-btn {
+      display: inline-block;
+      margin-top: 0.85rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.3em 0.75em;
+      border-radius: 4px;
+      border: 1px solid rgba(247,200,99,0.35);
+      background: rgba(247,200,99,0.07);
+      color: var(--chaos-gold);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      background: rgba(247,200,99,0.15);
+      border-color: var(--chaos-gold);
+    }
+
+    .copy-btn.copied {
+      color: var(--gremlin-light);
+      border-color: var(--gremlin-light);
+      background: rgba(21,73,82,0.2);
+    }
+
+    /* kit copy buttons sit at bottom of kit-body */
+    .kit-copy-btn {
+      display: block;
+      margin-top: 0.85rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* copy button inside prompt-block sits top-right */
+    .prompt-block .copy-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      margin-top: 0;
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .section-title { font-size: 0.85rem; }
+      .stat-row { grid-template-columns: 1fr 1fr; }
+      .shortcut-grid { grid-template-columns: 1fr; }
+      .shortcut-grid .key { display: inline-block; margin-bottom: 0.25rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       NAV
+       ============================================ -->
+  <nav class="nav">
+    <a href="#hero" class="nav-logo">✨ NOW PAGES</a>
+    <ul class="nav-links">
+      <li><a href="#what">WHAT IS IT</a></li>
+      <li><a href="#path">YOUR PATH</a></li>
+      <li><a href="#css">CSS IS ART</a></li>
+      <li><a href="#vscode">VS CODE</a></li>
+      <li><a href="#ai">AI GUIDE</a></li>
+      <li><a href="#hosting">HOSTING</a></li>
+      <li><a href="#resources">RESOURCES</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================
+       HERO
+       ============================================ -->
+  <section id="hero" class="hero">
+    <p class="hero-eyebrow">✦ a message in a bottle ✦</p>
+    <h1 class="glitch-title" data-text="Now Pages">Now Pages</h1>
+    <p class="hero-subtitle">a whimsical guide to existing on the internet</p>
+    <p class="hero-description">
+      You don't need a brand. You don't need a platform. You don't need to perform.
+      You just need a small corner of the internet that says:
+      <em class="text-gold">here is where I am, right now.</em>
+    </p>
+    <p class="hero-byline">✦ by Kitty M. ✦</p>
+    <div class="scroll-cue">
+      <span>scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 1 — WHAT IS A NOW PAGE
+       ============================================ -->
+  <section id="what">
+    <div class="container">
+      <p class="section-label">// section 01</p>
+      <h2 class="section-title">What is a Now Page?</h2>
+
+      <p>
+        A now page is a single page on your website that answers one simple question:
+        <strong>what are you up to right now?</strong> Not your whole career history.
+        Not a curated highlight reel. Just — what's happening in your life at this moment.
+        What you're working on. What you're reading. What's taking up your headspace.
+      </p>
+
+      <p>
+        It's the answer you'd give a friend you hadn't seen in a while, if they asked
+        <em>"so what are you into these days?"</em>
+      </p>
+
+      <div class="callout">
+        Think of it as the anti-LinkedIn. It's not for employers. It's not for followers.
+        It's for the internet version of you — honest, current, and entirely yours.
+      </div>
+
+      <p>
+        The now page movement was started by <a href="https://sive.rs/now" target="_blank" rel="noopener">Derek Sivers</a>
+        in 2015. He started putting a <code>/now</code> page on his own site to tell people
+        what he was focused on, and then thought: other people should have these too.
+        So he built a directory. Now there are thousands of them.
+      </p>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--orchid); margin-bottom:1rem; letter-spacing:0.05em;">
+        ✦ What makes it different from...
+      </h3>
+
+      <div class="panel panel-teal">
+        <p><strong>A blog?</strong> <span class="text-muted">A blog is a chronological archive of your past thoughts. A now page is just one snapshot — right now. No scroll, no history, no comments.</span></p>
+      </div>
+      <div class="panel panel-teal">
+        <p><strong>Social media?</strong> <span class="text-muted">Social media is performative by design. It's optimized for engagement, reactions, and keeping you scrolling. A now page is outside that ecosystem entirely. No algorithm decides who sees it. No one can "like" it. It just exists.</span></p>
+      </div>
+      <div class="panel panel-teal">
+        <p><strong>A portfolio?</strong> <span class="text-muted">A portfolio says "here's what I've done." A now page says "here's who I am today." Those can overlap, but they're not the same thing.</span></p>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--orchid); margin-bottom:1rem; letter-spacing:0.05em;">
+        ✦ The community + how to join it
+      </h3>
+
+      <p>
+        <a href="https://nownownow.com" target="_blank" rel="noopener">nownownow.com</a> is the directory
+        where people submit their now pages to be listed alongside thousands of others from around the world.
+        It's genuinely one of the nicest corners of the internet — no algorithm, no ads, just people
+        sharing what they're up to.
+      </p>
+
+      <p>
+        To get listed: build your page, put it at <code>yoursite.com/now</code>,
+        then submit the URL at <a href="https://nownownow.com/about" target="_blank" rel="noopener">nownownow.com/about</a>.
+        That's it. No approval process, no minimum follower count, no hoops.
+      </p>
+
+      <div class="callout teal">
+        <strong>Browse the directory first.</strong> Look at what other people have made.
+        You'll find everything from minimalist text files to fully designed personal pages.
+        That range is the whole point — there's no right way to do this.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 2 — PICK YOUR PATH
+       ============================================ -->
+  <section id="path">
+    <div class="container">
+      <p class="section-label">// section 02</p>
+      <h2 class="section-title">Pick Your Fighter</h2>
+
+      <p>
+        There are a few different ways to build a now page. None of them are wrong.
+        Pick the one that sounds like you — then expand it for your roadmap.
+      </p>
+
+      <!-- PATH 1 -->
+      <details>
+        <summary>
+          <span class="path-emoji">🎨</span>
+          <span>"I have no idea what I'm doing and that's fine"
+            <span class="path-tag tag-novice">VIBE CODER</span>
+          </span>
+          <span class="summary-arrow">▶</span>
+        </summary>
+        <div class="details-body">
+          <p>
+            <strong>Vibe coding</strong> is exactly what it sounds like: you describe what you want
+            in plain English, and AI writes the code. You don't have to understand every line.
+            You're the creative director. AI is the intern who types fast.
+          </p>
+          <p>
+            This is a completely valid way to build things. You'll make decisions about colors,
+            layout, what text goes where, what the vibe is — and AI handles the technical translation.
+            Over time, you'll start to recognize patterns in the code it generates.
+            That's learning. It just happens sideways.
+          </p>
+          <div class="callout pink">
+            <strong>What you'll actually do:</strong> Open Claude or ChatGPT. Describe your page.
+            Copy the code into a file called <code>index.html</code>. Open it in your browser.
+            Ask for changes. Repeat until it looks right. Then host it. (See Section 6.)
+          </div>
+          <p>Check out <strong>Section 5 (AI Prompting Guide)</strong> — it was written specifically for this path.</p>
+        </div>
+      </details>
+
+      <!-- PATH 2 -->
+      <details>
+        <summary>
+          <span class="path-emoji">🔧</span>
+          <span>"I want to actually learn HTML and CSS"
+            <span class="path-tag tag-learner">LEARNER</span>
+          </span>
+          <span class="summary-arrow">▶</span>
+        </summary>
+        <div class="details-body">
+          <p>
+            Respect. HTML and CSS are genuinely not that hard for a simple page —
+            and a now page is about as simple as a web page gets. You're looking at
+            maybe a weekend to get comfortable with the basics.
+          </p>
+          <p>
+            <strong>Start here:</strong> <a href="https://developer.mozilla.org/en-US/docs/Learn" target="_blank" rel="noopener">MDN Web Docs — Learn</a>.
+            It's free, thorough, written by humans, and doesn't try to sell you anything.
+            For a more structured course feel, <a href="https://www.theodinproject.com/" target="_blank" rel="noopener">The Odin Project</a>
+            is excellent and also free.
+          </p>
+          <div class="callout teal">
+            <strong>Realistic time investment:</strong> A few hours to get a basic page working.
+            A weekend to get comfortable with layout and styling.
+            You don't need to finish a whole course first — build the page while you learn.
+          </div>
+          <p>
+            A now page only needs: a heading, a few paragraphs, some basic styling.
+            That's maybe 30 lines of HTML and 50 lines of CSS. You've got this.
+          </p>
+          <p>Also check out <strong>Section 3 (CSS Is An Art Form)</strong> — that one's for you.</p>
+        </div>
+      </details>
+
+      <!-- PATH 3 -->
+      <details>
+        <summary>
+          <span class="path-emoji">🚀</span>
+          <span>"I know HTML/CSS, I just need to ship it"
+            <span class="path-tag tag-shipper">SHIPPER</span>
+          </span>
+          <span class="summary-arrow">▶</span>
+        </summary>
+        <div class="details-body">
+          <p>
+            Skip to <strong>Section 6 (Hosting)</strong>. You know what you're doing.
+          </p>
+          <p><strong>Pre-deploy checklist:</strong></p>
+          <ul style="margin-left:1.25rem; margin-top:0.5rem; line-height:2; color:var(--gray-mid); font-size:0.92rem;">
+            <li>File is named <code>index.html</code> (or <code>now.html</code> if it lives in a subfolder)</li>
+            <li>All image paths are relative, not absolute</li>
+            <li>Fonts load from Google Fonts CDN or are self-hosted — no local file paths</li>
+            <li>Tested in at least one browser and on mobile</li>
+            <li>No <code>localhost</code> references anywhere</li>
+            <li>Have a GitHub account ready (it's free)</li>
+          </ul>
+          <div class="callout">
+            GitHub Pages hosts static HTML/CSS/JS for free, forever, with a clean URL.
+            It's the obvious choice for this. The setup takes about 10 minutes.
+          </div>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 3 — CSS IS AN ART FORM
+       ============================================ -->
+  <section id="css">
+    <div class="container">
+      <p class="section-label">// section 03</p>
+      <h2 class="section-title">CSS Is An Art Form (And Nobody Told You)</h2>
+
+      <p>
+        Here's the thing they don't tell you in most intro coding resources:
+        <strong>CSS is a creative medium.</strong> It's not just "make text bigger" or
+        "change the color." With CSS alone, you can build glowing buttons, animated gradients,
+        text that glitches on hover, cursor trails, glassmorphism panels, pixel grids,
+        smooth scroll reveals — all without touching a design tool.
+      </p>
+
+      <p class="text-muted">
+        This entire page was built with HTML and CSS. The glitter trail following your cursor?
+        CSS animation + a tiny bit of JavaScript. The glowing title that glitches when you hover it?
+        Pure CSS. The dark void background with the drifting dot grid? Two lines of CSS.
+        <strong class="text-gold">Tech is art when you decide it is.</strong>
+      </p>
+
+      <div class="callout orchid">
+        Your now page can look like you. Not like a template. Not like a default theme.
+        <em>Like you.</em> The aesthetic kits below are starting points — steal them whole,
+        mix them up, or use them as a reference while you build something entirely your own.
+      </div>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--orchid); margin-bottom:1.5rem; letter-spacing:0.05em;">
+        ✦ Three aesthetic kits — pick a vibe, or make your own
+      </h3>
+
+      <div class="kit-grid">
+
+        <!-- KIT 1: Chaos Gremlin -->
+        <div class="kit-card kit-chaos">
+          <div class="kit-header">
+            <div class="kit-name">CHAOS GREMLIN</div>
+            <div class="kit-vibe" style="color:#8899aa;">void dark · pixel retro · glitch hover</div>
+            <div class="kit-swatches">
+              <div class="swatch s-void"></div>
+              <div class="swatch s-gold"></div>
+              <div class="swatch s-teal"></div>
+              <div class="swatch s-orchid"></div>
+              <div class="swatch s-pink"></div>
+            </div>
+          </div>
+          <div class="kit-body">
+            Deep black void, amber gold headers, teal accents, orchid links.
+            Press Start 2P for headers, Atkinson for body. Cursor trails. Glitch effects on hover.
+            Built for people who want their page to feel like a portal, not a business card.
+            <div class="kit-fonts">FONTS: Press Start 2P + Atkinson</div>
+            <button class="copy-btn kit-copy-btn" data-copy="kit-chaos" title="Copy starter CSS">copy CSS</button>
+            <pre id="copy-kit-chaos" style="display:none;">/* ── CHAOS GREMLIN KIT ── */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --void:         #000000;
+  --chaos-gold:   #f7c863;
+  --gremlin-teal: #154952;
+  --orchid:       #c084fc;
+  --neon-pink:    #f472b6;
+  --cyan:         #22d3ee;
+  --white:        #f0eeea;
+  --gray-mid:     #8899aa;
+}
+
+body {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  background: var(--void);
+  color: var(--white);
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+h1, h2, h3 {
+  font-family: 'Press Start 2P', monospace;
+  color: var(--chaos-gold);
+  line-height: 1.6;
+}
+
+a { color: var(--orchid); }
+a:hover { color: var(--chaos-gold); }
+
+strong { color: var(--chaos-gold); }
+
+/* Glitch hover effect */
+.glitch { position: relative; display: inline-block; }
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute; top: 0; left: 0;
+  width: 100%; opacity: 0; pointer-events: none;
+}
+.glitch:hover::before { opacity: 1; color: var(--neon-pink); animation: glitch-b 0.9s infinite; }
+.glitch:hover::after  { opacity: 1; color: var(--cyan);     animation: glitch-a 0.8s infinite; }
+@keyframes glitch-b { 0%{clip-path:inset(0 0 90% 0);transform:translate(-2px,-1px)} 100%{clip-path:inset(85% 0 0 0);transform:translate(2px,1px)} }
+@keyframes glitch-a { 0%{clip-path:inset(0 0 85% 0);transform:translate(1px,1px)}  100%{clip-path:inset(90% 0 0 0);transform:translate(-2px,-2px)} }</pre>
+          </div>
+        </div>
+
+        <!-- KIT 2: Glitch Kitty Cyber -->
+        <div class="kit-card kit-cyber">
+          <div class="kit-header">
+            <div class="kit-name">GLITCH KITTY CYBER</div>
+            <div class="kit-vibe" style="color:rgba(255,255,255,0.45);">cyberpunk · neon · glassmorphism</div>
+            <div class="kit-swatches">
+              <div class="swatch s-cyber-bg"></div>
+              <div class="swatch s-cyber-cyan"></div>
+              <div class="swatch s-cyber-pur"></div>
+              <div class="swatch s-cyber-glass"></div>
+              <div class="swatch s-pink"></div>
+            </div>
+          </div>
+          <div class="kit-body" style="color:rgba(255,255,255,0.55);">
+            Near-void black, electric cyan + purple, glass panels with blur,
+            gradient hover glows, animated cyber grid background.
+            Orbitron headers, Rajdhani body. Maximalist but controlled.
+            <div class="cyber-demo-text">// SYSTEM ONLINE ✦</div>
+            <div class="kit-fonts" style="color:rgba(0,255,255,0.4);">FONTS: Orbitron + Rajdhani</div>
+            <button class="copy-btn kit-copy-btn" data-copy="kit-cyber" title="Copy starter CSS" style="border-color:rgba(0,255,255,0.4); color:#00ffff;">copy CSS</button>
+            <pre id="copy-kit-cyber" style="display:none;">/* ── GLITCH KITTY CYBER KIT ── */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --cyber-void:   #0a0a0f;
+  --cyber-cyan:   #00ffff;
+  --cyber-purple: #8b5cf6;
+  --cyber-pink:   #f472b6;
+  --cyber-glass:  rgba(255,255,255,0.05);
+}
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background: var(--cyber-void);
+  color: #ffffff;
+  font-size: 18px;
+}
+
+h1, h2, h3 {
+  font-family: 'Orbitron', monospace;
+  background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism panel */
+.glass {
+  background: var(--cyber-glass);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+/* Cyber grid background */
+.cyber-grid {
+  background-image:
+    linear-gradient(rgba(0,255,255,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,0.08) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Glow hover */
+a, button {
+  transition: all 0.3s ease;
+}
+a:hover {
+  color: var(--cyber-cyan);
+  text-shadow: 0 0 10px rgba(0,255,255,0.6);
+}</pre>
+          </div>
+        </div>
+
+        <!-- KIT 3: Soft Landing — renders in its own font + aesthetic -->
+        <div class="kit-card kit-soft">
+          <div class="kit-header">
+            <div class="kit-name" style="font-family:'Lora',Georgia,serif; font-size:0.85rem; font-weight:700; letter-spacing:0.02em; color:#6b4c2a;">Soft Landing</div>
+            <div class="kit-vibe" style="font-family:'Source Serif 4',Georgia,serif; font-style:italic; color:#a08060; font-size:0.78rem;">warm · cottagecore · welcoming</div>
+            <div class="kit-swatches">
+              <div class="swatch s-cream"></div>
+              <div class="swatch s-warm"></div>
+              <div class="swatch s-sage"></div>
+              <div class="swatch s-blush"></div>
+              <div class="swatch s-fig"></div>
+            </div>
+          </div>
+          <div class="kit-body" style="font-family:'Source Serif 4',Georgia,serif; font-size:0.84rem; line-height:1.7;">
+            Warm cream background, caramel and sage accents, blush + fig for depth.
+            Soft drop shadows, rounded corners, comfortable spacing.
+            Feels like a cozy corner of the internet where nothing is trying to sell you anything.
+            <div class="kit-fonts" style="font-family:'Space Mono',monospace; color:#b09070; font-size:0.6rem; margin-top:0.6rem;">FONTS: Lora + Source Serif 4</div>
+            <button class="copy-btn kit-copy-btn" data-copy="kit-soft" title="Copy starter CSS" style="border-color:#c9a87c; color:#8c6d3f; background:rgba(201,168,124,0.12);">copy CSS</button>
+            <pre id="copy-kit-soft" style="display:none;">/* ── SOFT LANDING KIT ── */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+
+:root {
+  --cream:  #fdf6ee;
+  --caramel: #c9a87c;
+  --sage:   #7a9e8e;
+  --blush:  #e8b4b8;
+  --fig:    #6b4c6b;
+  --ink:    #3d2e1e;
+  --muted:  #9c8570;
+}
+
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+h1, h2, h3 {
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+a { color: var(--sage); text-decoration: underline; }
+a:hover { color: var(--fig); }
+
+/* Soft card */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(61,46,30,0.08);
+  border: 1px solid rgba(201,168,124,0.25);
+}
+
+/* Accent bar */
+.accent-bar {
+  border-left: 3px solid var(--caramel);
+  padding-left: 1rem;
+  color: var(--muted);
+  font-style: italic;
+}</pre>
+
+          </div><!-- /kit-body -->
+        </div><!-- /kit-soft kit-card -->
+
+      </div><!-- /kit-grid -->
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--orchid); margin-bottom:1rem; letter-spacing:0.05em;">
+        ✦ A few CSS things worth knowing exist
+      </h3>
+
+      <div class="panel">
+        <p><strong>Custom properties (CSS variables)</strong> — <span class="text-muted">Define your colors once at the top as <code>--my-color: #f7c863</code> and reuse them everywhere. Change one line, update the whole page.</span></p>
+      </div>
+      <div class="panel">
+        <p><strong>Gradients</strong> — <span class="text-muted">Backgrounds don't have to be flat. <code>linear-gradient</code>, <code>radial-gradient</code>, and layered gradients create depth, glow, and atmosphere with zero images.</span></p>
+      </div>
+      <div class="panel">
+        <p><strong>Animations & transitions</strong> — <span class="text-muted"><code>@keyframes</code> lets you define motion. <code>transition</code> makes hover states smooth. The glitch effect on the title above? That's clip-path + keyframes.</span></p>
+      </div>
+      <div class="panel">
+        <p><strong>Google Fonts</strong> — <span class="text-muted">Free, one line to import, thousands of options. Typography is one of the fastest ways to make a page feel intentional.</span></p>
+      </div>
+
+      <div class="callout teal">
+        <strong>Accessibility note:</strong> Pretty and readable are not mutually exclusive.
+        Keep text contrast high (light text on dark background, or vice versa — not low-contrast pastels on white).
+        Use relative font sizes (<code>rem</code>, not <code>px</code>). Don't rely on color alone to convey meaning.
+        A great tool: <a href="https://webaim.org/resources/contrastchecker/" target="_blank" rel="noopener">WebAIM Contrast Checker</a>.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 4 — VS CODE
+       ============================================ -->
+  <section id="vscode">
+    <div class="container">
+      <p class="section-label">// section 04</p>
+      <h2 class="section-title">Getting Started with VS Code</h2>
+
+      <p>
+        <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VS Code</a> is a free code editor
+        made by Microsoft and used by millions of developers. It's not the only option, but it's
+        the one most tutorials will reference, it has the best extension ecosystem, and it's genuinely
+        nice to use even as a beginner.
+      </p>
+
+      <div class="callout">
+        <strong>Download:</strong> <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener">code.visualstudio.com/download</a> — available for Windows, Mac, and Linux. Free, always.
+      </div>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--orchid); margin-bottom:1rem; letter-spacing:0.05em;">
+        ✦ Extensions worth installing first
+      </h3>
+
+      <div class="panel panel-gold">
+        <p><strong>Live Server</strong> <span class="text-muted">— Right-click your HTML file → "Open with Live Server." Your browser auto-refreshes every time you save. Absolutely essential.</span></p>
+      </div>
+      <div class="panel panel-gold">
+        <p><strong>Prettier</strong> <span class="text-muted">— Auto-formats your code on save. Keeps things readable without effort.</span></p>
+      </div>
+      <div class="panel panel-gold">
+        <p><strong>Color Highlight</strong> <span class="text-muted">— Shows a color swatch next to hex codes in your CSS. Small thing, huge quality of life.</span></p>
+      </div>
+      <div class="panel panel-gold">
+        <p><strong>Auto Rename Tag</strong> <span class="text-muted">— Rename an opening HTML tag and the closing tag updates automatically.</span></p>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--orchid); margin-bottom:1rem; letter-spacing:0.05em;">
+        ✦ Keyboard shortcuts that will save your life
+      </h3>
+
+      <div class="shortcut-grid">
+        <span class="key">Ctrl / Cmd + S</span>         <span class="desc">Save (do this constantly)</span>
+        <span class="key">Ctrl / Cmd + Z</span>         <span class="desc">Undo</span>
+        <span class="key">Ctrl / Cmd + /</span>         <span class="desc">Toggle comment on selected line(s)</span>
+        <span class="key">Alt + ↑ / ↓</span>            <span class="desc">Move a line up or down</span>
+        <span class="key">Ctrl / Cmd + D</span>         <span class="desc">Select next occurrence of current word</span>
+        <span class="key">Ctrl / Cmd + Shift + P</span> <span class="desc">Command palette — search everything</span>
+        <span class="key">Ctrl / Cmd + `</span>         <span class="desc">Open integrated terminal</span>
+        <span class="key">Ctrl / Cmd + B</span>         <span class="desc">Toggle sidebar</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--orchid); margin-bottom:1rem; letter-spacing:0.05em;">
+        ✦ Starter template — copy and go
+      </h3>
+
+      <p class="text-muted" style="font-size:0.9rem; margin-bottom:1rem;">
+        Create a new file, name it <code>index.html</code>, paste this in, and start editing.
+      </p>
+
+      <div class="prompt-block" style="position:relative;">
+        <div class="prompt-label">// starter template</div>
+        <button class="copy-btn" data-copy="starter" title="Copy to clipboard">copy</button>
+        <pre id="copy-starter" style="display:none;">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;[Your Name] — Now&lt;/title&gt;
+  &lt;style&gt;
+    /* your CSS goes here */
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;main&gt;
+    &lt;h1&gt;What I'm up to right now&lt;/h1&gt;
+    &lt;p&gt;Updated [month, year] · [your location]&lt;/p&gt;
+    &lt;p&gt;Write whatever you want here.&lt;/p&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+&lt;!DOCTYPE html&gt;<br>
+&lt;html lang="en"&gt;<br>
+&lt;head&gt;<br>
+&nbsp;&nbsp;&lt;meta charset="UTF-8" /&gt;<br>
+&nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;<br>
+&nbsp;&nbsp;&lt;title&gt;[Your Name] — Now&lt;/title&gt;<br>
+&nbsp;&nbsp;&lt;style&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;/* your CSS goes here */<br>
+&nbsp;&nbsp;&lt;/style&gt;<br>
+&lt;/head&gt;<br>
+&lt;body&gt;<br>
+&nbsp;&nbsp;&lt;main&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;What I'm up to right now&lt;/h1&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Updated [month, year] · [your location]&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Write whatever you want here.&lt;/p&gt;<br>
+&nbsp;&nbsp;&lt;/main&gt;<br>
+&lt;/body&gt;<br>
+&lt;/html&gt;
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 5 — AI GUIDE
+       ============================================ -->
+  <section id="ai">
+    <div class="container">
+      <p class="section-label">// section 05</p>
+      <h2 class="section-title">The AI Guide</h2>
+
+      <!-- 5a: prompting styles -->
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--orchid); margin-bottom:1.25rem; letter-spacing:0.05em;">
+        ✦ 5a — Two ways to work with AI
+      </h3>
+
+      <p>
+        There's no single right way to use AI when building something. But it helps to know
+        which mode you're in before you start, because they lead to different outcomes
+        and different prompts.
+      </p>
+
+      <details>
+        <summary>
+          <span class="path-emoji">🛋️</span>
+          <span>Backseat Driver — "build it for me, I'll approve"</span>
+          <span class="summary-arrow">▶</span>
+        </summary>
+        <div class="details-body">
+          <p>
+            You describe what you want in as much detail as you can. AI writes the whole thing.
+            You look at it, tell it what to change, and it revises. You never have to understand
+            the code — you just need to know what you like and what you don't.
+          </p>
+          <p><strong>Good for:</strong> getting something working fast, people who hate technical details,
+          when you have a strong visual idea but don't want to learn to execute it yourself.</p>
+
+          <div class="prompt-block">
+            <div class="prompt-label">// example backseat driver prompt</div>
+            Build me a now page in HTML and CSS. I want a dark background with warm gold text,
+            a pixel-style header font, and soft section dividers. It should have sections for:
+            what I'm working on, what I'm reading, and what's on my mind lately.
+            Keep it simple and easy to edit. No frameworks, just plain HTML and CSS in one file.
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-label">// how to ask for edits without breaking things</div>
+            "The background color feels too dark — can you lighten it slightly and make the
+            section headers teal instead of gold? Don't change anything else."
+          </div>
+
+          <div class="callout">
+            <strong>Pro tip:</strong> When something looks wrong, describe what you see,
+            not what you think the fix is. "The text is overlapping the image on mobile"
+            is better than "fix the z-index." Let AI diagnose it.
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="path-emoji">🤝</span>
+          <span>Collaborator — "teach me as we go"</span>
+          <span class="summary-arrow">▶</span>
+        </summary>
+        <div class="details-body">
+          <p>
+            You work with AI more like a patient tutor. It writes code, but it also explains
+            what each part does. You ask questions. You try changing things yourself.
+            You use it to understand, not just to execute.
+          </p>
+          <p><strong>Good for:</strong> people who want to actually learn, anyone who wants to be able
+          to maintain their own site, people who enjoy understanding how things work.</p>
+
+          <div class="prompt-block">
+            <div class="prompt-label">// example collaborator prompt</div>
+            I'm learning HTML and CSS and I want to build a now page. Can you help me build it
+            step by step, explaining what each piece does as we go? Start with just the basic
+            structure — I'll tell you when I'm ready to add styling. I want to understand
+            what I'm building, not just copy-paste it.
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-label">// asking a follow-up question</div>
+            "You used 'rem' for the font size instead of 'px' — what's the difference
+            and why does it matter?"
+          </div>
+
+          <div class="callout orchid">
+            AI is a genuinely good teacher for this kind of thing because it has infinite patience,
+            zero judgment, and will explain the same concept twelve different ways until one clicks.
+            Use that.
+          </div>
+        </div>
+      </details>
+
+      <div class="divider"></div>
+
+      <!-- 5b: AI & environment -->
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--orchid); margin-top:0.5rem; margin-bottom:1.25rem; letter-spacing:0.05em;">
+        ✦ 5b — Let's talk about AI and the environment
+      </h3>
+
+      <p>
+        If you've spent any time on social media, you've probably seen the discourse.
+        AI is bad for the environment. It steals water. It uses as much electricity as a small country.
+        Some of that is accurate. A lot of it is missing context. Here's the full picture.
+      </p>
+
+      <div class="stat-row">
+        <div class="stat-box">
+          <span class="stat-number">~0.3Wh</span>
+          <span class="stat-label">energy per ChatGPT query (text)</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">~0.3ml</span>
+          <span class="stat-label">water per query for cooling</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">270ml</span>
+          <span class="stat-label">water per minute on TikTok</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">0.2 gal</span>
+          <span class="stat-label">water per hour of Netflix</span>
+        </div>
+      </div>
+
+      <p class="text-muted" style="font-size:0.8rem; margin-top:0.25rem;">
+        Sources: <a href="https://connection-technologies.co.uk/blog/how-much-energy-water-chatgpt-use-uk-2026" target="_blank" rel="noopener">Connection Technologies 2026</a>,
+        <a href="https://www.enlit.world/library/energy-and-water-use-of-google-s-ai-is-less-than-thought" target="_blank" rel="noopener">Enlit World</a>,
+        <a href="https://www.tiktok.com/discover/how-much-water-does-tiktok-use-compared-to-ai" target="_blank" rel="noopener">TikTok data center research</a>
+      </p>
+
+      <p style="margin-top:1.5rem;">
+        A single text query uses roughly the same energy as running a microwave for one second.
+        TikTok, Netflix, Instagram — the things we scroll without thinking — all run on the
+        same data center infrastructure and pull comparable or heavier loads per minute of use.
+        The concern isn't wrong. The framing often is.
+      </p>
+
+      <div class="callout">
+        <strong>The real issue is scale and infrastructure,</strong> not your now page session.
+        Training a large model is genuinely energy-intensive — but that happens once and serves millions.
+        The ongoing conversation is about who's building data centers, where, powered by what,
+        and whether those decisions are being made responsibly. That's a policy and corporate
+        governance conversation, not an individual guilt one.
+      </div>
+
+      <p>
+        The honest framework: <strong>corporations make the infrastructure decisions.</strong>
+        Individual users don't get a vote on whether a data center runs on coal or renewables.
+        What you <em>can</em> do is understand the landscape, push for better practices where
+        you have leverage, and make choices that feel right to you — without burning energy
+        on guilt that doesn't move anything.
+      </p>
+
+      <p>
+        Some genuinely useful responses: learning to run local models (no cloud queries at all),
+        choosing AI providers that publish transparency reports and use renewable energy,
+        building skills so you need AI as a scaffold less over time.
+        Making lemonade from the lemons we are handed, basically.
+      </p>
+
+      <div class="callout orchid">
+        <strong>A note on learning vs. leaning.</strong> AI is a wonderful tool —
+        but you don't become an accountant just because you have a calculator.
+        Learning to build tech and write code is an art form worth preserving.
+        Understanding what you're making, even imperfectly, is different from
+        outsourcing the thinking entirely.<br><br>
+        Think of AI as the librarian holding the ancient scrolls. It can find the passage,
+        translate the language, and explain the context — but <em>you</em> still have to
+        decide what you're looking for and what to do with it once you have it.
+        The knowledge belongs to whoever learns it.
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- 5c: FAQ -->
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--orchid); margin-bottom:1.25rem; letter-spacing:0.05em;">
+        ✦ 5c — Honest answers to common AI fears
+      </h3>
+
+      <div class="faq-item">
+        <details>
+          <summary>"Is AI going to take my job?"</summary>
+          <div class="faq-body">
+            <p>
+              Some jobs, yes. Specifically: jobs that are primarily about generating
+              high-volume, templated content — certain kinds of data entry, basic image editing,
+              boilerplate writing. For most roles, the more accurate picture is that AI
+              will change what the job looks like, not eliminate it.
+            </p>
+            <p>
+              The people getting displaced first are the ones who refuse to engage with the tools at all.
+              The people doing well are treating AI like a very fast intern — useful for first drafts
+              and grunt work, still requiring human judgment, domain knowledge, and taste.
+            </p>
+            <p>
+              Building technical skills (like, say, making a now page) is one of the more
+              durable responses to that uncertainty. Understanding the tools means you're
+              not at their mercy.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-item">
+        <details>
+          <summary>"Is it going to become sentient and destroy us all?"</summary>
+          <div class="faq-body">
+            <p>
+              Current AI systems — including the ones you're using to build your now page —
+              are very sophisticated pattern matchers. They don't have goals, desires, or
+              survival instincts. They don't "want" anything. When the session ends, nothing
+              persists. There's no continuous thread of experience building up in the background.
+            </p>
+            <p>
+              The legitimate long-term concern in this space is about systems designed to
+              pursue goals autonomously at large scale without adequate human oversight —
+              not ChatGPT going rogue while you ask it to change your font size.
+            </p>
+            <p>
+              Healthy skepticism about AI development is reasonable. Skynet anxiety about
+              the tool helping you build a webpage is not the same conversation.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-item">
+        <details>
+          <summary>"Am I cheating by using AI to build my site?"</summary>
+          <div class="faq-body">
+            <p>
+              Cheating at what? Nobody is grading this. A now page is a personal thing
+              you're making for yourself and putting on the internet. The goal is to have
+              a page that represents you — not to demonstrate that you hand-coded every
+              pixel without assistance.
+            </p>
+            <p>
+              Every developer uses tools. Stack Overflow. Copy-pasted snippets. Libraries
+              someone else wrote. AI is another tool. Using it doesn't disqualify the result.
+            </p>
+            <p>
+              If you want to learn to write code yourself, AI can be part of that too — as
+              a teacher, not just an answer machine. But if you just want a page that exists
+              and looks good, using AI to get there is completely fine.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-item">
+        <details>
+          <summary>"Should I feel guilty every time I open ChatGPT?"</summary>
+          <div class="faq-body">
+            <p>
+              No. See Section 5b for the actual numbers — and then think about the last time
+              you watched two hours of video content without a second thought.
+            </p>
+            <p>
+              Guilt that doesn't translate into action is just static. If you're genuinely
+              concerned about AI's environmental footprint, the most useful things you can do
+              are: support policy that holds tech companies accountable for their infrastructure
+              choices, prefer providers who publish honest transparency data, and learn skills
+              that reduce your dependency on cloud-based AI over time.
+            </p>
+            <p>
+              And then, like, go build your page.
+            </p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 6 — HOSTING
+       ============================================ -->
+  <section id="hosting">
+    <div class="container">
+      <p class="section-label">// section 06</p>
+      <h2 class="section-title">Hosting Your Now Page</h2>
+
+      <p>
+        You've got a file. Now you need it to live on the internet.
+        <strong>GitHub Pages</strong> is the best option for this — free, permanent,
+        reliable, and it gives you a real URL you can actually submit to nownownow.com.
+      </p>
+
+      <div class="callout teal">
+        <strong>What you'll end up with:</strong> A URL like
+        <code>yourusername.github.io/now</code> — or if you want your own domain,
+        <code>yourname.com/now</code>. Either works.
+      </div>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--orchid); margin-bottom:1.25rem; letter-spacing:0.05em;">
+        ✦ GitHub Pages walkthrough
+      </h3>
+
+      <ol class="steps">
+        <li>
+          <div class="step-content">
+            <strong>Create a GitHub account</strong> at <a href="https://github.com" target="_blank" rel="noopener">github.com</a> if you don't have one.
+            Free. Pick a username you won't regret — it becomes part of your URL.
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>Create a new repository.</strong> Click the <code>+</code> in the top right → New repository.
+            Name it whatever you like (e.g. <code>now</code>). Set it to <strong>Public</strong>.
+            Check "Add a README file." Click Create.
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>Upload your file.</strong> Click "Add file" → "Upload files." Drag in your
+            <code>index.html</code> (and any images or CSS files if they're separate).
+            Scroll down, click "Commit changes."
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>Enable GitHub Pages.</strong> Go to your repository Settings → Pages (in the left sidebar).
+            Under "Source," select <strong>Deploy from a branch</strong>, choose <code>main</code>, folder <code>/ (root)</code>.
+            Click Save.
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>Wait about 60 seconds.</strong> Refresh the Pages settings — your URL will appear.
+            It'll be <code>yourusername.github.io/repositoryname</code>.
+            Click it. Your page is live on the internet.
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>Update your page anytime</strong> by uploading a new version of the file to the same repository.
+            GitHub Pages re-deploys automatically within a minute or two.
+          </div>
+        </li>
+      </ol>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--orchid); margin-bottom:1rem; letter-spacing:0.05em;">
+        ✦ Want a custom domain?
+      </h3>
+
+      <p>
+        If you want <code>yourname.com</code> instead of the GitHub URL,
+        you'll need to buy a domain — <a href="https://www.namecheap.com" target="_blank" rel="noopener">Namecheap</a>
+        is a reliable, affordable registrar. Domains are typically $10–15/year.
+        GitHub Pages has documentation on connecting a custom domain once you have one.
+      </p>
+
+      <div class="callout">
+        <strong>Honest advice:</strong> Start with the free GitHub URL. Get your page live first.
+        You can always add a custom domain later — it's not going anywhere.
+      </div>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--orchid); margin-bottom:1rem; letter-spacing:0.05em;">
+        ✦ Submitting to nownownow.com
+      </h3>
+
+      <p>
+        Once your page is live, head to <a href="https://nownownow.com/about" target="_blank" rel="noopener">nownownow.com/about</a>
+        and follow the submission instructions. They ask for your name, URL, and location.
+        That's it. You'll be listed in the directory and become part of the movement.
+      </p>
+
+      <div class="callout teal">
+        <strong>Remember to update your page.</strong> A now page that hasn't been touched
+        in two years isn't a now page anymore — it's an artifact. Update it whenever
+        something meaningful changes. Monthly is great. Whenever you feel like it is fine too.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 7 — RESOURCES
+       ============================================ -->
+  <section id="resources">
+    <div class="container">
+      <p class="section-label">// section 07</p>
+      <h2 class="section-title">Tools & Resources</h2>
+
+      <p>Curated. Not exhaustive. Everything here is free unless noted.</p>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.75rem; color:var(--chaos-gold); margin-bottom:0.75rem; letter-spacing:0.1em;">NOW PAGE COMMUNITY</h3>
+      <ul class="resource-list">
+        <li><span class="r-tag r-community">community</span> <a href="https://nownownow.com" target="_blank" rel="noopener">nownownow.com</a> — the directory. Browse it for inspiration before you start.</li>
+        <li><span class="r-tag r-community">read</span> <a href="https://sive.rs/now" target="_blank" rel="noopener">sive.rs/now</a> — Derek Sivers' original post explaining the concept.</li>
+      </ul>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.75rem; color:var(--chaos-gold); margin-bottom:0.75rem; letter-spacing:0.1em;">LEARNING HTML & CSS</h3>
+      <ul class="resource-list">
+        <li><span class="r-tag r-free">free</span> <a href="https://developer.mozilla.org/en-US/docs/Learn" target="_blank" rel="noopener">MDN Web Docs — Learn</a> — the authoritative reference. Start here.</li>
+        <li><span class="r-tag r-free">free</span> <a href="https://www.theodinproject.com/" target="_blank" rel="noopener">The Odin Project</a> — structured, project-based curriculum. Excellent.</li>
+        <li><span class="r-tag r-free">free</span> <a href="https://www.freecodecamp.org/" target="_blank" rel="noopener">freeCodeCamp</a> — good for structured learning with certification if that motivates you.</li>
+        <li><span class="r-tag r-free">free</span> <a href="https://css-tricks.com/" target="_blank" rel="noopener">CSS-Tricks</a> — deep dives on specific CSS techniques. Great once you're past basics.</li>
+      </ul>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.75rem; color:var(--chaos-gold); margin-bottom:0.75rem; letter-spacing:0.1em;">AI TOOLS</h3>
+      <ul class="resource-list">
+        <li><span class="r-tag r-tool">tool</span> <a href="https://claude.ai" target="_blank" rel="noopener">Claude (Anthropic)</a> — strong for code generation, explanations, and iterating. Good collaborator mode.</li>
+        <li><span class="r-tag r-tool">tool</span> <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT (OpenAI)</a> — widely used, good for vibe coding. Has a free tier.</li>
+        <li><span class="r-tag r-tool">tool</span> <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> — run AI models locally on your own machine. No cloud, no data sent anywhere. Requires a reasonably capable computer.</li>
+      </ul>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.75rem; color:var(--chaos-gold); margin-bottom:0.75rem; letter-spacing:0.1em;">DESIGN & COLOR</h3>
+      <ul class="resource-list">
+        <li><span class="r-tag r-design">design</span> <a href="https://coolors.co" target="_blank" rel="noopener">Coolors</a> — palette generator. Lock a color you love, let it fill in the rest.</li>
+        <li><span class="r-tag r-design">design</span> <a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> — free, one-line import. Use the filter to find display fonts with personality.</li>
+        <li><span class="r-tag r-design">design</span> <a href="https://cssgradient.io" target="_blank" rel="noopener">CSS Gradient</a> — visual gradient builder. Copy the CSS output directly.</li>
+        <li><span class="r-tag r-design">design</span> <a href="https://webaim.org/resources/contrastchecker/" target="_blank" rel="noopener">WebAIM Contrast Checker</a> — paste your foreground and background colors, get an accessibility score.</li>
+        <li><span class="r-tag r-design">design</span> <a href="https://animate.style/" target="_blank" rel="noopener">Animate.css</a> — copy-paste CSS animations. Good for adding motion without writing keyframes from scratch.</li>
+      </ul>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Mono',monospace; font-size:0.75rem; color:var(--chaos-gold); margin-bottom:0.75rem; letter-spacing:0.1em;">VS CODE EXTENSIONS</h3>
+      <ul class="resource-list">
+        <li><span class="r-tag r-tool">extension</span> <strong>Live Server</strong> — auto-refreshing browser preview. Install this first.</li>
+        <li><span class="r-tag r-tool">extension</span> <strong>Prettier</strong> — code formatter. Set it to format on save.</li>
+        <li><span class="r-tag r-tool">extension</span> <strong>Color Highlight</strong> — color swatches next to hex codes in your CSS.</li>
+        <li><span class="r-tag r-tool">extension</span> <strong>Auto Rename Tag</strong> — rename paired HTML tags simultaneously.</li>
+      </ul>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer>
+    <div class="container">
+      <div class="footer-logo">
+        ✨ NOW PAGES GUIDE ✨<br>
+        a message in a bottle
+      </div>
+      <div class="footer-text">
+        <p>
+          made with HTML, CSS, and a stubborn belief that the internet can still be a fun place to exist.<br>
+          by <strong style="color:var(--chaos-gold);">Kitty M.</strong> ·
+          <a href="https://github.com/glitchwitchkitty" target="_blank" rel="noopener">github.com/glitchwitchkitty</a>
+        </p>
+        <p style="margin-top:0.75rem; font-size:0.6rem; opacity:0.5;">
+          this page was built with the same tools described in it.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================
+       GLITTER CURSOR TRAIL — JavaScript
+       ============================================ -->
+  <script>
+    // Sparkle colors from the Chaos Gremlin palette
+    const COLORS = [
+      '#f7c863', // chaos gold
+      '#c084fc', // orchid
+      '#f472b6', // neon pink
+      '#22d3ee', // cyan
+      '#1e6b78', // gremlin light
+      '#ffffff',
+    ];
+
+    // Shared helper — spawn a single glitter dot at (x, y)
+    function spawnDot(x, y) {
+      const dot = document.createElement('div');
+      dot.className = 'glitter-dot';
+
+      // Random color from palette
+      dot.style.background = COLORS[Math.floor(Math.random() * COLORS.length)];
+
+      // Random size for variety
+      const size = Math.random() * 6 + 4;
+      dot.style.width  = size + 'px';
+      dot.style.height = size + 'px';
+
+      // Glow matching dot color
+      dot.style.boxShadow = `0 0 ${size * 2}px ${dot.style.background}`;
+
+      // Position
+      dot.style.left = x + 'px';
+      dot.style.top  = y + 'px';
+
+      document.body.appendChild(dot);
+
+      // Remove after animation completes
+      setTimeout(() => dot.remove(), 700);
+    }
+
+    // ── DESKTOP: continuous trail on mousemove ──
+    document.addEventListener('mousemove', (e) => {
+      spawnDot(e.clientX, e.clientY);
+    });
+
+    // ── MOBILE: burst of sparkles on touchstart ──
+    // touchstart fires immediately on tap, before any scroll intent
+    document.addEventListener('touchstart', (e) => {
+      // Loop through all active touch points (handles multi-touch too)
+      Array.from(e.touches).forEach(touch => {
+        // Spawn a burst of 8–10 dots scattered around the tap point
+        const burstCount = Math.floor(Math.random() * 3) + 8;
+        for (let i = 0; i < burstCount; i++) {
+          // Scatter radius: up to 28px from tap center
+          const angle  = Math.random() * Math.PI * 2;
+          const radius = Math.random() * 28;
+          const x = touch.clientX + Math.cos(angle) * radius;
+          const y = touch.clientY + Math.sin(angle) * radius;
+          // Stagger spawn slightly so dots don't all fade at once
+          setTimeout(() => spawnDot(x, y), i * 30);
+        }
+      });
+    }, { passive: true }); // passive: true = don't block scroll performance
+  </script>
+
+  <!-- ============================================
+       COPY BUTTON LOGIC
+       ============================================ -->
+  <script>
+    // Find all copy buttons and attach click handlers
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Get the id of the hidden <pre> that holds the raw copy content
+        const targetId = 'copy-' + btn.dataset.copy;
+        const source   = document.getElementById(targetId);
+        if (!source) return;
+
+        // Copy the text content to clipboard
+        navigator.clipboard.writeText(source.textContent.trim()).then(() => {
+          // Visual feedback — swap label, add class, then restore
+          const original = btn.textContent;
+          btn.textContent = '✓ copied!';
+          btn.classList.add('copied');
+          setTimeout(() => {
+            btn.textContent = original;
+            btn.classList.remove('copied');
+          }, 2000);
+        }).catch(() => {
+          // Fallback for browsers without clipboard API
+          btn.textContent = 'open console';
+          console.log('--- COPY CONTENT ---\n' + source.textContent.trim());
+          setTimeout(() => { btn.textContent = 'copy'; }, 2000);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
