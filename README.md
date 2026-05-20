@@ -14,7 +14,6 @@ A clean, dark-themed portfolio built with vanilla HTML, CSS, and JavaScript. No 
 
 - **Manufacturing Defect Analysis** — ANOVA, Python, Power BI dashboard, root cause analysis (DAT 475 Capstone · SNHU)
 - **Predicting Employee Attrition** — Random Forest, AdaBoost, GridSearchCV, Power BI (DAT 430 · SNHU)
-- **Data Storytelling with Pandas** — WhatsApp group engagement analysis
 
 ## Built With
 
