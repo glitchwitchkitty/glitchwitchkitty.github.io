@@ -5,6 +5,130 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>K. Magyar · Portfolio</title>
 
+  <!-- ── SEO & discoverability meta ── -->
+  <meta name="description" content="Kat Magyar (Glitch Kitty) — data analyst and creative coder. Portfolio of data analytics, machine learning, and privacy-first software projects. Chaos Gremlin HQ." />
+  <meta name="author" content="Kat Magyar" />
+  <meta name="keywords" content="data analyst, machine learning, Python, SQL, Power BI, data analytics portfolio, privacy tech, Kat Magyar, Glitch Kitty, Chaos Gremlin HQ" />
+
+  <!-- ── Open Graph (link previews in Slack, Discord, social) ── -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Kat Magyar · Chaos Gremlin HQ" />
+  <meta property="og:description" content="Data analyst and creative coder. Python · SQL · Power BI · Machine Learning · Privacy-first tech." />
+  <meta property="og:url"         content="https://glitchwitchkitty.github.io/" />
+  <meta property="og:site_name"   content="Chaos Gremlin HQ" />
+
+  <!-- ── Canonical URL ── -->
+  <link rel="canonical" href="https://glitchwitchkitty.github.io/" />
+
+  <!-- ── Schema.org JSON-LD structured data ──────────────────────
+       Gives AI assistants and search engines machine-readable facts
+       about who Kat is, what this site is, and what projects exist.
+       Uses Person, WebSite, and CreativeWork/SoftwareApplication types.
+  ─────────────────────────────────────────────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      {
+        "@type": "Person",
+        "@id": "https://glitchwitchkitty.github.io/#kat",
+        "name": "Kat Magyar",
+        "alternateName": ["K. Magyar", "Kitty Magyar", "Kitty M.", "Glitch Kitty", "glitchwitchkitty"],
+        "description": "Data analyst and creative coder with a BS in Data Analytics. Specializes in Python, SQL, Power BI, and machine learning with a focus on privacy-first technology and data ethics.",
+        "jobTitle": "Data Analyst",
+        "url": "https://glitchwitchkitty.github.io/",
+        "email": "chaos.kat.magyar@proton.me",
+        "sameAs": [
+          "https://github.com/glitchwitchkitty",
+          "https://www.linkedin.com/in/glitchkitty"
+        ],
+        "knowsAbout": [
+          "Data Analytics",
+          "Machine Learning",
+          "Python",
+          "pandas",
+          "scikit-learn",
+          "SQL",
+          "Power BI",
+          "Exploratory Data Analysis",
+          "Statistical Analysis",
+          "ANOVA",
+          "Feature Engineering",
+          "ETL Pipelines",
+          "Privacy-First Technology",
+          "Data Ethics",
+          "AI Ethics",
+          "Local LLMs",
+          "GitHub Pages",
+          "HTML",
+          "CSS",
+          "JavaScript"
+        ],
+        "hasCredential": {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "Bachelor of Science",
+          "name": "BS in Data Analytics",
+          "recognizedBy": {
+            "@type": "Organization",
+            "name": "Southern New Hampshire University"
+          }
+        }
+      },
+
+      {
+        "@type": "WebSite",
+        "@id": "https://glitchwitchkitty.github.io/#website",
+        "name": "Chaos Gremlin HQ",
+        "alternateName": "Kat Magyar Portfolio",
+        "url": "https://glitchwitchkitty.github.io/",
+        "description": "Portfolio and digital laboratory of Kat Magyar (Glitch Kitty) — data analyst and creative coder.",
+        "author": { "@id": "https://glitchwitchkitty.github.io/#kat" },
+        "inLanguage": "en-US",
+        "copyrightYear": "2025",
+        "copyrightHolder": { "@id": "https://glitchwitchkitty.github.io/#kat" }
+      },
+
+      {
+        "@type": "CreativeWork",
+        "@id": "https://glitchwitchkitty.github.io/projects/manufacturing-defects.html#project",
+        "name": "Manufacturing Defect Analysis",
+        "description": "Capstone data analytics project combining root cause analysis, one-way ANOVA (F=17.64, p<0.001), Pareto analysis, and a Power BI dashboard to identify which production models drove defect variation.",
+        "url": "https://glitchwitchkitty.github.io/projects/manufacturing-defects.html",
+        "author": { "@id": "https://glitchwitchkitty.github.io/#kat" },
+        "keywords": ["data analytics", "ANOVA", "Power BI", "root cause analysis", "manufacturing", "Python", "statistics"],
+        "genre": "Data Analytics Project",
+        "isPartOf": { "@id": "https://glitchwitchkitty.github.io/#website" }
+      },
+
+      {
+        "@type": "CreativeWork",
+        "@id": "https://glitchwitchkitty.github.io/projects/employee-attrition.html#project",
+        "name": "Predicting Employee Attrition",
+        "description": "Machine learning pipeline using logistic regression, Random Forest, and AdaBoost with GridSearchCV tuning optimized for recall. Results visualized in an interactive Power BI dashboard.",
+        "url": "https://glitchwitchkitty.github.io/projects/employee-attrition.html",
+        "author": { "@id": "https://glitchwitchkitty.github.io/#kat" },
+        "keywords": ["machine learning", "scikit-learn", "Random Forest", "AdaBoost", "classification", "Python", "Power BI", "HR analytics"],
+        "genre": "Machine Learning Project",
+        "isPartOf": { "@id": "https://glitchwitchkitty.github.io/#website" }
+      },
+
+      {
+        "@type": "CreativeWork",
+        "@id": "https://glitchwitchkitty.github.io/now-pages-guide.html#guide",
+        "name": "Now Pages: A Whimsical Guide to Existing on the Internet",
+        "description": "A beginner-friendly guide to building a personal /now page — covering what they are, HTML/CSS basics, AI-assisted coding, and GitHub Pages hosting. Written for women and beginners entering tech.",
+        "url": "https://glitchwitchkitty.github.io/now-pages-guide.html",
+        "author": { "@id": "https://glitchwitchkitty.github.io/#kat" },
+        "keywords": ["now page", "HTML", "CSS", "GitHub Pages", "beginner web dev", "indie web", "women in tech"],
+        "genre": "Educational Guide",
+        "isPartOf": { "@id": "https://glitchwitchkitty.github.io/#website" }
+      }
+
+    ]
+  }
+  </script>
+
   <!-- Fonts: Playfair Display (warmth/display) · DM Mono (labels/code) · Lato (body) -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=Lato:wght@300;400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="simple_style.css" />
@@ -58,7 +182,7 @@
     </section>
 
     <!-- ── What I Do ── -->
-    <section id="services" class="section">
+    <section id="services" class="section" aria-label="Services and skills">
       <div class="container">
         <h2 class="section-title">What I Do</h2>
 
@@ -98,7 +222,7 @@
     </section>
 
     <!-- ── Projects ── -->
-    <section id="projects" class="section">
+    <section id="projects" class="section" aria-label="Portfolio projects and guides">
       <div class="container">
         <h2 class="section-title">Projects</h2>
         <p class="section-intro">A few favorites. Each link includes code and a short write-up.</p>
@@ -208,9 +332,11 @@
     </section>
 
     <!-- ── Contact ── -->
-    <section id="contact" class="section">
+    <section id="contact" class="section" aria-label="Contact information">
       <div class="container">
         <h2 class="section-title">Contact</h2>
+        <!-- address element signals to machines that these are contact details for the page author -->
+        <address style="font-style: normal;">
         <div class="contact-grid">
 
           <a class="contact-card" href="mailto:chaos.kat.magyar@proton.me" aria-label="Email Kat">
@@ -229,6 +355,7 @@
           </a>
 
         </div>
+        </address>
       </div>
     </section>
 

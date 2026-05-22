@@ -1,0 +1,97 @@
+# ============================================================
+# robots.txt — Chaos Gremlin HQ (glitchwitchkitty.github.io)
+# Owner: Kat Magyar
+# Last updated: 2026-05
+#
+# POLICY SUMMARY
+# Allow: search indexing and AI assistant retrieval (discovery)
+# Block: AI model training crawlers (unauthorized data ingestion)
+#
+# This file distinguishes between bots that RETRIEVE content
+# to answer user questions (allowed) and bots that SCRAPE
+# content to train large language models (blocked).
+# ============================================================
+
+
+# ── OpenAI ──────────────────────────────────────────────────
+# OAI-SearchBot: retrieves pages to answer ChatGPT user queries → ALLOWED
+User-agent: OAI-SearchBot
+Allow: /
+
+# GPTBot: scrapes content to train OpenAI models → BLOCKED
+User-agent: GPTBot
+Disallow: /
+
+
+# ── Anthropic (Claude) ───────────────────────────────────────
+# Claude-User: retrieves pages when a user shares a URL → ALLOWED
+User-agent: Claude-User
+Allow: /
+
+# Claude-SearchBot: retrieves pages to answer Claude search queries → ALLOWED
+User-agent: Claude-SearchBot
+Allow: /
+
+# ClaudeBot: scrapes content for Anthropic model training → BLOCKED
+User-agent: ClaudeBot
+Disallow: /
+
+
+# ── Google ───────────────────────────────────────────────────
+# Googlebot: standard search indexing → ALLOWED
+User-agent: Googlebot
+Allow: /
+
+# Google-Extended: used to train Google AI products (Gemini etc.) → BLOCKED
+User-agent: Google-Extended
+Disallow: /
+
+
+# ── Meta ─────────────────────────────────────────────────────
+# FacebookBot: social preview fetching → ALLOWED
+User-agent: facebookexternalhit
+Allow: /
+
+# Meta-ExternalAgent: broad Meta scraping/training → BLOCKED
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+
+# ── Common crawlers and training scrapers ────────────────────
+# CCBot: Common Crawl — used heavily to train many LLMs → BLOCKED
+User-agent: CCBot
+Disallow: /
+
+# Bytespider: ByteDance/TikTok training crawler → BLOCKED
+User-agent: Bytespider
+Disallow: /
+
+# Omgilibot / webz.io: news/data aggregation for AI training → BLOCKED
+User-agent: omgilibot
+Disallow: /
+
+# cohere-ai: Cohere training crawler → BLOCKED
+User-agent: cohere-ai
+Disallow: /
+
+# Diffbot: web scraping for AI knowledge graphs → BLOCKED
+User-agent: Diffbot
+Disallow: /
+
+# PetalBot: Huawei search + data collection → BLOCKED
+User-agent: PetalBot
+Disallow: /
+
+# PerplexityBot: Perplexity AI search crawler → ALLOWED
+# (retrieval only, not training)
+User-agent: PerplexityBot
+Allow: /
+
+
+# ── All other bots ───────────────────────────────────────────
+# Default: allow standard crawlers not listed above
+User-agent: *
+Allow: /
+
+# Sitemap location — helps all crawlers discover pages
+Sitemap: https://glitchwitchkitty.github.io/sitemap.xml
