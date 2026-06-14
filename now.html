@@ -5,15 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>/now — Chaos Gremlin HQ</title>
 
-  <!-- ── SEO & discoverability meta ── -->
-  <meta name="description" content="What Kat Magyar (Glitch Kitty) is focused on right now — current projects, learning, reading, and life. A /now page from Chaos Gremlin HQ." />
-  <meta name="author" content="Kat Magyar" />
-  <meta property="og:type"        content="website" />
-  <meta property="og:title"       content="/now — Chaos Gremlin HQ" />
-  <meta property="og:description" content="A snapshot of what Kat Magyar is working on, learning, and reading right now." />
-  <meta property="og:url"         content="https://glitchwitchkitty.github.io/now.html" />
-  <link rel="canonical" href="https://glitchwitchkitty.github.io/now.html" />
-
   <!--
     Fonts:
     - Press Start 2P  → glitch /now title (from the guide's aesthetic)
@@ -24,24 +15,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 
   <style>
-    /* ── CSS Variables: warm signal palette ── */
+    /* ── CSS Variables: Chaos Gremlin palette (swapped from warm signal) ── */
     :root {
-      --bg-void:        #0d0f1a;
-      --bg-card:        #13162a;
-      --bg-card-hover:  #181c32;
-      --glow-blue:      #7eb8f7;
-      --glow-purple:    #b48ef7;
-      --pink-soft:      #f2afc7;
-      --pink-warm:      #e8849d;
-      --cream:          #f5edd6;
-      --cream-dim:      #c9bfa8;
-      --gold-accent:    #e8c97a;
-      --chaos-gold:     #f7c863;   /* from guide — for glitch title */
-      --orchid:         #c084fc;   /* from guide — for hover glitch */
-      --neon-pink:      #f472b6;   /* from guide — for hover glitch */
-      --cyan:           #22d3ee;   /* from guide — for hover glitch */
-      --border-subtle:  rgba(126, 184, 247, 0.12);
-      --border-glow:    rgba(126, 184, 247, 0.35);
+      --bg-void:        #000000;
+      --bg-card:        #111418;
+      --bg-card-hover:  #1a1e24;
+      --glow-blue:      #1e6b78;   /* gremlin-light teal, was glow-blue */
+      --glow-purple:    #c084fc;   /* orchid, was glow-purple */
+      --pink-soft:      #f472b6;   /* neon-pink, was pink-soft */
+      --pink-warm:      #e0a840;   /* chaos-amber, was pink-warm */
+      --cream:          #f0eeea;   /* white, was cream */
+      --cream-dim:      #8899aa;   /* gray-mid, was cream-dim */
+      --gold-accent:    #f7c863;   /* chaos-gold, was gold-accent */
+      --chaos-gold:     #f7c863;
+      --orchid:         #c084fc;
+      --neon-pink:      #f472b6;
+      --cyan:           #22d3ee;
+      --border-subtle:  rgba(240, 238, 234, 0.08);
+      --border-glow:    rgba(34, 211, 238, 0.35);
 
       --font-pixel:   'Press Start 2P', monospace;
       --font-display: 'Playfair Display', Georgia, serif;
@@ -74,9 +65,9 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 15% 20%, rgba(242, 175, 199, 0.06) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 40% at 85% 80%, rgba(126, 184, 247, 0.07) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 60% at 50% 50%, rgba(180, 142, 247, 0.04) 0%, transparent 80%);
+        radial-gradient(ellipse 60% 50% at 15% 20%, rgba(244, 114, 182, 0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 85% 80%, rgba(34, 211, 238, 0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 50% 50%, rgba(192, 132, 252, 0.05) 0%, transparent 80%);
       pointer-events: none;
       z-index: 0;
     }
@@ -254,6 +245,7 @@
     .card--reading  { --card-accent: var(--glow-purple); }
     .card--hobbies  { --card-accent: var(--pink-warm); }
     .card--fridge   { --card-accent: var(--gold-accent); }
+    .card--beliefs  { --card-accent: var(--orchid); }
     .card--elsewhere{ --card-accent: var(--glow-blue); }
 
     /* ── Card typography ── */
@@ -316,15 +308,15 @@
       transition: background 0.2s ease;
     }
 
-    .tag--blue   { color: var(--glow-blue);   border-color: rgba(126,184,247,0.3);  background: rgba(126,184,247,0.06); }
-    .tag--purple { color: var(--glow-purple); border-color: rgba(180,142,247,0.3);  background: rgba(180,142,247,0.06); }
-    .tag--pink   { color: var(--pink-soft);   border-color: rgba(242,175,199,0.3);  background: rgba(242,175,199,0.06); }
-    .tag--gold   { color: var(--gold-accent); border-color: rgba(232,201,122,0.3);  background: rgba(232,201,122,0.06); }
+    .tag--blue   { color: var(--glow-blue);   border-color: rgba(30,107,120,0.5);   background: rgba(30,107,120,0.12); }
+    .tag--purple { color: var(--glow-purple); border-color: rgba(192,132,252,0.3);  background: rgba(192,132,252,0.06); }
+    .tag--pink   { color: var(--pink-soft);   border-color: rgba(244,114,182,0.3);  background: rgba(244,114,182,0.06); }
+    .tag--gold   { color: var(--gold-accent); border-color: rgba(247,200,99,0.3);   background: rgba(247,200,99,0.06); }
 
-    .tag--blue:hover   { background: rgba(126,184,247,0.15); }
-    .tag--purple:hover { background: rgba(180,142,247,0.15); }
-    .tag--pink:hover   { background: rgba(242,175,199,0.15); }
-    .tag--gold:hover   { background: rgba(232,201,122,0.15); }
+    .tag--blue:hover   { background: rgba(30,107,120,0.22); }
+    .tag--purple:hover { background: rgba(192,132,252,0.15); }
+    .tag--pink:hover   { background: rgba(244,114,182,0.15); }
+    .tag--gold:hover   { background: rgba(247,200,99,0.15); }
 
     /* ── Book entries (reading section) ── */
     .book-entry {
@@ -348,11 +340,40 @@
       margin-top: 0.25rem;
     }
 
+    /* ── Belief list (current beliefs card) ── */
+    .belief-list {
+      list-style: none;
+      margin: 1rem 0 0;
+      padding: 0;
+    }
+
+    .belief-list li {
+      font-size: 0.95rem;
+      color: var(--cream-dim);
+      padding: 0.5rem 0 0.5rem 1.4rem;
+      position: relative;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .belief-list li:last-child { border-bottom: none; padding-bottom: 0; }
+    .belief-list li:first-child { padding-top: 0; }
+
+    /* Mono glyph bullet, gold-accented */
+    .belief-list li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      top: 0.55rem;
+      font-size: 0.6rem;
+      color: var(--gold-accent);
+      opacity: 0.7;
+    }
+
     /* ── Links ── */
     a {
       color: var(--glow-blue);
       text-decoration: none;
-      border-bottom: 1px solid rgba(126,184,247,0.3);
+      border-bottom: 1px solid rgba(30,107,120,0.5);
       transition: color 0.2s, border-color 0.2s;
     }
 
@@ -437,7 +458,7 @@
       <h1 class="page-title" data-text="/now"><span class="slash">/</span>now</h1>
       <p class="page-subtitle">
         a snapshot of what i'm focused on right now. ·
-        <span class="updated">last updated may 2026</span>
+        <span class="updated">last updated june 2026</span>
       </p>
       <hr class="glow-rule" />
     </header>
@@ -447,36 +468,46 @@
       <!-- Current Status -->
       <article class="card card--status">
         <p class="card-label">current status</p>
-        <h2 class="card-title">Fresh out of school, building things.</h2>
+        <h2 class="card-title">Building systems that support curiosity.</h2>
         <p>
           I'm Kitty — a data analyst, privacy advocate, and chaos engineer based in the midwest.
-          I just finished my BS in Data Analytics and I'm in that strange, electric in-between:
-          not a student anymore, not yet wherever I'm going next.
+          This summer isn't about optimization. It's about paying attention. After finishing
+          my degree, I decided to stop treating every interest like it needed to become a
+          career move — instead I'm spending my time on the things that genuinely fascinate
+          me: health data, privacy, home labs, body mechanics, books, plants, and whatever
+          strange rabbit hole catches my attention next.
         </p>
         <blockquote class="belief">
-          Data should serve people, not exploit them.
+          What happens when I pay attention long enough to understand how something
+          actually works? Right now, that's enough.
         </blockquote>
         <p>
-          I'm spending this time building things that matter to me — a portfolio,
-          a home lab, educational resources for women entering tech —
-          and figuring out what kind of work I actually want to do in the world.
+          Mornings are slow on purpose — late starts, a protein drink, sunshine, chores,
+          and a Vox Machina episode. Afternoons shift into coding, organizing the book
+          collection, more reading, Pilates, and hanging upside down on the yoga trapeze
+          with sunshine sprinkled in between. Yard work has become my reset after an hour
+          of doomscrolling, and the houseplants are propagating like they know something
+          I don't.
         </p>
       </article>
 
       <!-- What I'm Working On -->
       <article class="card card--working">
         <p class="card-label">what i'm working on</p>
-        <h2 class="card-title">Chaos Gremlin HQ.</h2>
+        <h2 class="card-title">chronically_quantified.</h2>
         <p>
-          My portfolio site is an ongoing experiment — part professional showcase,
-          part digital laboratory. Current projects include a manufacturing defect analysis,
-          an employee attrition ML pipeline, and a Beginner's Guide to Pandas
-          with a Lisa Frank aesthetic because why not.
+          The main project right now is sorting and cleaning roughly 8 years of Fitbit,
+          diet app, and other health data into something coherent — partly out of genuine
+          curiosity about my own patterns, and partly because it's a great excuse to get
+          better at data pipelines. Old exports, inconsistent formats, and the occasional
+          mystery CSV are all part of the fun.
         </p>
         <p>
-          I'm also quietly building educational content for women who want to enter tech
-          and don't know where to start. No brand, no pressure. Just a message in a bottle
-          left somewhere useful on the internet.
+          Alongside that: de-Googling my life one service at a time, poking at Arduino
+          and Raspberry Pi projects for the love of it, and — for entirely petty reasons —
+          dumbing down my smart TVs so they stop phoning home. Guides for all of this
+          will eventually make their way to the portfolio, once they're less "duct tape
+          and curiosity" and more "something another person could follow."
         </p>
         <p>
           The less glamorous but equally real work right now: sorting accumulated projects
@@ -487,12 +518,12 @@
         <div class="tags">
           <span class="tag tag--blue">python</span>
           <span class="tag tag--blue">pandas</span>
-          <span class="tag tag--blue">power bi</span>
-          <span class="tag tag--blue">sql</span>
-          <span class="tag tag--purple">github pages</span>
-          <span class="tag tag--purple">local LLMs</span>
-          <span class="tag tag--pink">ollama</span>
-          <span class="tag tag--pink">pi-hole</span>
+          <span class="tag tag--blue">sqlite</span>
+          <span class="tag tag--purple">de-googling</span>
+          <span class="tag tag--purple">arduino</span>
+          <span class="tag tag--purple">raspberry pi</span>
+          <span class="tag tag--pink">home lab</span>
+          <span class="tag tag--pink">smart tv detox</span>
         </div>
       </article>
 
@@ -501,21 +532,28 @@
         <p class="card-label">what i'm learning</p>
         <h2 class="card-title">Going deeper.</h2>
         <p>
-          Right now I'm in a machine learning interpretability rabbit hole — specifically SHAP values,
-          which are the kind of thing that make you feel like you finally understand
-          what the model is actually doing versus what it's pretending to do.
-          Also: data engineering fundamentals, home lab infrastructure, and Arduino
-          because I genuinely think electrical engineering is fascinating and I refuse to be stopped.
+          Lately I've been living at the intersection of data, privacy, and systems
+          thinking. Right now that means data engineering fundamentals (mostly via the
+          health data pipeline — eight years of exports do not clean themselves), home
+          lab infrastructure, signal tracing, self-hosting, and just enough electronics
+          to make Arduino and Raspberry Pi projects behave.
+        </p>
+        <p>
+          The longer I study how information moves through systems, the more I find
+          myself interested in how <em>bodies</em> move through systems too. The more I
+          learn about technology, the more interested I become in biology. The more I
+          learn about biology, the more interested I become in systems design. Turns out
+          they're not that different.
         </p>
         <p>
           I learn best when I'm building something a little chaotic that I care about.
           Structured courses alone put me to sleep.
         </p>
         <div class="tags">
-          <span class="tag tag--gold">machine learning</span>
-          <span class="tag tag--gold">SHAP</span>
           <span class="tag tag--gold">data engineering</span>
+          <span class="tag tag--gold">sqlite</span>
           <span class="tag tag--gold">arduino</span>
+          <span class="tag tag--gold">raspberry pi</span>
           <span class="tag tag--gold">home lab</span>
         </div>
       </article>
@@ -545,7 +583,7 @@
 
           <div class="book-entry">
             <p class="book-title">Somatic Yoga for Nervous System Regulation — LearnWell Books</p>
-            <p class="book-note">Same systems thinking as everything else, just pointed inward. Learning to work with my body instead of debugging it from the outside.</p>
+            <p class="book-note">Less "reading" and more "ongoing reference" at this point — it has a guide for specific poses, so it's the kind of book I keep coming back to rather than finishing.</p>
           </div>
 
           <div class="book-entry">
@@ -559,10 +597,10 @@
           </div>
 
           <div class="book-entry">
-            <p class="book-title">Wave Song — Emma Hamm
+            <p class="book-title">A Soul to Touch — Opal Reyne
               <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--glow-blue); margin-left: 0.5rem;">audiobook</span>
             </p>
-            <p class="book-note">Fantasy on the commute stack. This is the read-while-doing-other-things slot and it is a sacred slot.</p>
+            <p class="book-note">Picked this up after finishing Wave Song. Commute-stack monster romance — the read-while-doing-other-things slot remains a sacred slot.</p>
           </div>
 
         </div>
@@ -573,28 +611,50 @@
         <p class="card-label">outside the terminal</p>
         <h2 class="card-title">The rest of it.</h2>
         <p>
-          A significant piece of my life right now is rebuilding my body with the same
-          patience I'd apply to a complicated dataset. Anti-inflammatory eating, Pilates,
-          somatic yoga, nettle tea — not as a wellness aesthetic but as actual ongoing
-          experiments in what makes this particular nervous system feel like it belongs
-          to me. Slow work. Worth doing.
+          A lot of my actual life right now happens away from a screen, on purpose.
+          Pilates and hanging upside down on the yoga trapeze are non-negotiable parts
+          of the day, and the overgrown backyard has become a genuine project — slow,
+          physical, and weirdly meditative. When I notice I've been doomscrolling for
+          an hour, going outside to pull weeds or move dirt around is the reset that
+          actually works. I've become increasingly convinced that touching grass is an
+          underrated debugging technique.
         </p>
         <p>
-          Outside of that: pottery is on hold but not forgotten. My Stardew Valley farm
-          is an optimization problem I take completely seriously. And I have long-horizon
-          plans for biotope aquariums and plant automation systems, because domestic science
-          is still science and I will not be taking questions.
+          My body has accidentally become one of my favorite research projects too —
+          tracking movement, recovery, and patterns instead of forcing outcomes.
+          Understanding comes first. Optimization can wait.
+        </p>
+        <p>
+          Indoors, the houseplants are propagating with more enthusiasm than I planned for,
+          Vox Machina is the current morning-coffee show, and the book collection is slowly
+          getting organized into something that resembles a system. Pottery is on hold but
+          not forgotten, and I still have long-horizon plans for biotope aquariums and plant
+          automation, because domestic science is still science and I will not be taking questions.
         </p>
         <div class="tags">
+          <span class="tag tag--pink">backyard restoration</span>
           <span class="tag tag--pink">pottery</span>
-          <span class="tag tag--pink">stardew valley</span>
-          <span class="tag tag--pink">cozy gaming</span>
-          <span class="tag tag--purple">plant systems</span>
+          <span class="tag tag--purple">houseplants</span>
           <span class="tag tag--purple">aquariums</span>
           <span class="tag tag--gold">pilates</span>
-          <span class="tag tag--gold">somatic healing</span>
-          <span class="tag tag--gold">anti-inflammatory</span>
+          <span class="tag tag--gold">yoga trapeze</span>
+          <span class="tag tag--gold">book organizing</span>
+          <span class="tag tag--gold">vox machina</span>
         </div>
+      </article>
+
+      <!-- A Few Things I Currently Believe -->
+      <article class="card card--beliefs">
+        <p class="card-label">a few things i currently believe</p>
+        <h2 class="card-title">Subject to revision.</h2>
+        <ul class="belief-list">
+          <li>Data should serve people, not exploit them.</li>
+          <li>Curiosity is more useful than certainty.</li>
+          <li>Small systems beat big goals.</li>
+          <li>Documentation is an act of kindness to your future self.</li>
+          <li>Most interesting things reveal themselves when you pay attention long enough.</li>
+          <li>Sometimes the correct response to a problem is a spreadsheet. Sometimes it's a nap. Both have their place.</li>
+        </ul>
       </article>
 
       <!-- Elsewhere -->
@@ -629,14 +689,14 @@
     Warm signal palette colors: gold, orchid, pink, cyan
   -->
   <script>
-    // Glitter colors drawn from the now-page warm signal palette
+    // Glitter colors drawn from the Chaos Gremlin palette
     const GLITTER_COLORS = [
-      '#e8c97a', // gold
-      '#f2afc7', // cotton candy pink
-      '#b48ef7', // purple
-      '#7eb8f7', // keyboard blue
-      '#e8849d', // blush pink
+      '#f7c863', // chaos gold
+      '#f472b6', // neon pink
       '#c084fc', // orchid
+      '#22d3ee', // cyan
+      '#1e6b78', // gremlin teal
+      '#e0a840', // chaos amber
     ];
 
     // Spawn a single glitter dot at screen coordinates (x, y)
