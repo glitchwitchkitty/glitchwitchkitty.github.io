@@ -115,7 +115,7 @@ header.hero .title i { font-style: italic; color: var(--pink); }
 .spec-grid .case-img { margin: 0; }
 
 /* ── Pipeline diagram (architecture section) ── */
-.pipeline { margin: 28px 0; overflow-x: auto; }
+.pipeline { margin: 28px 0; padding-top: 20px; overflow-x: auto; }
 
 .pipeline-row {
   display: flex;
