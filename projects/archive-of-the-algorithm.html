@@ -27,11 +27,14 @@
       <a href="../index.html">Home</a>
       <a href="../index.html#services">What I Do</a>
       <a href="../index.html#projects">Projects</a>
+      <!-- /now lives outside the single-page flow — mono + pink signals that, matches index.html -->
+      <a href="../now.html" class="nav-now">/now</a>
       <a href="../index.html#contact">Contact</a>
     </nav>
   </div>
 </header>
 
+<!-- ── Hero ── -->
 <header class="hero">
   <div class="wrap">
     <div class="eyebrow">Portfolio Case Study</div>
@@ -45,6 +48,7 @@
   </div>
 </header>
 
+<!-- ── 01: The Cursed Folder — origin story, no image needed ── -->
 <section id="cursed">
   <div class="wrap">
     <div class="section-label">01 — The Cursed Folder</div>
@@ -57,6 +61,7 @@
   </div>
 </section>
 
+<!-- ── 02: The Pivot — the 7,000-video export, plus terminal screenshot ── -->
 <section id="pivot">
   <div class="wrap">
     <div class="section-label">02 — The Pivot</div>
@@ -65,14 +70,12 @@
     <p>What began as "let me fix this folder" became a real stress test for the pipeline: could it hold up at 10x+ the scale, across wildly inconsistent content — fitness clips, home renovation, recipe videos, news commentary, and no shortage of unfiltered internet chaos?</p>
     <p>One detail I didn't chase down, but noticed along the way: buried inside TikTok's own export structure, those 7,000 files actually have their original metadata sitting somewhere else in the archive — just not attached to the video files themselves. Extracting it and correctly matching each record back to its corresponding hash-named <span class="accent-teal">.mp4</span> is a real problem on its own, and a good candidate for a future pass at this project rather than something I solved here.</p>
 
-    <div class="placeholder wide">
-      <div>TERMINAL — pipeline processing in real time</div>
-      <div class="file">workflow_pipeline_REDACTED.jpg</div>
-      <div class="ratio">recommended: full-width, ~16:7</div>
-    </div>
+    <!-- Terminal screenshot: pipeline processing in real time -->
+    <img class="case-img wide" src="../assets/img/workflow_pipeline_REDACTED.jpg" alt="Terminal output showing the pipeline processing videos in real time">
   </div>
 </section>
 
+<!-- ── 03: The Architecture — pipeline diagram + VRAM/troubleshooting/sidecar screenshots ── -->
 <section id="architecture">
   <div class="wrap">
     <div class="section-label">03 — The Architecture</div>
@@ -113,26 +116,20 @@
     <p>On the local side, model choice took some real trial and error. I tested <strong>llava:13b</strong>, <strong>llava:7b</strong>, and <strong>moondream</strong> against each other to compare output quality and resource cost. Running llava:13b against a 10GB RTX 3080 blew past comfortable VRAM headroom; dropping to <strong>llava:7b</strong> brought usage down to ~5.4GB while still producing solid titles and tags, so that's what the production run used. Small model-selection decisions like this are where "it runs on my machine" turns into "it runs reliably, unattended, for 7,000 videos."</p>
 
     <div class="spec-grid">
-      <div class="placeholder tall">
-        <div>NVIDIA-SMI — VRAM under load</div>
-        <div class="file">fedora_specs.jpg / fedora_specs2.jpg</div>
-        <div class="ratio">pick the clearer of the two</div>
-      </div>
-      <div class="placeholder tall">
-        <div>TERMINAL — model swap troubleshooting</div>
-        <div class="file">fedora_troublshoot.jpg</div>
-        <div class="ratio">~4:3</div>
-      </div>
+      <!-- NVIDIA-SMI screenshot: VRAM under load. You had two candidates
+           (fedora_specs.jpg / fedora_specs2.jpg) — defaulted to fedora_specs.jpg
+           below. Swap the filename if fedora_specs2.jpg reads clearer. -->
+      <img class="case-img tall" src="../assets/img/fedora_specs.jpg" alt="nvidia-smi terminal output showing VRAM usage under load">
+      <!-- Terminal screenshot: model swap troubleshooting -->
+      <img class="case-img tall" src="../assets/img/fedora_troublshoot.jpg" alt="Terminal output showing model swap troubleshooting on Fedora">
     </div>
 
-    <div class="placeholder wide">
-      <div>SIDECAR FILES — .nfo / .json output next to renamed videos</div>
-      <div class="file">nfo_json_examples.png</div>
-      <div class="ratio">recommended: full-width</div>
-    </div>
+    <!-- Sidecar output: .nfo / .json files next to renamed videos -->
+    <img class="case-img wide" src="../assets/img/nfo_json_examples.png" alt="Example .nfo and .json sidecar files generated next to renamed video files">
   </div>
 </section>
 
+<!-- ── 04: The Honest Tradeoff — wins/misses breakdown + Jellyfin library screenshots ── -->
 <section id="tradeoff">
   <div class="wrap">
     <div class="section-label">04 — The Honest Tradeoff</div>
@@ -152,20 +149,15 @@
 
     <p>That gap is the most interesting output of this whole project. It's a small, self-contained demonstration of a much bigger open question: <strong>current AI models are strong at literal content description and weak at cultural fluency</strong> — the layer where a lot of internet-native meaning actually lives.</p>
 
-    <div class="placeholder wide">
-      <div>JELLYFIN — organized library, "the good place" / "the bad place"</div>
-      <div class="file">jellyfin_overview_CROPPED.png</div>
-      <div class="ratio">recommended: full-width, ~16:4</div>
-    </div>
+    <!-- Jellyfin library overview: organized into "the good place" / "the bad place" -->
+    <img class="case-img wide" src="../assets/img/jellyfin_overview_CROPPED.png" alt="Organized Jellyfin library showing videos sorted into 'the good place' and 'the bad place' collections">
 
-    <div class="placeholder wide">
-      <div>JELLYFIN — single entry detail view (face/caption redacted)</div>
-      <div class="file">output_in_jellyfin_REDACTED.png</div>
-      <div class="ratio">recommended: full-width, ~16:7</div>
-    </div>
+    <!-- Jellyfin single-entry detail view (face/caption redacted) -->
+    <img class="case-img wide" src="../assets/img/output_in_jellyfin_REDACTED.png" alt="Single video entry in Jellyfin showing auto-generated title, tags, and description">
   </div>
 </section>
 
+<!-- ── 05: The Reflection — takeaways, no image needed ── -->
 <section id="reflection">
   <div class="wrap">
     <div class="section-label">05 — The Reflection</div>
@@ -176,6 +168,7 @@
   </div>
 </section>
 
+<!-- ── Footer — case-study CTA (custom, does not use the shared site-footer bar) ── -->
 <footer>
   <div class="wrap">
     <p>Curious about the implementation details, the prompt engineering behind the tagging step, or how the Whisper/Vision handoff is structured? Let's talk through it.</p>
