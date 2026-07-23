@@ -488,6 +488,31 @@ body > * { position: relative; z-index: 1; }
 
 .contact-card:hover .contact-caption { color: var(--pink); }
 
+/* ── Utility classes (pulled out of inline HTML styles) ── */
+
+/* Wrapper for proj-tag pill rows — was inline margin-bottom:8px */
+.tag-row { margin-bottom: 8px; }
+
+/* "Coming soon" placeholder project card — dimmed */
+.proj--soon { opacity: 0.55; }
+
+/* Muted title variant for placeholder cards */
+.proj-title--muted { color: var(--muted); }
+
+/* address element reset — browsers italicize <address> by default */
+.contact-address { font-style: normal; }
+
+/* Footer "now" link — hover handled here instead of onmouseover/onmouseout JS */
+.footer-now-link {
+  text-decoration: none;
+  opacity: 0.65;
+  transition: opacity 0.2s;
+}
+.footer-now-link:hover { opacity: 1; }
+
+/* Footer credit text */
+.footer-credit { color: var(--muted); opacity: 0.6; }
+
 /* ── Footer ── */
 .site-footer {
   border-top: 1px solid var(--line);
