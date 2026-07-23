@@ -1,0 +1,225 @@
+/* ============================================================
+   archive-of-the-algorithm.css — case study page
+   Fonts: Cinzel (display/eyebrow) · Rajdhani (headings/body)
+          · Space Mono (labels, stats, inline code accents)
+
+   NOTE: this page also loads ../simple_style.css first, for the
+   shared site-header / nav / brand-logo classes. This file only
+   covers what's specific to the case-study layout below the nav.
+   Kat's flagged this for a future pass once there are more than
+   one of these — right now it's its own file on purpose.
+   ============================================================ */
+
+:root {
+  --teal: #14b8a6;   /* technical/inline-code accent for this page */
+}
+
+/* Reading-width wrapper — narrower than .container, built for prose */
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+/* ── Case study hero ── */
+header.hero {
+  padding: 140px 0 60px;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  opacity: 0.85;
+  margin-bottom: 10px;
+}
+
+header.hero .title {
+  font-family: 'Cinzel', serif;
+}
+
+header.hero .title i { font-style: italic; color: var(--pink); }
+
+.subtitle {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.1rem;
+}
+
+/* Lead paragraph under the case-study title */
+.lede {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.15rem;
+  color: var(--muted);
+  max-width: 620px;
+  margin: 0 0 8px;
+}
+
+/* Inline technical-term accent — filenames, extensions, hashes */
+.accent-teal { font-family: 'Space Mono', monospace; color: var(--teal); }
+
+/* ── Hero stat row ── */
+.stat-row { display: flex; gap: 32px; margin-top: 32px; flex-wrap: wrap; }
+.stat { display: flex; flex-direction: column; }
+
+.stat .num {
+  font-family: 'Cinzel', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-shadow: var(--glow-gold);
+  line-height: 1.1;
+}
+
+.stat .label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ── Case study body sections ── */
+#cursed, #pivot, #architecture, #tradeoff, #reflection {
+  padding: 56px 0;
+  border-top: 1px solid var(--line);
+  font-family: 'Rajdhani', sans-serif;
+}
+
+#cursed p, #pivot p, #architecture p, #tradeoff p, #reflection p {
+  color: var(--muted);
+  max-width: 680px;
+  font-size: 1.05rem;
+}
+
+#cursed h2, #pivot h2, #architecture h2, #tradeoff h2, #reflection h2 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  color: var(--text);
+  margin: 8px 0 18px;
+}
+
+/* ── Case study images (replaces dev placeholders) ── */
+.case-img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+  object-fit: cover;
+  margin: 24px 0;
+}
+
+.case-img.wide { aspect-ratio: 16 / 7; }
+.case-img.tall { aspect-ratio: 4 / 3; }
+
+.spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.spec-grid .case-img { margin: 0; }
+
+/* ── Pipeline diagram (architecture section) ── */
+.pipeline { margin: 28px 0; overflow-x: auto; }
+
+.pipeline-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 640px;
+}
+
+.node {
+  background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.01));
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 16px;
+  min-width: 120px;
+  text-align: center;
+  position: relative;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.node.blue   { border-color: rgba(126,184,247,0.35); box-shadow: var(--glow-blue); }
+.node.violet { border-color: rgba(180,142,247,0.35); box-shadow: var(--glow-purple); }
+.node.teal   { border-color: rgba(20,184,166,0.35); }
+
+.n-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.n-title { font-weight: 600; font-size: 0.95rem; color: var(--text); }
+.arrow { font-size: 1.3rem; color: var(--muted); flex-shrink: 0; }
+.fork { display: flex; flex-direction: column; gap: 10px; }
+
+.fork-tag {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  background: var(--bg);
+  padding: 1px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--line-glow);
+  color: var(--accent-2);
+}
+
+/* ── Tradeoff comparison box ── */
+.tradeoff-box { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+.tcol { border-radius: 14px; padding: 20px; border: 1px solid var(--line); font-family: 'Rajdhani', sans-serif; }
+.tcol h3 { font-family: 'Cinzel', serif; margin: 0 0 8px; font-size: 1.05rem; }
+.tcol p { color: var(--muted); margin: 0; font-size: 0.95rem; }
+
+.tcol.win  { border-color: rgba(232,201,122,0.3); background: rgba(232,201,122,0.05); }
+.tcol.win h3  { color: var(--gold); }
+
+.tcol.miss { border-color: rgba(232,132,157,0.3); background: rgba(232,132,157,0.05); }
+.tcol.miss h3 { color: var(--pink-warm); }
+
+/* ── Reflection blockquote ── */
+#reflection blockquote {
+  border-left: 3px solid var(--accent-2);
+  margin: 24px 0 0;
+  padding: 4px 0 4px 18px;
+  color: var(--muted);
+  font-style: italic;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* ── Case study footer — custom CTA, distinct from the shared .site-footer ── */
+footer:not(.site-footer) {
+  padding: 72px 0 60px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  font-family: 'Rajdhani', sans-serif;
+}
+
+footer:not(.site-footer) p { color: var(--muted); max-width: 520px; margin: 0 auto 20px; font-size: 1.05rem; }
+
+footer:not(.site-footer) .cta {
+  display: inline-block;
+  padding: .85rem 1.6rem;
+  border-radius: 12px;
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  border: 1px solid rgba(242,175,199,.3);
+  background: linear-gradient(135deg, rgba(242,175,199,.12), rgba(232,201,122,.12));
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+footer:not(.site-footer) .cta:hover {
+  background: linear-gradient(135deg, rgba(242,175,199,.22), rgba(232,201,122,.22));
+  box-shadow: 0 0 18px rgba(242,175,199,.2);
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .spec-grid, .tradeoff-box { grid-template-columns: 1fr; }
+  .stat-row { gap: 20px; }
+}
