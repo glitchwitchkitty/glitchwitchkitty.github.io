@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archive of the Algorithm — TikTok Auto-Labeler Pipeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Rajdhani:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="archive-of-the-algorithm.css">
+</head>
+<body>
+
+<!-- ============================================================
+     SITE HEADER — shared navigation (links back to main portfolio)
+============================================================ -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="../index.html" aria-label="Home">
+      <img src="../assets/icons/brainslug.svg" alt="Chaos Gremlin HQ logo" class="brand-logo">
+      <span class="brand-text">Chaos Gremlin HQ</span>
+    </a>
+    <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-controls="siteNav">
+      <span class="nav-toggle-bar"></span>
+      <span class="sr-only">Menu</span>
+    </button>
+    <nav id="siteNav" class="site-nav">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#services">What I Do</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Portfolio Case Study</div>
+    <h1 class="title">Inside, Acrhive of <i>the</i><br>Algorithm</h1>
+    <p class="subtitle">I built a local + cloud AI pipeline to rescue 7,555 hash-named TikToks from digital limbo. It organized the mess—and accidentally became an experiment in how confidently machines misunderstand the internet.</p>
+    <div class="stat-row">
+      <div class="stat"><span class="num">7,555</span><span class="label">files in the archive</span></div>
+      <div class="stat"><span class="num">2</span><span class="label">inference paths</span></div>
+      <div class="stat"><span class="num">1</span><span class="label">cursed folder, redeemed</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="cursed">
+  <div class="wrap">
+    <div class="section-label">01 — The Cursed Folder</div>
+    <h2>It started with 555 videos named like evidence</h2>
+    <p class="lede">It started as an archival placeholder.</p>
+    <p>I use TikTok, but on my own terms — a dedicated secure phone, a separate secured WiFi network, Pi-hole running underneath it all. My family doesn't use the platform at all; I'm the one who walked them through the data privacy concerns in the first place. So when something on my feed was worth sharing with them, the only way to do it was to download the clip and send it off-platform.</p>
+    <p>That habit built up a growing folder of downloaded videos — the kind of thing that accumulates for months without anyone noticing. But TikTok's downloaded filenames are just hashes: <span class="accent-teal">1361e662e7ca0f4ff87c8594521dcf58.mp4</span> tells you nothing. No title, no context, no way to find anything without opening every single file.</p>
+    <p>Deleting them felt like erasing an inside joke I'd already told once. So instead of cleaning house, I built a pipeline: extract a frame, transcribe the audio, hand both to a vision model, and let it figure out what the video actually was — then rename and tag it automatically.</p>
+    <p>It worked. Really well. Well enough that I got curious about what would happen if I didn't stop at 555.</p>
+  </div>
+</section>
+
+<section id="pivot">
+  <div class="wrap">
+    <div class="section-label">02 — The Pivot</div>
+    <h2>Then I fed it my entire TikTok export</h2>
+    <p>In January 2025 I'd requested my full data export from TikTok — the kind of archive most people request once, glance at, and forget. Sitting inside it: roughly <strong>7,000 more unlabeled videos</strong>, most with just as little usable metadata as the 555 I'd started with.</p>
+    <p>What began as "let me fix this folder" became a real stress test for the pipeline: could it hold up at 10x+ the scale, across wildly inconsistent content — fitness clips, home renovation, recipe videos, news commentary, and no shortage of unfiltered internet chaos?</p>
+    <p>One detail I didn't chase down, but noticed along the way: buried inside TikTok's own export structure, those 7,000 files actually have their original metadata sitting somewhere else in the archive — just not attached to the video files themselves. Extracting it and correctly matching each record back to its corresponding hash-named <span class="accent-teal">.mp4</span> is a real problem on its own, and a good candidate for a future pass at this project rather than something I solved here.</p>
+
+    <div class="placeholder wide">
+      <div>TERMINAL — pipeline processing in real time</div>
+      <div class="file">workflow_pipeline_REDACTED.jpg</div>
+      <div class="ratio">recommended: full-width, ~16:7</div>
+    </div>
+  </div>
+</section>
+
+<section id="architecture">
+  <div class="wrap">
+    <div class="section-label">03 — The Architecture</div>
+    <h2>Whisper in, sidecar files out</h2>
+    <p>Every video goes through the same four-step pass: extract a representative frame, transcribe the audio with <strong>Whisper</strong>, hand the frame + transcript to a vision model for title/tag/description generation, then rename the file and write a Jellyfin-compatible <span class="accent-teal">.nfo</span> / <span class="accent-teal">.json</span> sidecar next to it.</p>
+
+    <div class="pipeline">
+      <div class="pipeline-row">
+        <div class="node blue">
+          <div class="n-label">Input</div>
+          <div class="n-title">Frame + Audio</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node blue">
+          <div class="n-label">Step 1</div>
+          <div class="n-title">Whisper<br>Transcription</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="fork">
+          <div class="node violet" style="position:relative;">
+            <div class="fork-tag">CLOUD</div>
+            <div class="n-title">Claude Vision API</div>
+          </div>
+          <div class="node violet" style="position:relative;">
+            <div class="fork-tag">LOCAL</div>
+            <div class="n-title">Ollama · llava</div>
+          </div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node teal">
+          <div class="n-label">Output</div>
+          <div class="n-title">Renamed file<br>+ .nfo / .json</div>
+        </div>
+      </div>
+    </div>
+
+    <p>The cloud/local split wasn't just a fallback — I deliberately ran both paths side by side to see how they'd actually compare on real footage, and ended up preferring the local path. Keeping inference on my own hardware meant no per-video API cost, no data leaving my network, and full control over which model was doing the work.</p>
+    <p>On the local side, model choice took some real trial and error. I tested <strong>llava:13b</strong>, <strong>llava:7b</strong>, and <strong>moondream</strong> against each other to compare output quality and resource cost. Running llava:13b against a 10GB RTX 3080 blew past comfortable VRAM headroom; dropping to <strong>llava:7b</strong> brought usage down to ~5.4GB while still producing solid titles and tags, so that's what the production run used. Small model-selection decisions like this are where "it runs on my machine" turns into "it runs reliably, unattended, for 7,000 videos."</p>
+
+    <div class="spec-grid">
+      <div class="placeholder tall">
+        <div>NVIDIA-SMI — VRAM under load</div>
+        <div class="file">fedora_specs.jpg / fedora_specs2.jpg</div>
+        <div class="ratio">pick the clearer of the two</div>
+      </div>
+      <div class="placeholder tall">
+        <div>TERMINAL — model swap troubleshooting</div>
+        <div class="file">fedora_troublshoot.jpg</div>
+        <div class="ratio">~4:3</div>
+      </div>
+    </div>
+
+    <div class="placeholder wide">
+      <div>SIDECAR FILES — .nfo / .json output next to renamed videos</div>
+      <div class="file">nfo_json_examples.png</div>
+      <div class="ratio">recommended: full-width</div>
+    </div>
+  </div>
+</section>
+
+<section id="tradeoff">
+  <div class="wrap">
+    <div class="section-label">04 — The Honest Tradeoff</div>
+    <h2>It worked great. It also had a real blind spot.</h2>
+    <p>I want to be upfront about something most portfolio write-ups skip: this was never built to be a permanent archival system. It was a placeholder solution for files that otherwise had <em>no</em> metadata at all — and judged against that bar, it delivered. Judged against a higher bar, it revealed exactly where automated content understanding breaks down.</p>
+
+    <div class="tradeoff-box">
+      <div class="tcol win">
+        <h3>Where it excelled</h3>
+        <p>Straightforward content — tutorials, recipes, home projects, fitness demos — got accurate, specific, searchable titles and tags almost every time. Exactly the win I needed for orphaned files with zero context.</p>
+      </div>
+      <div class="tcol miss">
+        <h3>Where it struggled</h3>
+        <p>Social commentary, sarcasm, and "brainrot"-tier internet content. The model could transcribe the words but consistently missed tone, irony, and cultural subtext — flattening pointed commentary into generic, sometimes inaccurate summaries.</p>
+      </div>
+    </div>
+
+    <p>That gap is the most interesting output of this whole project. It's a small, self-contained demonstration of a much bigger open question: <strong>current AI models are strong at literal content description and weak at cultural fluency</strong> — the layer where a lot of internet-native meaning actually lives.</p>
+
+    <div class="placeholder wide">
+      <div>JELLYFIN — organized library, "the good place" / "the bad place"</div>
+      <div class="file">jellyfin_overview_CROPPED.png</div>
+      <div class="ratio">recommended: full-width, ~16:4</div>
+    </div>
+
+    <div class="placeholder wide">
+      <div>JELLYFIN — single entry detail view (face/caption redacted)</div>
+      <div class="file">output_in_jellyfin_REDACTED.png</div>
+      <div class="ratio">recommended: full-width, ~16:7</div>
+    </div>
+  </div>
+</section>
+
+<section id="reflection">
+  <div class="wrap">
+    <div class="section-label">05 — The Reflection</div>
+    <h2>What this project actually taught me</h2>
+    <p>This started as a way to avoid deleting 555 TikToks. It ended up being a hands-on look at where AI-assisted classification is genuinely useful — bulk labeling, transcription, first-pass organization — and where it still needs a human in the loop: nuance, tone, and the difference between describing a video and understanding it.</p>
+    <p>It also gave me real, load-bearing experience with the unglamorous parts of a data pipeline: resource-constrained model selection, dual cloud/local inference paths, structured sidecar output, and processing thousands of files without babysitting the run. That's the part I'm most excited to talk through in an interview.</p>
+    <blockquote>Full source available on request — currently finishing documentation for a public release.</blockquote>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Curious about the implementation details, the prompt engineering behind the tagging step, or how the Whisper/Vision handoff is structured? Let's talk through it.</p>
+    <a class="cta" href="mailto:chaos.kat.magyar@proton.me">GET IN TOUCH →</a>
+  </div>
+</footer>
+
+</body>
+</html>
