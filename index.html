@@ -1,407 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>K. Magyar · Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Gremlin HQ — Curiosity is my medium</title>
+<meta name="description" content="Kat Magyar (Glitch Kitty). A personal archive of art, creative technology, data, experiments and field notes. Curiosity is my medium.">
+<meta name="author" content="Kat Magyar">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chaos Gremlin HQ — Curiosity is my medium">
+<meta property="og:description" content="Unapologetic curiosity, with a trail of skills like breadcrumbs.">
+<meta property="og:url" content="https://glitchwitchkitty.github.io/">
+<link rel="canonical" href="https://glitchwitchkitty.github.io/">
+<link rel="icon" href="assets/icons/brainslug.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://glitchwitchkitty.github.io/#kat","name":"Kat Magyar","alternateName":["Glitch Kitty","Kitty M."],"url":"https://glitchwitchkitty.github.io/","description":"Artist, tinkerer and pattern seeker exploring art, technology and data.","sameAs":["https://github.com/glitchwitchkitty","https://www.linkedin.com/in/glitchkitty"],"hasCredential":{"@type":"EducationalOccupationalCredential","name":"BS in Data Analytics","credentialCategory":"Bachelor of Science","recognizedBy":{"@type":"Organization","name":"Southern New Hampshire University"}}},{"@type":"WebSite","name":"Chaos Gremlin HQ","url":"https://glitchwitchkitty.github.io/","author":{"@id":"https://glitchwitchkitty.github.io/#kat"},"inLanguage":"en-US"}]}
+</script>
+<style>
+/* Palette and typography borrowed from now.html; no dependency on its inline CSS. */
+:root{--bg-void:#0d0f1a;--bg-card:#111418;--glow-blue:#7eb8f7;--orchid:#c084fc;--neon-pink:#f472b6;--chaos-gold:#f7c863;--cyan:#22d3ee;--cream:#f5edd6;--cream-dim:#a8a094;--border:rgba(240,238,234,.14);--font-pixel:'Press Start 2P',monospace;--font-display:'Playfair Display',Georgia,serif;--font-mono:'DM Mono',monospace;--font-body:'Lato',sans-serif}
+*,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg-void);color:var(--cream);font:400 1rem/1.8 var(--font-body);min-height:100vh}body::before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 15% 20%,rgba(244,114,182,.07),transparent 45%),radial-gradient(ellipse at 85% 80%,rgba(34,211,238,.06),transparent 45%),radial-gradient(ellipse at 50% 50%,rgba(192,132,252,.05),transparent 65%);z-index:-1}body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.45;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E")}
+.wrapper{max-width:900px;margin:auto;padding:2rem 2rem 4rem}a{color:var(--glow-blue);text-decoration-thickness:1px;text-underline-offset:4px}a:hover{color:var(--neon-pink)}a:focus-visible,button:focus-visible{outline:2px solid var(--cyan);outline-offset:5px}nav{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;font:400 .75rem/1.7 var(--font-mono)}.brand{display:flex;align-items:center;gap:.65rem;color:var(--chaos-gold);text-decoration:none}.brand img{width:30px;height:30px}.nav-links{display:flex;flex-wrap:wrap;gap:1.2rem}.nav-links a{text-decoration:none}.hero{padding:4.5rem 0 3rem}.eyebrow,.section-label{font:400 .75rem/1.7 var(--font-mono);letter-spacing:.13em;color:var(--glow-blue)}h1{font:400 clamp(1.2rem,4vw,2rem)/1.65 var(--font-pixel);color:var(--chaos-gold);margin:1rem 0;position:relative;display:inline-block}h1:hover{ text-shadow:2px 1px var(--neon-pink),-2px -1px var(--cyan)}.tagline{font:italic 400 clamp(1.9rem,5vw,3.2rem)/1.25 var(--font-display);color:var(--neon-pink);margin:.7rem 0 1.4rem}.hero p:not(.eyebrow):not(.tagline){max-width:62ch;color:var(--cream-dim)}.hero-links{display:flex;gap:1.5rem;flex-wrap:wrap;font-family:var(--font-mono);font-size:.85rem;margin-top:1.7rem}.glow-rule{border:0;height:1px;background:linear-gradient(90deg,transparent,var(--glow-blue),var(--orchid),transparent);opacity:.55;margin:1.7rem 0}h2,h3{font-family:var(--font-display);line-height:1.25}h2{font-size:clamp(1.7rem,4vw,2.2rem);margin:.4rem 0}h3{font-size:1.25rem;margin:.3rem 0 .55rem}.intro,.note{color:var(--cream-dim)}.trail-nav{display:flex;flex-wrap:wrap;gap:.7rem 1.5rem;margin:1.5rem 0 2.5rem;font:400 .8rem/1.7 var(--font-mono)}.trail-nav a{color:var(--accent)}.rabbit-hole{--accent:var(--glow-blue);margin:3rem 0 4rem;scroll-margin-top:1rem;border-left:2px solid var(--accent);padding-left:1.5rem}.art{--accent:var(--neon-pink)}.lab{--accent:var(--cyan)}.patterns{--accent:var(--orchid)}.notes{--accent:var(--chaos-gold)}.rabbit-hole .section-label{color:var(--accent)}.entries{margin-top:1.6rem}.entry{padding:1.25rem 0;border-top:1px solid var(--border)}.entry p{margin:.4rem 0;color:var(--cream-dim);max-width:70ch}.entry h3 a{color:var(--cream);text-decoration-color:var(--accent)}.entry h3 a:hover{color:var(--accent)}.status{font:400 .72rem/1.6 var(--font-mono);letter-spacing:.03em;color:var(--cream-dim)}.status::before{content:'✦ ';color:currentColor}.tinkering{color:var(--cyan)}.incubating{color:var(--chaos-gold)}.abandoned{color:var(--orchid)}.documented{color:var(--neon-pink)}.entry .breadcrumbs{font:400 .72rem/1.8 var(--font-mono);color:var(--accent);margin-top:.85rem}.legend{font-size:.85rem;color:var(--cream-dim);border-bottom:1px solid var(--border);padding-bottom:1.5rem}.legend summary{cursor:pointer;color:var(--glow-blue);font-family:var(--font-mono)}.legend p{margin:.7rem 0}.elsewhere{display:flex;flex-wrap:wrap;gap:1.3rem;font-family:var(--font-mono);font-size:.8rem}footer{text-align:center;margin-top:4rem;color:var(--cream-dim);font:italic 1rem/1.8 var(--font-display)}.glitter-dot{position:fixed;pointer-events:none;border-radius:50%;z-index:9999;animation:glitter-fade .7s ease-out forwards;transform:translate(-50%,-50%)}@keyframes glitter-fade{from{opacity:.85;transform:translate(-50%,-50%) scale(1)}to{opacity:0;transform:translate(-50%,-50%) scale(.2)}}.motion-toggle{background:none;border:0;padding:.4rem 0;color:var(--cream-dim);font:400 .72rem var(--font-mono);text-decoration:underline;text-underline-offset:3px;cursor:pointer}.skip{position:absolute;left:1rem;top:-5rem;background:var(--bg-card);padding:.5rem;z-index:10000}.skip:focus{top:1rem}@media(max-width:600px){.wrapper{padding:1.5rem 1.25rem 3rem}.hero{padding:3rem 0 2rem}.rabbit-hole{padding-left:1rem}.nav-links{gap:.9rem}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.glitter-dot{display:none}}
 
-  <!-- ── SEO & discoverability meta ── -->
-  <meta name="description" content="Kat Magyar (Glitch Kitty) — data analyst and creative coder. Portfolio of data analytics, machine learning, and privacy-first software projects. Chaos Gremlin HQ." />
-  <meta name="author" content="Kat Magyar" />
-  <meta name="keywords" content="data analyst, machine learning, Python, SQL, Power BI, data analytics portfolio, privacy tech, Kat Magyar, Glitch Kitty, Chaos Gremlin HQ" />
+/* Art studio: open exhibition, no pills or card containers. */
+.gallery{margin:2rem 0 2.8rem;padding-top:1.2rem;border-top:1px solid var(--border);scroll-margin-top:1rem}
+.gallery-heading{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem 1rem;flex-wrap:wrap}
+.gallery-heading h3{font-size:1.55rem;margin:.2rem 0}.gallery .intro{margin:.4rem 0 1.25rem}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem 1rem;align-items:start}
+.gallery figure{margin:0;min-width:0}.gallery-frame{display:block;position:relative;overflow:hidden;background:linear-gradient(145deg,#181b2b,#111418);aspect-ratio:4/3;border:1px solid var(--border);text-decoration:none;color:var(--cream-dim)}
+.gallery-frame .placeholder{position:absolute;inset:0;display:grid;place-content:center;text-align:center;gap:.5rem;padding:1rem;font:400 .65rem/1.6 var(--font-mono)}
+.placeholder .glyph{font-size:1.5rem;color:var(--accent)}.gallery-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .2s,transform .3s}.gallery-frame.ready img{opacity:1}.gallery-frame.ready .placeholder{visibility:hidden}.gallery-frame.ready:hover img{transform:scale(1.035)}
+.gallery figcaption{padding-top:.65rem;color:var(--cream-dim);font-size:.85rem;line-height:1.55}.gallery figcaption strong{display:block;color:var(--cream);font-family:var(--font-display);font-size:1.05rem;font-weight:400}.gallery figcaption small{display:block;font:400 .68rem/1.6 var(--font-mono);margin-top:.25rem;color:var(--accent)}
+#procreate-gallery .gallery-frame{aspect-ratio:1/1}#procreate-gallery img{object-fit:contain;background:var(--bg-card)}
+.gallery-dialog{width:min(92vw,1000px);max-height:94vh;padding:1rem;background:var(--bg-void);color:var(--cream);border:1px solid var(--orchid);overflow:auto}.gallery-dialog::backdrop{background:rgba(0,0,0,.85)}.gallery-dialog img{display:block;max-width:100%;max-height:72vh;object-fit:contain;margin:1rem auto}.gallery-dialog button{float:right;background:none;color:var(--cream);border:0;font:400 .8rem var(--font-mono);cursor:pointer;text-decoration:underline}.gallery-dialog p{clear:both;margin:.6rem 0 0;font-family:var(--font-display)}
+@media(max-width:650px){.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:360px){.gallery-grid{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){.gallery-frame img{transition:none}.gallery-frame.ready:hover img{transform:none}}
 
-  <!-- ── Open Graph (link previews in Slack, Discord, social) ── -->
-  <meta property="og:type"        content="website" />
-  <meta property="og:title"       content="Kat Magyar · Chaos Gremlin HQ" />
-  <meta property="og:description" content="Data analyst and creative coder. Python · SQL · Power BI · Machine Learning · Privacy-first tech." />
-  <meta property="og:url"         content="https://glitchwitchkitty.github.io/" />
-  <meta property="og:site_name"   content="Chaos Gremlin HQ" />
-
-  <!-- ── Canonical URL ── -->
-  <link rel="canonical" href="https://glitchwitchkitty.github.io/" />
-
-  <!-- ── Schema.org JSON-LD structured data ──────────────────────
-       Gives AI assistants and search engines machine-readable facts
-       about who Kat is, what this site is, and what projects exist.
-       Uses Person, WebSite, and CreativeWork/SoftwareApplication types.
-  ─────────────────────────────────────────────────────────────── -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-
-      {
-        "@type": "Person",
-        "@id": "https://glitchwitchkitty.github.io/#kat",
-        "name": "Kat Magyar",
-        "alternateName": ["K. Magyar", "Kitty Magyar", "Kitty M.", "Glitch Kitty", "glitchwitchkitty"],
-        "description": "Data analyst and creative coder with a BS in Data Analytics. Specializes in Python, SQL, Power BI, and machine learning with a focus on privacy-first technology and data ethics.",
-        "jobTitle": "Data Analyst",
-        "url": "https://glitchwitchkitty.github.io/",
-        "email": "chaos.kat.magyar@proton.me",
-        "sameAs": [
-          "https://github.com/glitchwitchkitty",
-          "https://www.linkedin.com/in/glitchkitty"
-        ],
-        "knowsAbout": [
-          "Data Analytics",
-          "Machine Learning",
-          "Python",
-          "pandas",
-          "scikit-learn",
-          "SQL",
-          "Power BI",
-          "Exploratory Data Analysis",
-          "Statistical Analysis",
-          "ANOVA",
-          "Feature Engineering",
-          "ETL Pipelines",
-          "Privacy-First Technology",
-          "Data Ethics",
-          "AI Ethics",
-          "Local LLMs",
-          "GitHub Pages",
-          "HTML",
-          "CSS",
-          "JavaScript"
-        ],
-        "hasCredential": {
-          "@type": "EducationalOccupationalCredential",
-          "credentialCategory": "Bachelor of Science",
-          "name": "BS in Data Analytics",
-          "recognizedBy": {
-            "@type": "Organization",
-            "name": "Southern New Hampshire University"
-          }
-        }
-      },
-
-      {
-        "@type": "WebSite",
-        "@id": "https://glitchwitchkitty.github.io/#website",
-        "name": "Chaos Gremlin HQ",
-        "alternateName": "Kat Magyar Portfolio",
-        "url": "https://glitchwitchkitty.github.io/",
-        "description": "Portfolio and digital laboratory of Kat Magyar (Glitch Kitty) — data analyst and creative coder.",
-        "author": { "@id": "https://glitchwitchkitty.github.io/#kat" },
-        "inLanguage": "en-US",
-        "copyrightYear": "2025",
-        "copyrightHolder": { "@id": "https://glitchwitchkitty.github.io/#kat" }
-      },
-
-      {
-        "@type": "CreativeWork",
-        "@id": "https://glitchwitchkitty.github.io/projects/manufacturing-defects.html#project",
-        "name": "Manufacturing Defect Analysis",
-        "description": "Capstone data analytics project combining root cause analysis, one-way ANOVA (F=17.64, p<0.001), Pareto analysis, and a Power BI dashboard to identify which production models drove defect variation.",
-        "url": "https://glitchwitchkitty.github.io/projects/manufacturing-defects.html",
-        "author": { "@id": "https://glitchwitchkitty.github.io/#kat" },
-        "keywords": ["data analytics", "ANOVA", "Power BI", "root cause analysis", "manufacturing", "Python", "statistics"],
-        "genre": "Data Analytics Project",
-        "isPartOf": { "@id": "https://glitchwitchkitty.github.io/#website" }
-      },
-
-      {
-        "@type": "CreativeWork",
-        "@id": "https://glitchwitchkitty.github.io/projects/employee-attrition.html#project",
-        "name": "Predicting Employee Attrition",
-        "description": "Machine learning pipeline using logistic regression, Random Forest, and AdaBoost with GridSearchCV tuning optimized for recall. Results visualized in an interactive Power BI dashboard.",
-        "url": "https://glitchwitchkitty.github.io/projects/employee-attrition.html",
-        "author": { "@id": "https://glitchwitchkitty.github.io/#kat" },
-        "keywords": ["machine learning", "scikit-learn", "Random Forest", "AdaBoost", "classification", "Python", "Power BI", "HR analytics"],
-        "genre": "Machine Learning Project",
-        "isPartOf": { "@id": "https://glitchwitchkitty.github.io/#website" }
-      },
-
-      {
-        "@type": "CreativeWork",
-        "@id": "https://glitchwitchkitty.github.io/now-pages-guide.html#guide",
-        "name": "Now Pages: A Whimsical Guide to Existing on the Internet",
-        "description": "A beginner-friendly guide to building a personal /now page — covering what they are, HTML/CSS basics, AI-assisted coding, and GitHub Pages hosting. Written for women and beginners entering tech.",
-        "url": "https://glitchwitchkitty.github.io/now-pages-guide.html",
-        "author": { "@id": "https://glitchwitchkitty.github.io/#kat" },
-        "keywords": ["now page", "HTML", "CSS", "GitHub Pages", "beginner web dev", "indie web", "women in tech"],
-        "genre": "Educational Guide",
-        "isPartOf": { "@id": "https://glitchwitchkitty.github.io/#website" }
-      }
-
-    ]
-  }
-  </script>
-
-  <!-- Fonts: Playfair Display (warmth/display) · DM Mono (labels/code) · Lato (body) -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=Lato:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="simple_style.css" />
+</style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrapper">
+<header><nav aria-label="Main navigation"><a class="brand" href="index.html"><img src="assets/icons/brainslug.svg" alt=""><span>chaos gremlin hq</span></a><div class="nav-links"><a href="#rabbit-holes">rabbit holes</a><a href="#photography-gallery">gallery</a><a href="now.html">/now</a><a href="#elsewhere">elsewhere</a></div></nav></header>
+<main id="main">
+<section class="hero" aria-labelledby="name">
+<p class="eyebrow">a human in perpetual beta · aka glitch kitty</p>
+<h1 id="name">Kat Magyar</h1>
+<p class="tagline">Curiosity is my medium.</p>
+<p>Hello, I'm Kat. I'm an artist, tinkerer, pattern observer, and occasional chaos gremlin based in the Midwestern United States. I have many hobbies and even more curiosities. This website originally served as my student portfolio, but now it's a showcase of ✨ whatever I feel like ✨.</p>
+<p>I've worn many hats and will continue to do so until I die or get bored. I make things, take things apart, fall down rabbit holes, and collect skills like little souvenirs from each adventure. Not everything I start gets finished, and not everything I learn needs to serve a greater purpose.</p>
+<p>Life is too short to not explore the things that make you curious. This is a living archive of my curiosity, my creations, and the breadcrumbs I leave behind as I figure things out.</p>
+<p>Thank you for stopping by. Hope you find something that sparks your curiosity!</p>
+<div class="hero-links"><a href="#rabbit-holes">follow the breadcrumbs ↓</a><a href="now.html">what i'm up to /now →</a></div>
+</section>
+<hr class="glow-rule">
+<section id="rabbit-holes" aria-labelledby="rabbit-title">
+<p class="section-label">the archive / choose your own adventure</p>
+<h2 id="rabbit-title">My rabbit holes</h2>
+<p class="intro">Things I've made, things I'm figuring out, and things I may never finish. Some overlap. That's part of the fun.</p>
+<nav class="trail-nav" aria-label="Rabbit holes"><a class="art" href="#art">01 / art studio</a><a class="lab" href="#lab">02 / laboratory</a><a class="patterns" href="#patterns">03 / pattern seeking</a><a class="notes" href="#notes">04 / field notes</a></nav>
+<details class="legend"><summary>A little note on project statuses</summary><p><span class="status tinkering">tinkering</span> — actively playing with an idea.</p><p><span class="status incubating">incubating</span> — an idea waiting for the right moment.</p><p><span class="status abandoned">abandoned with affection</span> — no longer pursuing it, still glad I tried.</p><p><span class="status documented">documented</span> — something I've left a record of.</p></details>
+<!-- To add a project, copy an article.entry. Use a status class above and a plain-text breadcrumb line. No pills. -->
+<section class="rabbit-hole art" id="art" aria-labelledby="art-title">
+<p class="section-label">01 / making things beautiful</p><h2 id="art-title">The Art Studio</h2><p class="intro">Visual identities, illustration, photography, and whatever my hands feel like making.</p>
+<div class="entries">
+<article class="entry"><span class="status documented">documented</span><h3><a href="https://infraalchemy.com/">InfraAlchemy — visual identity &amp; website</a></h3><p>An exploration of alchemical symbolism, color, typography and translating a visual identity into a website.</p><p class="breadcrumbs">breadcrumbs / branding · logo design · web design</p></article>
+<article class="entry"><span class="status incubating">incubating</span><h3>Little photographic adventures</h3><p>Rediscovering old cameras and collecting little moments on walks. A reason to notice things.</p><p class="breadcrumbs">breadcrumbs / photography · composition · observation</p></article>
+</div>
+<div class="gallery" id="photography-gallery" aria-labelledby="photography-gallery-title">
+<div class="gallery-heading"><h3 id="photography-gallery-title">Through the lens</h3><span class="status tinkering">tinkering</span></div>
+<p class="intro">Little things worth noticing. Light, texture, silhouettes, and whatever I happen upon on a walk.</p>
+<div class="gallery-grid">
+<!-- Add your image at assets/gallery/photography/photography-01.jpg; replace the caption and alt text with your own. Duplicate this figure for more work. -->
+<figure><a class="gallery-frame" data-gallery-image="assets/gallery/photography/photography-01.jpg" aria-label="View A little moment"><span class="placeholder"><span class="glyph" aria-hidden="true">✧</span> awaiting artwork</span><img alt="A little moment — replace with a description of your image" loading="lazy" decoding="async"></a><figcaption><strong>A little moment</strong><small>photo 01 · caption to come</small></figcaption></figure>
+<!-- Add your image at assets/gallery/photography/photography-02.jpg; replace the caption and alt text with your own. Duplicate this figure for more work. -->
+<figure><a class="gallery-frame" data-gallery-image="assets/gallery/photography/photography-02.jpg" aria-label="View A study in light"><span class="placeholder"><span class="glyph" aria-hidden="true">◐</span> awaiting artwork</span><img alt="A study in light — replace with a description of your image" loading="lazy" decoding="async"></a><figcaption><strong>A study in light</strong><small>photo 02 · caption to come</small></figcaption></figure>
+<!-- Add your image at assets/gallery/photography/photography-03.jpg; replace the caption and alt text with your own. Duplicate this figure for more work. -->
+<figure><a class="gallery-frame" data-gallery-image="assets/gallery/photography/photography-03.jpg" aria-label="View Out wandering"><span class="placeholder"><span class="glyph" aria-hidden="true">✦</span> awaiting artwork</span><img alt="Out wandering — replace with a description of your image" loading="lazy" decoding="async"></a><figcaption><strong>Out wandering</strong><small>photo 03 · caption to come</small></figcaption></figure>
+</div></div>
 
-  <!-- ── Header / Nav ── -->
-  <header class="site-header">
-    <div class="container header-inner">
-
-      <a class="brand" href="#home" aria-label="Home">
-        <img src="assets/icons/brainslug.svg" alt="Chaos Gremlin HQ logo" class="brand-logo">
-        <span class="brand-text">Chaos Gremlin HQ</span>
-      </a>
-
-      <!-- Mobile hamburger — JS toggles .open on #siteNav -->
-      <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-controls="siteNav">
-        <span class="nav-toggle-bar"></span>
-        <span class="sr-only">Menu</span>
-      </button>
-
-      <nav id="siteNav" class="site-nav">
-        <a href="#home">Home</a>
-        <a href="#services">What I Do</a>
-        <a href="#projects">Projects</a>
-        <!-- /now lives outside the single-page flow — mono + pink signals that -->
-        <a href="now.html" class="nav-now">/now</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="home">
-
-    <!-- ── Hero ── -->
-    <section class="section hero">
-      <div class="container">
-        <h1 class="title">Kat Magyar</h1>
-        <p class="subtitle">
-          Data analyst &amp; creative coder <span class="muted">aka</span>
-          <strong class="mono neon-pink">Glitch&nbsp;Kitty</strong>.
-        </p>
-        <p class="lead">
-          Privacy-first tech. I turn messy data into clear stories.
-        </p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="#projects">View Projects</a>
-          <a class="btn btn-ghost"   href="#contact">Contact</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── What I Do ── -->
-    <section id="services" class="section" aria-label="Services and skills">
-      <div class="container">
-        <h2 class="section-title">What I Do</h2>
-
-        <div class="cards">
-          <!-- Card accent colors set in CSS via nth-child — pink / blue / gold -->
-          <article class="card">
-            <h3 class="card-title">Data Analytics</h3>
-            <p>I clean, explore, and visualize data so decisions are easier.</p>
-            <ul class="bullets">
-              <li>Dashboards and reports</li>
-              <li>Exploratory analysis &amp; trends</li>
-              <li>Clear, plain-language summaries</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">Machine Learning</h3>
-            <p>I prototype models to solve practical problems and reveal patterns.</p>
-            <ul class="bullets">
-              <li>Classification &amp; forecasting</li>
-              <li>Feature engineering</li>
-              <li>Transparent evaluation</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">Software Design</h3>
-            <p>I structure small apps and data pipelines that run cleanly and privately.</p>
-            <ul class="bullets">
-              <li>Modular, documented code</li>
-              <li>Privacy-first local tools</li>
-              <li>ETL and automation flow</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Projects ── -->
-    <section id="projects" class="section" aria-label="Portfolio projects and guides">
-      <div class="container">
-        <h2 class="section-title">Projects</h2>
-        <p class="section-intro">A few favorites. Each link includes code and a short write-up.</p>
-
-        <!-- Main projects grid -->
-        <div class="grid">
-
-          <!-- Manufacturing Defect Analysis -->
-          <article class="proj">
-            <div class="thumb" aria-hidden="true">
-              <svg viewBox="0 0 400 200" role="img" aria-label="Manufacturing defect analysis thumbnail">
-                <rect width="400" height="200" class="svg-bg"/>
-                <!-- Pareto-style bars decreasing left to right -->
-                <rect x="40"  y="60"  width="50" height="110" class="svg-bar"/>
-                <rect x="105" y="90"  width="50" height="80"  class="svg-bar"/>
-                <rect x="170" y="115" width="50" height="55"  class="svg-bar"/>
-                <rect x="235" y="135" width="50" height="35"  class="svg-bar"/>
-                <rect x="300" y="150" width="50" height="20"  class="svg-bar"/>
-                <!-- Cumulative % trend line -->
-                <polyline points="65,60 130,90 195,115 260,135 325,150" fill="none" stroke="#e8c97a" stroke-width="2.5"/>
-              </svg>
-            </div>
-            <h3 class="proj-title">Manufacturing Defect Analysis</h3>
-            <p class="proj-text">Root cause analysis, one-way ANOVA (F=17.64, p&lt;0.001), and a Power BI dashboard identifying which production models drove defect variation.</p>
-            <a class="proj-link" href="projects/manufacturing-defects.html">View Project →</a>
-          </article>
-
-          <!-- Employee Attrition ML -->
-          <article class="proj">
-            <div class="thumb" aria-hidden="true">
-              <svg viewBox="0 0 400 200" role="img" aria-label="Employee attrition ML model thumbnail">
-                <rect width="400" height="200" class="svg-bg"/>
-                <!-- Neural network node diagram -->
-                <circle cx="80"  cy="100" r="28" class="svg-node"/>
-                <circle cx="200" cy="60"  r="22" class="svg-node"/>
-                <circle cx="200" cy="140" r="22" class="svg-node"/>
-                <circle cx="320" cy="80"  r="22" class="svg-node"/>
-                <circle cx="320" cy="120" r="22" class="svg-node"/>
-                <line x1="108" y1="90"  x2="178" y2="65"  class="svg-line"/>
-                <line x1="108" y1="110" x2="178" y2="138" class="svg-line"/>
-                <line x1="222" y1="65"  x2="298" y2="82"  class="svg-line"/>
-                <line x1="222" y1="138" x2="298" y2="118" class="svg-line"/>
-              </svg>
-            </div>
-            <h3 class="proj-title">Predicting Employee Attrition</h3>
-            <p class="proj-text">Two-part ML pipeline — logistic regression, Random Forest, AdaBoost with GridSearchCV — optimized for recall. Visualized in an interactive Power BI dashboard.</p>
-            <a class="proj-link" href="projects/employee-attrition.html">View Project →</a>
-          </article>
-
-          <!-- TikTok Auto-Labeler Pipeline -->
-          <article class="proj">
-            <div class="thumb" aria-hidden="true">
-              <svg viewBox="0 0 400 200" role="img" aria-label="TikTok auto-labeler pipeline thumbnail">
-                <rect width="400" height="200" class="svg-bg"/>
-                <!-- Pipeline flow: raw video -> transcription -> vision model -> metadata output -->
-                <rect x="30"  y="85" width="60" height="30" rx="6" class="svg-chip"/>
-                <rect x="140" y="85" width="60" height="30" rx="6" class="svg-node"/>
-                <rect x="250" y="85" width="60" height="30" rx="6" class="svg-node"/>
-                <rect x="330" y="70" width="45" height="24" rx="4" class="svg-conn"/>
-                <rect x="330" y="106" width="45" height="24" rx="4" class="svg-conn"/>
-                <!-- connecting lines through the pipeline -->
-                <line x1="90"  y1="100" x2="140" y2="100" class="svg-line"/>
-                <line x1="200" y1="100" x2="250" y2="100" class="svg-line"/>
-                <line x1="310" y1="90"  x2="330" y2="82"  class="svg-line"/>
-                <line x1="310" y1="110" x2="330" y2="118" class="svg-line"/>
-                <!-- waveform hinting at Whisper transcription -->
-                <polyline points="140,100 148,90 156,110 164,95 172,105 180,92 188,100 196,100"
-                          fill="none" stroke="#f2afc7" stroke-width="2"/>
-              </svg>
-            </div>
-            <h3 class="proj-title">Local + Cloud Media-Archiving Pipeline</h3>
-            <p class="proj-text">Batch pipeline that processed ~7,000 hash-named videos — Whisper transcription paired with a vision model (Claude Vision or local Ollama/llava) to auto-generate titles, tags, descriptions, and Jellyfin-ready metadata sidecars.</p>
-            <div class="tag-row">
-              <span class="proj-tag proj-tag--blue">python</span>
-              <span class="proj-tag proj-tag--purple">whisper</span>
-              <span class="proj-tag proj-tag--gold">local llm</span>
-            </div>
-            <a class="proj-link" href="projects/archive-of-the-algorithm.html">View Project →</a>
-          </article>
-
-        </div><!-- /main grid -->
-
-        <!-- ── Divider between Projects and Guides ── -->
-        <hr class="section-divider" aria-hidden="true" />
-
-        <!-- Guides & Experiments subsection -->
-        <p class="section-label">Guides &amp; Experiments</p>
-        <p class="section-intro">Learning in public. Teaching what I figure out.</p>
-
-        <div class="grid">
-
-          <!-- Now Pages Guide -->
-          <article class="proj">
-            <div class="thumb" aria-hidden="true">
-              <svg viewBox="0 0 400 200" role="img" aria-label="Now pages guide thumbnail">
-                <rect width="400" height="200" class="svg-bg"/>
-                <!-- Decorative star grid — references the guide's aesthetic -->
-                <circle cx="80"  cy="50"  r="3" fill="rgba(232,201,122,0.5)"/>
-                <circle cx="200" cy="40"  r="2" fill="rgba(242,175,199,0.5)"/>
-                <circle cx="320" cy="60"  r="3" fill="rgba(126,184,247,0.5)"/>
-                <circle cx="140" cy="100" r="2" fill="rgba(180,142,247,0.5)"/>
-                <circle cx="260" cy="95"  r="3" fill="rgba(232,201,122,0.4)"/>
-                <circle cx="60"  cy="145" r="2" fill="rgba(242,175,199,0.4)"/>
-                <circle cx="340" cy="140" r="3" fill="rgba(126,184,247,0.4)"/>
-                <!-- /now text -->
-                <text x="200" y="115" text-anchor="middle"
-                      font-family="'DM Mono', monospace" font-size="32"
-                      fill="rgba(232,201,122,0.7)" letter-spacing="2">/now</text>
-              </svg>
-            </div>
-            <h3 class="proj-title">Now Pages: A Whimsical Guide</h3>
-            <p class="proj-text">A beginner-friendly guide to building your own /now page — what they are, why they matter, and how to make yours look exactly like you.</p>
-            <div class="tag-row">
-              <span class="proj-tag proj-tag--gold">guide</span>
-              <span class="proj-tag proj-tag--pink">html/css</span>
-              <span class="proj-tag proj-tag--blue">indie web</span>
-            </div>
-            <a class="proj-link" href="now-pages-guide.html">Read Guide →</a>
-          </article>
-
-          <!-- Placeholder for future guides -->
-          <article class="proj proj--soon">
-            <div class="thumb" aria-hidden="true">
-              <svg viewBox="0 0 400 200" role="img" aria-label="Coming soon">
-                <rect width="400" height="200" class="svg-bg"/>
-                <text x="200" y="108" text-anchor="middle"
-                      font-family="'DM Mono', monospace" font-size="14"
-                      fill="rgba(201,191,168,0.4)" letter-spacing="3">more soon</text>
-              </svg>
-            </div>
-            <h3 class="proj-title proj-title--muted">More Coming</h3>
-            <p class="proj-text">Beginner's Guide to Pandas, home lab experiments, and whatever else I figure out worth documenting.</p>
-            <span class="proj-tag proj-tag--purple">in progress</span>
-          </article>
-
-        </div><!-- /guides grid -->
-      </div>
-    </section>
-
-    <!-- ── Contact ── -->
-    <section id="contact" class="section" aria-label="Contact information">
-      <div class="container">
-        <h2 class="section-title">Contact</h2>
-        <!-- address element signals to machines that these are contact details for the page author -->
-        <address class="contact-address">
-        <div class="contact-grid">
-
-          <a class="contact-card" href="mailto:chaos.kat.magyar@proton.me" aria-label="Email Kat">
-            <img src="assets/icons/email.svg" alt="Email" class="contact-icon">
-            <p class="contact-caption">Get in touch</p>
-          </a>
-
-          <a class="contact-card" href="https://github.com/glitchwitchkitty" target="_blank" rel="noreferrer" aria-label="GitHub Profile">
-            <img src="assets/icons/github.svg" alt="GitHub" class="contact-icon">
-            <p class="contact-caption">See my code</p>
-          </a>
-
-          <a class="contact-card" href="https://www.linkedin.com/in/glitchkitty" target="_blank" rel="noreferrer" aria-label="LinkedIn Profile">
-            <img src="assets/icons/linkedin.svg" alt="LinkedIn" class="contact-icon">
-            <p class="contact-caption">Let's connect</p>
-          </a>
-
-        </div>
-        </address>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ── Footer ── -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <span>© <span id="year"></span> Chaos Gremlin HQ</span>
-      <!-- Subtle signal to curious visitors — leads to /now page -->
-      <a href="now.html" class="mono neon-pink footer-now-link">→ what i'm doing now</a>
-      <span class="mono footer-credit">crafted with clarity</span>
-    </div>
-  </footer>
-
-  <script src="simple_script.js"></script>
+<div class="gallery" id="procreate-gallery" aria-labelledby="procreate-gallery-title">
+<div class="gallery-heading"><h3 id="procreate-gallery-title">From the digital sketchbook</h3><span class="status tinkering">tinkering</span></div>
+<p class="intro">Experiments in color, illustration, lettering, and the joy of making a mess without getting paint on the furniture.</p>
+<div class="gallery-grid">
+<!-- Add your image at assets/gallery/procreate/procreate-01.png; replace the caption and alt text with your own. Duplicate this figure for more work. -->
+<figure><a class="gallery-frame" data-gallery-image="assets/gallery/procreate/procreate-01.png" aria-label="View Color experiments"><span class="placeholder"><span class="glyph" aria-hidden="true">✿</span> awaiting artwork</span><img alt="Color experiments — replace with a description of your image" loading="lazy" decoding="async"></a><figcaption><strong>Color experiments</strong><small>sketch 01 · caption to come</small></figcaption></figure>
+<!-- Add your image at assets/gallery/procreate/procreate-02.png; replace the caption and alt text with your own. Duplicate this figure for more work. -->
+<figure><a class="gallery-frame" data-gallery-image="assets/gallery/procreate/procreate-02.png" aria-label="View Something in the works"><span class="placeholder"><span class="glyph" aria-hidden="true">✎</span> awaiting artwork</span><img alt="Something in the works — replace with a description of your image" loading="lazy" decoding="async"></a><figcaption><strong>Something in the works</strong><small>sketch 02 · caption to come</small></figcaption></figure>
+<!-- Add your image at assets/gallery/procreate/procreate-03.png; replace the caption and alt text with your own. Duplicate this figure for more work. -->
+<figure><a class="gallery-frame" data-gallery-image="assets/gallery/procreate/procreate-03.png" aria-label="View A happy accident"><span class="placeholder"><span class="glyph" aria-hidden="true">✷</span> awaiting artwork</span><img alt="A happy accident — replace with a description of your image" loading="lazy" decoding="async"></a><figcaption><strong>A happy accident</strong><small>sketch 03 · caption to come</small></figcaption></figure>
+</div></div>
+</section>
+<section class="rabbit-hole lab" id="lab" aria-labelledby="lab-title">
+<p class="section-label">02 / what happens if…</p><h2 id="lab-title">The Laboratory</h2><p class="intro">Code, hardware, AI, privacy and experiments that start with a suspiciously simple question.</p>
+<div class="entries">
+<article class="entry"><span class="status documented">documented</span><h3><a href="projects/archive-of-the-algorithm.html">Archive of the Algorithm</a></h3><p>A local and cloud media-archiving pipeline for roughly 7,000 videos, using transcription and vision models to make an unwieldy collection searchable.</p><p class="breadcrumbs">breadcrumbs / Python · Whisper · local LLMs · metadata</p></article>
+<article class="entry"><span class="status incubating">incubating</span><h3>An e-ink NFC keychain</h3><p>What if a tiny handmade object could carry a digital identity and change its artwork?</p><p class="breadcrumbs">breadcrumbs / NFC · e-ink · physical computing</p></article>
+<article class="entry"><span class="status tinkering">tinkering</span><h3>Local AI &amp; home lab experiments</h3><p>Exploring what I can run on my own hardware and how much control I can keep over my tools.</p><p class="breadcrumbs">breadcrumbs / Ollama · hardware · privacy</p></article>
+</div></section>
+<section class="rabbit-hole patterns" id="patterns" aria-labelledby="patterns-title">
+<p class="section-label">03 / making sense of things</p><h2 id="patterns-title">Pattern Seeking</h2><p class="intro">Data, research and the delight of finding a structure hiding inside a mess. A little trail from my time studying data analytics.</p>
+<div class="entries">
+<article class="entry"><span class="status documented">documented</span><h3><a href="projects/manufacturing-defects.html">Manufacturing Defect Analysis</a></h3><p>Root cause analysis, one-way ANOVA and a Power BI dashboard exploring which production models drove defect variation.</p><p class="breadcrumbs">breadcrumbs / statistics · Python · Power BI</p></article>
+<article class="entry"><span class="status documented">documented</span><h3><a href="projects/employee-attrition.html">Predicting Employee Attrition</a></h3><p>An experiment with classification models, tuning for recall, and visualizing the results in an interactive dashboard.</p><p class="breadcrumbs">breadcrumbs / machine learning · scikit-learn · visualization</p></article>
+</div></section>
+<section class="rabbit-hole notes" id="notes" aria-labelledby="notes-title">
+<p class="section-label">04 / leaving breadcrumbs</p><h2 id="notes-title">Field Notes</h2><p class="intro">Things worth remembering, guides for fellow curious humans, and notes to my future self.</p>
+<div class="entries">
+<article class="entry"><span class="status documented">documented</span><h3><a href="now-pages-guide.html">Now Pages: A Whimsical Guide</a></h3><p>A beginner-friendly guide to building a little corner of the internet that feels like you.</p><p class="breadcrumbs">breadcrumbs / HTML · CSS · GitHub Pages · indie web</p></article>
+<article class="entry"><span class="status incubating">incubating</span><h3>Making a little corner of the internet</h3><p>Ideas for future notes on visual identity, logo design and hosting a website with Cloudflare.</p><p class="breadcrumbs">breadcrumbs / documentation · design · web hosting</p></article>
+</div></section>
+</section>
+<hr class="glow-rule">
+<section id="elsewhere" aria-labelledby="elsewhere-title"><p class="section-label">other little corners</p><h2 id="elsewhere-title">Elsewhere</h2><p class="intro">Find me wandering around the internet.</p><div class="elsewhere"><a href="now.html">/now</a><a href="https://github.com/glitchwitchkitty">github</a><a href="mailto:chaos.kat.magyar@proton.me">say hello</a><a href="https://www.linkedin.com/in/glitchkitty">linkedin</a></div></section>
+</main>
+<footer><hr class="glow-rule"><p>✧<br>Made with curiosity. Maintained intermittently. Never quite finished.</p><button type="button" class="motion-toggle" id="glitter-toggle" aria-pressed="true">glitter: on</button><p class="status">© <span id="year">2026</span> Chaos Gremlin HQ</p></footer>
+</div>
+<dialog id="gallery-dialog" class="gallery-dialog" aria-label="Enlarged artwork"><button type="button" id="gallery-close" autofocus>close ×</button><img id="gallery-full" alt=""><p id="gallery-caption"></p></dialog>
+<script>
+// Gallery: missing local images remain graceful placeholders until you add them.
+const galleryDialog=document.getElementById('gallery-dialog');
+const galleryFull=document.getElementById('gallery-full');
+let galleryOpener=null;
+document.querySelectorAll('[data-gallery-image]').forEach(frame=>{
+  const img=frame.querySelector('img');
+  const path=frame.dataset.galleryImage;
+  img.addEventListener('load',()=>{frame.classList.add('ready');frame.href=path;});
+  img.addEventListener('error',()=>{frame.classList.remove('ready');frame.removeAttribute('href');});
+  img.src=path;
+  frame.addEventListener('click',event=>{
+    if(!frame.classList.contains('ready')||!galleryDialog.showModal||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+    event.preventDefault();galleryOpener=frame;galleryFull.src=path;galleryFull.alt=img.alt;
+    document.getElementById('gallery-caption').textContent=frame.closest('figure').querySelector('figcaption strong').textContent;
+    galleryDialog.showModal();
+  });
+});
+document.getElementById('gallery-close').addEventListener('click',()=>galleryDialog.close());
+galleryDialog.addEventListener('click',e=>{if(e.target===galleryDialog)galleryDialog.close();});
+galleryDialog.addEventListener('close',()=>{galleryFull.removeAttribute('src');galleryOpener?.focus();});
+// Glitter from /now, with the normal pointer retained and reduced-motion respected.
+const colors=['#f7c863','#f472b6','#c084fc','#22d3ee','#1e6b78','#e0a840'];
+const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+const toggle=document.getElementById('glitter-toggle');
+let enabled=!motion.matches, last=0;
+function sync(){toggle.textContent='glitter: '+(enabled&&!motion.matches?'on':'off');toggle.setAttribute('aria-pressed',String(enabled&&!motion.matches));toggle.disabled=motion.matches;}
+function spawn(x,y){if(!enabled||motion.matches)return;const dot=document.createElement('span');dot.className='glitter-dot';dot.setAttribute('aria-hidden','true');const color=colors[Math.floor(Math.random()*colors.length)], size=4+Math.random()*6;Object.assign(dot.style,{background:color,width:size+'px',height:size+'px',boxShadow:`0 0 ${size*2}px ${color}`,left:x+'px',top:y+'px'});document.body.append(dot);setTimeout(()=>dot.remove(),700);}
+document.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'&&e.pointerType!=='pen')return;const t=performance.now();if(t-last<24)return;last=t;spawn(e.clientX,e.clientY);},{passive:true});
+document.addEventListener('pointerdown',e=>{if(e.pointerType!=='touch')return;for(let i=0;i<8;i++){const a=Math.random()*Math.PI*2,r=Math.random()*28;setTimeout(()=>spawn(e.clientX+Math.cos(a)*r,e.clientY+Math.sin(a)*r),i*30);}},{passive:true});
+toggle.addEventListener('click',()=>{enabled=!enabled;sync();});motion.addEventListener('change',sync);sync();document.getElementById('year').textContent=new Date().getFullYear();
+</script>
 </body>
 </html>
+
